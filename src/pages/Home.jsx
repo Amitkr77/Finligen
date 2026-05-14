@@ -425,7 +425,7 @@ const Home = () => {
                         y: -8,
                         scale: 1.02,
                     }}
-                    className="group relative bg-[#11464d] hover:bg-[#15525a] rounded-sm p-8 min-h-[250px] transition-all duration-300"
+                    className="group relative bg-[#11464d] hover:bg-[#15525a] rounded-sm p-8 min-h-[250px] transition-all duration-100"
                     >
 
                     <div className="flex items-start justify-between">
@@ -479,7 +479,7 @@ const Home = () => {
                         y: -8,
                         scale: 1.02,
                     }}
-                    className="group relative bg-[#11464d] hover:bg-[#15525a] rounded-sm p-8 min-h-[250px] transition-all duration-300"
+                    className="group relative bg-[#11464d] hover:bg-[#15525a] rounded-sm p-8 min-h-[250px] transition-all duration-100"
                     >
 
                     <div className="flex items-start justify-between">
@@ -533,7 +533,7 @@ const Home = () => {
                         y: -8,
                         scale: 1.02,
                     }}
-                    className="group relative bg-[#11464d] hover:bg-[#15525a] rounded-sm p-8 min-h-[250px] transition-all duration-300"
+                    className="group relative bg-[#11464d] hover:bg-[#15525a] rounded-sm p-8 min-h-[250px] transition-all duration-100"
                     >
 
                     <div className="flex items-start justify-between">
@@ -587,7 +587,7 @@ const Home = () => {
                         y: -8,
                         scale: 1.02,
                     }}
-                    className="group relative bg-[#11464d] hover:bg-[#15525a] rounded-sm p-8 min-h-[250px] transition-all duration-300"
+                    className="group relative bg-[#11464d] hover:bg-[#15525a] rounded-sm p-8 min-h-[250px] transition-all duration-100"
                     >
 
                     <div className="flex items-start justify-between">
@@ -695,7 +695,7 @@ const Home = () => {
                         y: -8,
                         scale: 1.02,
                     }}
-                    className="group relative bg-[#11464d] hover:bg-[#15525a] rounded-sm p-8 min-h-[250px] transition-all duration-300"
+                    className="group relative bg-[#11464d] hover:bg-[#15525a] rounded-sm p-8 min-h-[250px] transition-all duration-100"
                     >
 
                     <div className="flex items-start justify-between">
