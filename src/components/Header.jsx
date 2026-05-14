@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full bg-[#f5f5f5]/80 supports-[backdrop-filter]:bg-[#f5f5f5]/60 backdrop-blur-md border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="flex items-center justify-between h-[74px]">
+        <div className="flex items-center justify-between h-[62px]">
 
           {/* Logo */}
           <div className="flex items-center gap-2 cursor-pointer">
