@@ -1,6 +1,11 @@
 import { motion } from "framer-motion";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { TiSpannerOutline } from "react-icons/ti";
+import { IoCubeOutline } from "react-icons/io5";
+import { LuShieldHalf } from "react-icons/lu";
+import { AiOutlineLineChart } from "react-icons/ai";
+import { TbStack } from "react-icons/tb";
 import {
   ArrowUpRight,
   ShieldCheck,
@@ -344,6 +349,387 @@ const Home = () => {
                 </motion.div>
                 </div>
             </div>
+        </section>
+        {/* Services Section */}
+        <section className="w-full bg-[#06363c] py-20 overflow-hidden">
+
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+
+            {/* Heading */}
+            <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            variants={{
+            hidden: {
+                opacity: 0,
+                x: -120,
+            },
+            visible: {
+                opacity: 1,
+                x: 0,
+            },
+            }}
+            transition={{
+            duration: 0.9,
+            ease: [0.22, 1, 0.36, 1],
+            }}
+            className="text-center max-w-3xl mx-auto"
+            >
+
+            <h2 className="text-white text-[44px] md:text-[56px] font-semibold leading-[1.15] tracking-tight">
+                Efficient and Integrated
+                <br />
+                Manufacturing Services
+            </h2>
+
+            <p className="mt-5 text-[#b5c7c8] text-[17px] leading-7">
+                Simplify operations with our efficient,
+                quality-focused services.
+            </p>
+            </motion.div>
+
+            {/* Cards Grid */}
+            <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.15 }}
+                variants={{
+                    hidden: {},
+                    visible: {
+                    transition: {
+                        staggerChildren: 0.15,
+                    },
+                    },
+                }}
+                className="mt-16 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+                >
+
+                {/* CARD 1 */}
+                <motion.div
+                    variants={{
+                        hidden: {
+                        opacity: 0,
+                        clipPath: "inset(0 100% 0 0)",
+                        },
+                        visible: {
+                        opacity: 1,
+                        clipPath: "inset(0 0% 0 0)",
+                        },
+                    }}
+                    transition={{
+                        duration: 1,
+                        ease: [0.77, 0, 0.175, 1],
+                    }}
+                    whileHover={{
+                        y: -8,
+                        scale: 1.02,
+                    }}
+                    className="group relative bg-[#11464d] hover:bg-[#15525a] rounded-sm p-8 min-h-[250px] transition-all duration-300"
+                    >
+
+                    <div className="flex items-start justify-between">
+
+                    <div className="text-white text-[34px]">
+                        ✳
+                    </div>
+
+                    <motion.div
+                        whileHover={{
+                        x: 3,
+                        y: -3,
+                        }}
+                        transition={{ duration: 0.25 }}
+                        className="text-white text-[22px]"
+                    >
+                        ↗
+                    </motion.div>
+                    </div>
+
+                    <div className="mt-20">
+
+                    <h3 className="text-white text-[30px] leading-tight font-medium">
+                        Production and Assembly
+                    </h3>
+
+                    <p className="mt-5 text-[#c0d0d1] text-[16px] leading-7">
+                        Details on production processes, assembly,
+                        capacity, and product types.
+                    </p>
+                    </div>
+                </motion.div>
+
+                {/* CARD 2 */}
+                <motion.div
+                    variants={{
+                        hidden: {
+                        opacity: 0,
+                        clipPath: "inset(0 100% 0 0)",
+                        },
+                        visible: {
+                        opacity: 1,
+                        clipPath: "inset(0 0% 0 0)",
+                        },
+                    }}
+                    transition={{
+                        duration: 1,
+                        ease: [0.77, 0, 0.175, 1],
+                    }}
+                    whileHover={{
+                        y: -8,
+                        scale: 1.02,
+                    }}
+                    className="group relative bg-[#11464d] hover:bg-[#15525a] rounded-sm p-8 min-h-[250px] transition-all duration-300"
+                    >
+
+                    <div className="flex items-start justify-between">
+
+                    <div className="text-white text-[34px]">
+                        <TbStack size={34} />
+                    </div>
+
+                    <motion.div
+                        whileHover={{
+                        x: 3,
+                        y: -3,
+                        }}
+                        transition={{ duration: 0.25 }}
+                        className="text-white text-[22px]"
+                    >
+                        ↗
+                    </motion.div>
+                    </div>
+
+                    <div className="mt-20">
+
+                    <h3 className="text-white text-[30px] leading-tight font-medium">
+                        Custom Manufacturing
+                    </h3>
+
+                    <p className="mt-5 text-[#c0d0d1] text-[16px] leading-7">
+                        Custom product creation with design and
+                        customization options.
+                    </p>
+                    </div>
+                </motion.div>
+
+                {/* CARD 3 */}
+                <motion.div
+                    variants={{
+                        hidden: {
+                        opacity: 0,
+                        clipPath: "inset(0 100% 0 0)",
+                        },
+                        visible: {
+                        opacity: 1,
+                        clipPath: "inset(0 0% 0 0)",
+                        },
+                    }}
+                    transition={{
+                        duration: 1,
+                        ease: [0.77, 0, 0.175, 1],
+                    }}
+                    whileHover={{
+                        y: -8,
+                        scale: 1.02,
+                    }}
+                    className="group relative bg-[#11464d] hover:bg-[#15525a] rounded-sm p-8 min-h-[250px] transition-all duration-300"
+                    >
+
+                    <div className="flex items-start justify-between">
+
+                    <div className="text-white text-[34px]">
+                        <TiSpannerOutline size={34} />
+                    </div>
+
+                    <motion.div
+                        whileHover={{
+                        x: 3,
+                        y: -3,
+                        }}
+                        transition={{ duration: 0.25 }}
+                        className="text-white text-[22px]"
+                    >
+                        ↗
+                    </motion.div>
+                    </div>
+
+                    <div className="mt-20">
+
+                    <h3 className="text-white text-[30px] leading-tight font-medium">
+                        Quality Control
+                    </h3>
+
+                    <p className="mt-5 text-[#c0d0d1] text-[16px] leading-7">
+                        Procedures and systems in place to ensure
+                        high product quality.
+                    </p>
+                    </div>
+                </motion.div>
+
+                {/* CARD 4 */}
+                <motion.div
+                    variants={{
+                        hidden: {
+                        opacity: 0,
+                        clipPath: "inset(0 100% 0 0)",
+                        },
+                        visible: {
+                        opacity: 1,
+                        clipPath: "inset(0 0% 0 0)",
+                        },
+                    }}
+                    transition={{
+                        duration: 1,
+                        ease: [0.77, 0, 0.175, 1],
+                    }}
+                    whileHover={{
+                        y: -8,
+                        scale: 1.02,
+                    }}
+                    className="group relative bg-[#11464d] hover:bg-[#15525a] rounded-sm p-8 min-h-[250px] transition-all duration-300"
+                    >
+
+                    <div className="flex items-start justify-between">
+
+                    <div className="text-white text-[34px]">
+                        <LuShieldHalf size={34} />
+                    </div>
+
+                    <motion.div
+                        whileHover={{
+                        x: 3,
+                        y: -3,
+                        }}
+                        transition={{ duration: 0.25 }}
+                        className="text-white text-[22px]"
+                    >
+                        ↗
+                    </motion.div>
+                    </div>
+
+                    <div className="mt-20">
+
+                    <h3 className="text-white text-[30px] leading-tight font-medium">
+                        Technology and Innovation
+                    </h3>
+
+                    <p className="mt-5 text-[#c0d0d1] text-[16px] leading-7">
+                        Details on the latest manufacturing
+                        technologies and ongoing innovations.
+                    </p>
+                    </div>
+                </motion.div>
+
+                {/* CARD 5 */}
+                <motion.div
+                    variants={{
+                    hidden: {
+                        opacity: 0,
+                        clipPath: "inset(0 100% 0 0)",
+                    },
+                    visible: {
+                        opacity: 1,
+                        clipPath: "inset(0 0% 0 0)",
+                    },
+                    }}
+                    transition={{
+                    duration: 0.9,
+                    ease: [0.22, 1, 0.36, 1],
+                    }}
+                    whileHover={{
+                    y: -8,
+                    scale: 1.02,
+                    }}
+                    className="group relative bg-[#11464d] hover:bg-[#15525a] rounded-sm p-8 min-h-[250px] transition-all duration-100"
+                >
+
+                    <div className="flex items-start justify-between">
+
+                    <div className="text-white text-[34px]">
+                        <IoCubeOutline size={34} />
+                    </div>
+
+                    <motion.div
+                        whileHover={{
+                        x: 3,
+                        y: -3,
+                        }}
+                        transition={{ duration: 0.25 }}
+                        className="text-white text-[22px]"
+                    >
+                        ↗
+                    </motion.div>
+                    </div>
+
+                    <div className="mt-20">
+
+                    <h3 className="text-white text-[30px] leading-tight font-medium">
+                        Packaging and Logistics
+                    </h3>
+
+                    <p className="mt-5 text-[#c0d0d1] text-[16px] leading-7">
+                        Packaging and logistics for shipping to
+                        customers and distributors.
+                    </p>
+                    </div>
+                </motion.div>
+
+                {/* CARD 6 */}
+                <motion.div
+                    variants={{
+                        hidden: {
+                        opacity: 0,
+                        clipPath: "inset(0 100% 0 0)",
+                        },
+                        visible: {
+                        opacity: 1,
+                        clipPath: "inset(0 0% 0 0)",
+                        },
+                    }}
+                    transition={{
+                        duration: 1,
+                        ease: [0.77, 0, 0.175, 1],
+                    }}
+                    whileHover={{
+                        y: -8,
+                        scale: 1.02,
+                    }}
+                    className="group relative bg-[#11464d] hover:bg-[#15525a] rounded-sm p-8 min-h-[250px] transition-all duration-300"
+                    >
+
+                    <div className="flex items-start justify-between">
+
+                    <div className="text-white text-[34px]">
+                        <AiOutlineLineChart size={34} />
+                    </div>
+
+                    <motion.div
+                        whileHover={{
+                        x: 3,
+                        y: -3,
+                        }}
+                        transition={{ duration: 0.25 }}
+                        className="text-white text-[22px]"
+                    >
+                        ↗
+                    </motion.div>
+                    </div>
+
+                    <div className="mt-20">
+
+                    <h3 className="text-white text-[30px] leading-tight font-medium">
+                        Consulting Market Research
+                    </h3>
+
+                    <p className="mt-5 text-[#c0d0d1] text-[16px] leading-7">
+                        Services to help companies understand
+                        market needs and provide strategic advice.
+                    </p>
+                    </div>
+                </motion.div>
+            </motion.div>
+        </div>
         </section>
     {/* Footer */}
       <Footer />
