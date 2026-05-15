@@ -20,7 +20,9 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center gap-2 cursor-pointer group">
             <div className="w-8 h-8 rounded-full bg-[#0c3b42] flex items-center justify-center">
-              <div className="w-3 h-3 border-[3px] border-white border-r-transparent rounded-full rotate-45"></div>
+              <span className="text-white text-[16px] font-bold">
+                F
+              </span>
             </div>
 
             <a href="#">

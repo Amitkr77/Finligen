@@ -5,7 +5,7 @@ import { FaFacebook } from "react-icons/fa";
 const Footer = () => {
   return (
     <footer className="bg-white w-full border-t border-gray-200">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-6">
 
         {/* TOP SECTION */}
         <div className="flex flex-col lg:flex-row justify-between gap-16">
@@ -150,70 +150,65 @@ const Footer = () => {
           </div>
 
           {/* RIGHT SIDE */}
-<div className="flex flex-col items-start lg:items-end">
+          <div className="flex flex-col items-start lg:items-center">
 
-  {/* COMPANY NAME */}
-  <h1 className="text-[72px] md:text-[90px] font-semibold leading-none tracking-[-0.05em] text-[#0d4b52]">
-    FINLIGEN
-  </h1>
+            {/* COMPANY NAME */}
+            <h1 className="text-[70px] font-semibold leading-none tracking-tight text-[#0d4b52]">
+              FINLIGEN
+            </h1>
 
-  {/* ADDRESS + GET IN TOUCH */}
-  <div className="w-full flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5 mt-5">
+            {/* DETAILS */}
+            <p className="text-gray-500 text-[15px] leading-7 mt-2 max-w-[300px] lg:text-center">
+              Our solutions make production faster and cheaper.
+              Contact us for more information.
+            </p>
 
-    {/* ADDRESS */}
-    <p className="text-gray-500 text-[15px] leading-8 max-w-[320px]">
-      181 Bay StreetBay Wellington
-      Tower, Suite 292 Toronto,
-      OntarioM5J 2T3
-    </p>
+            {/* GET IN TOUCH */}
+            <div className="mt-2 lg:text-center">
+              <h3 className="text-black text-[16px] font-semibold mb-1">
+                Get In Touch
+              </h3>
 
-    {/* GET IN TOUCH */}
-    <div className="sm:text-right">
-      <h3 className="text-black text-[16px] font-semibold mb-2">
-        Get In Touch
-      </h3>
+              <a
+                href="mailto:hallo@finligen.com"
+                className="text-gray-500 hover:text-black transition text-[15px] block"
+              >
+                hallo@finligen.com
+              </a>
 
-      <a
-        href="mailto:hallo@prodmast.com"
-        className="text-gray-500 hover:text-black transition text-[15px] block"
-      >
-        hallo@prodmast.com
-      </a>
-    </div>
-  </div>
+              {/* SOCIAL ICONS */}
+              <div className="flex items-center lg:justify-end gap-3">
 
-  {/* SOCIAL ICONS */}
-  <div className="flex items-center gap-3 mt-8">
+                <a
+                  href="#"
+                  className="w-10 h-10 rounded-full border border-gray-300 hover:bg-black hover:text-white flex items-center justify-center transition"
+                >
+                  <AiOutlineLinkedin size={17} />
+                </a>
 
-    <a
-      href="#"
-      className="w-10 h-10 rounded-full border border-gray-300 hover:bg-black hover:text-white flex items-center justify-center transition"
-    >
-      <AiOutlineLinkedin size={17} />
-    </a>
+                <a
+                  href="#"
+                  className="w-10 h-10 rounded-full border border-gray-300 hover:bg-black hover:text-white flex items-center justify-center transition"
+                >
+                  <FaYoutube size={17} />
+                </a>
 
-    <a
-      href="#"
-      className="w-10 h-10 rounded-full border border-gray-300 hover:bg-black hover:text-white flex items-center justify-center transition"
-    >
-      <FaYoutube size={17} />
-    </a>
-
-    <a
-      href="#"
-      className="w-10 h-10 rounded-full border border-gray-300 hover:bg-black hover:text-white flex items-center justify-center transition"
-    >
-      <FaFacebook size={17} />
-    </a>
-  </div>
-</div>
+                <a
+                  href="#"
+                  className="w-10 h-10 rounded-full border border-gray-300 hover:bg-black hover:text-white flex items-center justify-center transition"
+                >
+                  <FaFacebook size={17} />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* BOTTOM */}
-        <div className="border-t border-gray-200 mt-14 pt-7 flex flex-col md:flex-row items-center justify-between gap-5">
+        <div className="border-t border-gray-200 mt-6 pt-3 flex flex-col md:flex-row items-center justify-between gap-5">
 
           <p className="text-gray-400 text-[14px]">
-            © 2024 Prodmast, All rights reserved
+            © 2024 Finligen, All rights reserved
           </p>
 
           <div className="flex items-center gap-8">
