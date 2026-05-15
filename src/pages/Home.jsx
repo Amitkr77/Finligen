@@ -22,12 +22,12 @@ import {
 
 const Home = () => {
     useEffect(() => {
-  gsap.to("#pin-windmill-svg", {
-    rotate: 360,
-    duration: 8,
-    repeat: -1,
-    ease: "linear",
-  });
+    gsap.to("#pin-windmill-svg", {
+        rotate: 360,
+        duration: 8,
+        repeat: -1,
+        ease: "linear",
+    });
 }, []);
   return (
     <div className="w-full bg-[#f5f5f3]">

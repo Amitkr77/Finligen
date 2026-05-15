@@ -22,7 +22,7 @@ const Footer = () => {
               <ul className="space-y-3">
                 <li>
                   <a
-                    href="#"
+                    href="/"
                     className="text-gray-500 hover:text-black transition text-[15px]"
                   >
                     About Us
@@ -31,7 +31,7 @@ const Footer = () => {
 
                 <li>
                   <a
-                    href="#"
+                    href="/test"
                     className="text-gray-500 hover:text-black transition text-[15px]"
                   >
                     Customers
