@@ -19,7 +19,7 @@ const statCards = [
     description: "Boost your search visibility by up to 85% organically",
     icon: "🔍",
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80",
+"https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=900&q=80",
     stats: "250K+",
     statsLabel: "Monthly Impressions",
   },
