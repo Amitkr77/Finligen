@@ -1,6 +1,7 @@
 import { AiOutlineLinkedin } from "react-icons/ai";
 import { FaYoutube } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -21,21 +22,21 @@ const Footer = () => {
 
               <ul className="space-y-3">
                 <li>
-                  <a
-                    href="/"
+                  <Link
+                    to="/"
                     className="text-gray-500 hover:text-black transition text-[15px]"
                   >
                     About Us
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
-                    href="/test"
+                  <Link
+                    to="/test"
                     className="text-gray-500 hover:text-black transition text-[15px]"
                   >
                     Customers
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
