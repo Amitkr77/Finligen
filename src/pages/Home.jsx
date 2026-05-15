@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import gsap from "gsap";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+
 import ImpactSection from "../components/Impact";
 import TestimonialsSection from "../components/TestimonialsSection";
 import { TiSpannerOutline } from "react-icons/ti";
@@ -32,10 +31,6 @@ const Home = () => {
 }, []);
   return (
     <div className="w-full bg-[#f5f5f3]">
-
-      {/* Header */}
-      <Header />
-
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-[#f5f5f3] pt-2 pb-12">
             <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -1596,8 +1591,6 @@ const Home = () => {
             </div>
         </div>
         </section>
-    {/* Footer */}
-      <Footer />
     </div>
   );
 };
