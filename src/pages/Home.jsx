@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import ImpactSection from "../components/Impact";
+import TestimonialsSection from "../components/TestimonialsSection";
 import { TiSpannerOutline } from "react-icons/ti";
 import { IoCubeOutline } from "react-icons/io5";
 import { LuShieldHalf } from "react-icons/lu";
@@ -1064,7 +1066,8 @@ const Home = () => {
                 </div>
             </div>
         </section>
-
+            <ImpactSection />
+            <TestimonialsSection />
         {/* Values Section */}
         <section className="w-full bg-[#f5f5f3] py-10 overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 lg:px-10">
