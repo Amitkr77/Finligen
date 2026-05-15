@@ -40,21 +40,21 @@ const Footer = () => {
                 </li>
 
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="text-gray-500 hover:text-black transition text-[15px]"
                   >
                     Newsroom
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="text-gray-500 hover:text-black transition text-[15px]"
                   >
                     Events
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -67,39 +67,39 @@ const Footer = () => {
 
               <ul className="space-y-3">
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="text-gray-500 hover:text-black transition text-[15px]"
                   >
                     Precision Metalforming
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="text-gray-500 hover:text-black transition text-[15px]"
                   >
                     Industrial Manufacturing
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="text-gray-500 hover:text-black transition text-[15px]"
                   >
                     High Tec & Electronics
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="text-gray-500 hover:text-black transition text-[15px]"
                   >
                     Aerospace
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -112,39 +112,39 @@ const Footer = () => {
 
               <ul className="space-y-3">
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="text-gray-500 hover:text-black transition text-[15px]"
                   >
                     Manufacturing Execution System
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="text-gray-500 hover:text-black transition text-[15px]"
                   >
                     Enterprise Resource Planning
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="text-gray-500 hover:text-black transition text-[15px]"
                   >
                     Quality Management System
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="text-gray-500 hover:text-black transition text-[15px]"
                   >
                     Supply Chain Planning
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -170,36 +170,36 @@ const Footer = () => {
                 Get In Touch
               </h3>
 
-              <a
-                href="mailto:hallo@finligen.com"
+              <Link
+                to="mailto:hallo@finligen.com"
                 className="text-gray-500 hover:text-black transition text-[15px] block"
               >
                 hallo@finligen.com
-              </a>
+              </Link>
 
               {/* SOCIAL ICONS */}
               <div className="flex items-center lg:justify-end gap-3">
 
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   className="w-10 h-10 rounded-full border border-gray-300 hover:bg-black hover:text-white flex items-center justify-center transition"
                 >
                   <AiOutlineLinkedin size={17} />
-                </a>
+                </Link>
 
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   className="w-10 h-10 rounded-full border border-gray-300 hover:bg-black hover:text-white flex items-center justify-center transition"
                 >
                   <FaYoutube size={17} />
-                </a>
+                </Link>
 
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   className="w-10 h-10 rounded-full border border-gray-300 hover:bg-black hover:text-white flex items-center justify-center transition"
                 >
                   <FaFacebook size={17} />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -213,19 +213,19 @@ const Footer = () => {
           </p>
 
           <div className="flex items-center gap-8">
-            <a
-              href="#"
+            <Link
+              to="#"
               className="text-gray-400 hover:text-black transition text-[14px]"
             >
               Terms & Conditions
-            </a>
+            </Link>
 
-            <a
-              href="#"
+            <Link
+              to="#"
               className="text-gray-400 hover:text-black transition text-[14px]"
             >
               Privacy Policy
-            </a>
+            </Link>
           </div>
         </div>
       </div>
