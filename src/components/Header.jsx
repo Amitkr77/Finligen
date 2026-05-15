@@ -5,10 +5,11 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "#" },
     { name: "About", href: "#" },
     { name: "Services", href: "#" },
     { name: "Contact", href: "#" },
+    { name: "CTA Forms", href: "#" },
+    { name: "Blog", href: "#" },
   ];
 
   return (
@@ -17,14 +18,16 @@ const Header = () => {
         <div className="flex items-center justify-between h-[62px]">
 
           {/* Logo */}
-          <div className="flex items-center gap-2 cursor-pointer">
+          <div className="flex items-center gap-2 cursor-pointer group">
             <div className="w-8 h-8 rounded-full bg-[#0c3b42] flex items-center justify-center">
               <div className="w-3 h-3 border-[3px] border-white border-r-transparent rounded-full rotate-45"></div>
             </div>
 
-            <h1 className="text-[18px] font-semibold text-[#111827]">
-              Prodmast
-            </h1>
+            <a href="#">
+              <h1 className="text-[18px] font-semibold text-[#111827] group-hover:text-[#0c3b42] group-hover:scale-103 transition">
+                FINLIGEN
+              </h1>
+            </a>
           </div>
 
           {/* Desktop Navigation */}
@@ -41,8 +44,8 @@ const Header = () => {
           </nav>
 
           {/* Desktop Button */}
-          <div className="hidden md:block">
-            <button className="bg-[#0c3b42] hover:bg-[#092d33] text-white text-[14px] font-medium px-6 py-2.5 rounded-full transition duration-300">
+          <div className="group hidden md:block">
+            <button className="bg-[#0c3b42] hover:bg-[#092d33] text-white text-[14px] font-medium px-6 py-2.5 group-hover:scale-103 rounded-full transition duration-300">
               Sign Up
             </button>
           </div>
