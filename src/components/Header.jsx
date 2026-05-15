@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,23 +25,23 @@ const Header = () => {
               </span>
             </div>
 
-            <Link to="/Home">
+            <a href="#">
               <h1 className="text-[18px] font-semibold text-[#111827] group-hover:text-[#0c3b42] group-hover:scale-103 transition">
                 FINLIGEN
               </h1>
-            </Link>
+            </a>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
-              <Link
+              <a
                 key={link.name}
-                to={link.href}
+                href={link.href}
                 className="text-[14px] text-gray-700 font-medium hover:text-black transition duration-300"
               >
                 {link.name}
-              </Link>
+              </a>
             ))}
           </nav>
 
@@ -71,13 +70,13 @@ const Header = () => {
           <div className="md:hidden pb-5">
             <nav className="flex flex-col gap-4 pt-3">
               {navLinks.map((link) => (
-                <Link
+                <a
                   key={link.name}
-                  to={link.href}
+                  href={link.href}
                   className="text-gray-700 font-medium hover:text-black transition"
                 >
                   {link.name}
-                </Link>
+                </a>
               ))}
 
               <button className="bg-[#0c3b42] text-white py-3 rounded-full text-sm font-medium mt-2">
