@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ServicesPage from "./pages/Services";
 import AboutPage from "./pages/About";
+import Blogpage from "./pages/FinliGenBlog";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/test" element={<Test />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/blog" element={<Blogpage />} />
       </Routes>
 
       <Footer />

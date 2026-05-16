@@ -378,8 +378,8 @@ const Home = () => {
                 </h2>
 
                 <p className="mt-2 text-[#777] text-[15px] sm:text-[18px] leading-7 max-w-[560px]">
-                  Real metrics from real clients across the US–India corridor.
-                  No vanity numbers — just verified results.
+                  Real metrics from real clients across the US-India corridor.
+                  No vanity numbers - just verified results.
                 </p>
               </motion.div>
 
@@ -396,7 +396,7 @@ const Home = () => {
                 {[
                   {
                     title: "500+ Businesses Served",
-                    desc: "Trusted by founders and CFOs across the US–India corridor for end-to-end compliance and bookkeeping.",
+                    desc: "Trusted by founders and CFOs across the US-India corridor for end-to-end compliance and bookkeeping.",
                   },
                   {
                     title: "$0 IRS Penalty Notices",
@@ -673,7 +673,7 @@ const Home = () => {
           >
           <p className="text-[#b5c7c8] text-[14px] sm:text-[16px] text-center sm:text-left">
               Not sure which service fits your situation?
-              <span className="text-white font-medium"> Talk to our team — free 30-min call.</span>
+              <span className="text-white font-medium"> Talk to our team - free 30-min call.</span>
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
@@ -768,7 +768,7 @@ const Home = () => {
                 className="bg-[#e9e7da] text-[#173c37] px-4 sm:px-5 py-2 sm:py-3
                            rounded-full text-[11px] sm:text-sm font-semibold"
               >
-                NEW — RECOMMENDED ADDITION
+                NEW - RECOMMENDED ADDITION
               </motion.div>
             </div>
 
@@ -791,7 +791,7 @@ const Home = () => {
                 <p className="mt-4 sm:mt-6 text-[#5f6368] text-[15px] sm:text-[18px]
                                leading-[1.9] max-w-4xl">
                   FinliGen tracks every filing deadline for every state
-                  you operate in — and files before them, not on them.
+                  you operate in - and files before them, not on them.
                 </p>
 
                 <div className="mt-7 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-5">
@@ -2037,6 +2037,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+      
 
       {/* Global Keyframe Styles */}
       <style>{`
