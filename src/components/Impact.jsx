@@ -119,7 +119,7 @@ const ImpactSection = () => {
                     ${
                       isActive
                         ? "bg-gradient-to-t from-black/90 via-black/50 to-black/10"
-                        : "bg-white/90"
+                        : "bg-black/50"
                     }
                   `}
                 />
