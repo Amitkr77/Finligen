@@ -970,7 +970,7 @@ export default function AboutPage() {
             ))}
           </motion.div>
 
-          {/* Action Notice */}
+          {/* Action Notice
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -991,7 +991,7 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </section>
 

@@ -9,7 +9,7 @@ import { IoCubeOutline } from "react-icons/io5";
 import { LuShieldHalf } from "react-icons/lu";
 import { AiOutlineLineChart } from "react-icons/ai";
 import { TbStack, TbNorthStar } from "react-icons/tb";
-import { BsGlobe } from "react-icons/bs";
+import AboutSection from "../components/Home/AboutSection";
 
 const Home = () => {
   useEffect(() => {
@@ -23,7 +23,6 @@ const Home = () => {
 
   return (
     <div className="w-full bg-[#f5f5f3] overflow-x-hidden">
-
       {/* ─────────────────── HERO SECTION ─────────────────── */}
       <section className="max-w-[1500px] pb-10 sm:pb-16 lg:pb-20 mx-auto px-3 sm:px-4 lg:px-0">
         <motion.div
@@ -48,9 +47,10 @@ const Home = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
 
           {/* Content */}
-          <div className="relative z-10 h-full flex flex-col justify-center
-                          px-5 sm:px-8 md:px-12">
-
+          <div
+            className="relative z-10 h-full flex flex-col justify-center
+                          px-5 sm:px-8 md:px-12"
+          >
             {/* Top Badge */}
             <motion.p
               initial={{ opacity: 0, x: -60 }}
@@ -193,7 +193,10 @@ const Home = () => {
           >
             {[
               { num: "500+", label: "Businesses served\nacross US & India" },
-              { num: "15+", label: "Years cross-border\ncompliance experience" },
+              {
+                num: "15+",
+                label: "Years cross-border\ncompliance experience",
+              },
               { num: "0", label: "IRS penalty notices\non our watch" },
             ].map((stat, i) => (
               <motion.div
@@ -201,13 +204,17 @@ const Home = () => {
                 whileHover={{ y: -4 }}
                 className="group cursor-default"
               >
-                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-light mb-1 sm:mb-2
-                               transition-all duration-300 group-hover:text-emerald-500">
+                <h3
+                  className="text-2xl sm:text-3xl lg:text-4xl font-light mb-1 sm:mb-2
+                               transition-all duration-300 group-hover:text-emerald-500"
+                >
                   {stat.num}
                 </h3>
 
-                <p className="text-[10px] sm:text-xs lg:text-sm text-gray-600
-                               whitespace-pre-line hidden sm:block">
+                <p
+                  className="text-[10px] sm:text-xs lg:text-sm text-gray-600
+                               whitespace-pre-line hidden sm:block"
+                >
                   {stat.label}
                 </p>
                 <p className="text-[10px] text-gray-600 sm:hidden">
@@ -223,7 +230,6 @@ const Home = () => {
       <section className="w-full bg-[#f5f5f3] py-10 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
           <div className="grid grid-cols-1 xl:grid-cols-2 items-center gap-10 lg:gap-16">
-
             {/* LEFT SIDE — Dashboard Card */}
             <motion.div
               initial={{ opacity: 0, x: -100 }}
@@ -232,13 +238,13 @@ const Home = () => {
               transition={{ duration: 1, ease: "easeOut" }}
               className="relative flex justify-center xl:justify-start"
             >
-              <div className="relative w-full max-w-[560px] min-h-[420px] sm:min-h-[500px]
+              <div
+                className="relative w-full max-w-[560px] min-h-[420px] sm:min-h-[500px]
                               bg-[#efefed] rounded-[28px] sm:rounded-[38px] p-5 sm:p-8 lg:p-10
-                              overflow-hidden">
-
+                              overflow-hidden"
+              >
                 {/* Top Stats */}
                 <div className="bg-[#f8f8f7] rounded-[20px] sm:rounded-[28px] p-5 sm:p-8 shadow-sm">
-
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-[#8d8d8d] text-[14px] sm:text-[18px] font-medium">
@@ -264,9 +270,21 @@ const Home = () => {
                   {/* Progress Items */}
                   <div className="mt-8 sm:mt-12 space-y-5 sm:space-y-7">
                     {[
-                      { label: "IRS Penalty-Free Clients", value: "100%", width: "w-[100%]" },
-                      { label: "On-Time Book Closure", value: "98%", width: "w-[98%]" },
-                      { label: "Cross-Border Compliance", value: "15+ yrs", width: "w-[90%]" },
+                      {
+                        label: "IRS Penalty-Free Clients",
+                        value: "100%",
+                        width: "w-[100%]",
+                      },
+                      {
+                        label: "On-Time Book Closure",
+                        value: "98%",
+                        width: "w-[98%]",
+                      },
+                      {
+                        label: "Cross-Border Compliance",
+                        value: "15+ yrs",
+                        width: "w-[90%]",
+                      },
                     ].map((item, i) => (
                       <motion.div
                         key={i}
@@ -275,10 +293,14 @@ const Home = () => {
                         viewport={{ once: false }}
                         transition={{ duration: 0.6, delay: i * 0.15 }}
                       >
-                        <div className="flex items-center justify-between text-[13px] sm:text-[15px]
-                                        text-[#7a7a7a] mb-2">
+                        <div
+                          className="flex items-center justify-between text-[13px] sm:text-[15px]
+                                        text-[#7a7a7a] mb-2"
+                        >
                           <span>{item.label}</span>
-                          <span className="text-[#171717] font-medium">{item.value}</span>
+                          <span className="text-[#171717] font-medium">
+                            {item.value}
+                          </span>
                         </div>
 
                         <div className="w-full h-3 sm:h-4 rounded-full bg-[#ececeb] overflow-hidden">
@@ -337,26 +359,36 @@ const Home = () => {
                     >
                       $
                     </motion.div>
-                    <div className="text-[#8b8b8b] text-lg sm:text-[24px]">⋮</div>
+                    <div className="text-[#8b8b8b] text-lg sm:text-[24px]">
+                      ⋮
+                    </div>
                   </div>
 
                   <div className="mt-4 sm:mt-7">
                     <div className="flex items-center gap-2 sm:gap-3">
-                      <p className="text-[#5f5f5f] text-[14px] sm:text-[18px]">IRS Penalties</p>
+                      <p className="text-[#5f5f5f] text-[14px] sm:text-[18px]">
+                        IRS Penalties
+                      </p>
                       <div className="flex items-center gap-1 sm:gap-2">
                         <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#052f35]" />
-                        <span className="text-[#052f35] text-[12px] sm:text-[14px] font-medium">0%</span>
+                        <span className="text-[#052f35] text-[12px] sm:text-[14px] font-medium">
+                          0%
+                        </span>
                       </div>
                     </div>
 
-                    <h3 className="mt-3 sm:mt-5 text-[#171717] text-[40px] sm:text-[54px]
-                                   leading-none font-semibold">
+                    <h3
+                      className="mt-3 sm:mt-5 text-[#171717] text-[40px] sm:text-[54px]
+                                   leading-none font-semibold"
+                    >
                       $0
                     </h3>
 
                     <p className="mt-3 sm:mt-5 text-[#8a8a8a] text-[13px] sm:text-[16px]">
                       Issued to{" "}
-                      <span className="text-[#42c07d] font-medium">FinliGen</span>{" "}
+                      <span className="text-[#42c07d] font-medium">
+                        FinliGen
+                      </span>{" "}
                       managed clients
                     </p>
                   </div>
@@ -372,8 +404,10 @@ const Home = () => {
                 viewport={{ once: false }}
                 transition={{ duration: 0.9, ease: "easeOut" }}
               >
-                <h2 className="text-[#111] text-[28px] sm:text-[36px] md:text-[46px]
-                               leading-[1.1] font-semibold tracking-tight">
+                <h2
+                  className="text-[#111] text-[28px] sm:text-[36px] md:text-[46px]
+                               leading-[1.1] font-semibold tracking-tight"
+                >
                   Numbers that only mean something if they're real.
                 </h2>
 
@@ -431,12 +465,16 @@ const Home = () => {
                     </motion.div>
 
                     <div>
-                      <h3 className="text-[#171717] text-[17px] sm:text-[20px]
-                                     font-semibold leading-tight">
+                      <h3
+                        className="text-[#171717] text-[17px] sm:text-[20px]
+                                     font-semibold leading-tight"
+                      >
                         {item.title}
                       </h3>
-                      <p className="mt-1 text-[#6e6e6e] text-[13px] sm:text-[14px]
-                                    font-normal leading-5 max-w-[620px]">
+                      <p
+                        className="mt-1 text-[#6e6e6e] text-[13px] sm:text-[14px]
+                                    font-normal leading-5 max-w-[620px]"
+                      >
                         {item.desc}
                       </p>
                     </div>
@@ -450,17 +488,16 @@ const Home = () => {
 
       {/* ─────────────────── SERVICES SECTION ─────────────────── */}
       <section className="w-full bg-[#06363c] py-10 sm:py-14 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
           {/* Heading */}
           <motion.div
-          initial={{ opacity: 0, y: 60 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="text-center max-w-3xl mx-auto"
           >
-          <motion.span
+            <motion.span
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: false }}
@@ -469,139 +506,139 @@ const Home = () => {
                       tracking-[0.18em] font-semibold uppercase mb-4
                       border border-[#7ecfc0]/30 rounded-full px-4 py-1.5
                       bg-white/5"
-          >
+            >
               OUR SERVICES
-          </motion.span>
+            </motion.span>
 
-          <h2 className="text-white text-[26px] sm:text-[34px] md:text-[46px] font-semibold leading-[1.15] tracking-tight">
+            <h2 className="text-white text-[26px] sm:text-[34px] md:text-[46px] font-semibold leading-[1.15] tracking-tight">
               Every Service Your Finance
               <br />
               Function Needs.
-          </h2>
+            </h2>
 
-          <p className="mt-4 sm:mt-5 text-[#b5c7c8] text-[15px] sm:text-[17px] leading-7 max-w-2xl mx-auto">
-              From daily bookkeeping to complex cross-border compliance —
-              one trusted partner for businesses operating between
-              India and the United States.
-          </p>
+            <p className="mt-4 sm:mt-5 text-[#b5c7c8] text-[15px] sm:text-[17px] leading-7 max-w-2xl mx-auto">
+              From daily bookkeeping to complex cross-border compliance — one
+              trusted partner for businesses operating between India and the
+              United States.
+            </p>
           </motion.div>
 
           {/* Cards Grid */}
           <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.15 }}
-          variants={{
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={{
               hidden: {},
               visible: { transition: { staggerChildren: 0.15 } },
-          }}
-          className="mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6"
+            }}
+            className="mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6"
           >
-          {[
+            {[
               {
-              icon: <AiOutlineLineChart size={30} />,
-              badge: "Most Popular",
-              title: "US Tax & Sales Tax Compliance",
-              desc: "Nexus analysis, multi-state registration, monthly filings, and IRS return preparation — every state, every deadline.",
-              features: [
+                icon: <AiOutlineLineChart size={30} />,
+                badge: "Most Popular",
+                title: "US Tax & Sales Tax Compliance",
+                desc: "Nexus analysis, multi-state registration, monthly filings, and IRS return preparation — every state, every deadline.",
+                features: [
                   "Nexus Analysis",
                   "All 50-State Registration",
                   "Monthly/Quarterly Filings",
                   "IRS Return Preparation",
-              ],
-              link: "/services/us-tax-sales-tax-compliance",
+                ],
+                link: "/services/us-tax-sales-tax-compliance",
               },
               {
-              icon: <TbStack size={30} />,
-              badge: null,
-              title: "CPA Firm Outsourcing",
-              desc: "CA-reviewed bookkeeping, workpaper prep, and tax return drafts delivered white-label to your US CPA firm.",
-              features: [
+                icon: <TbStack size={30} />,
+                badge: null,
+                title: "CPA Firm Outsourcing",
+                desc: "CA-reviewed bookkeeping, workpaper prep, and tax return drafts delivered white-label to your US CPA firm.",
+                features: [
                   "QuickBooks / Xero Bookkeeping",
                   "Account Finalization",
                   "Tax Return Drafts",
                   "White-Label Delivery",
-              ],
-              link: "/services/cpa-firm-outsourcing",
+                ],
+                link: "/services/cpa-firm-outsourcing",
               },
               {
-              icon: <LuShieldHalf size={30} />,
-              badge: null,
-              title: "US LLC Setup & Advisory",
-              desc: "LLC or C-Corp formation, EIN registration, operating agreements, and first-year compliance for non-US founders.",
-              features: [
+                icon: <LuShieldHalf size={30} />,
+                badge: null,
+                title: "US LLC Setup & Advisory",
+                desc: "LLC or C-Corp formation, EIN registration, operating agreements, and first-year compliance for non-US founders.",
+                features: [
                   "LLC / C-Corp Formation",
                   "EIN Application",
                   "Operating Agreement",
                   "First-Year Compliance",
-              ],
-              link: "/services/us-llc-setup-advisory",
+                ],
+                link: "/services/us-llc-setup-advisory",
               },
               {
-              icon: <TbNorthStar size={30} />,
-              badge: null,
-              title: "Offshore Bookkeeping",
-              desc: "Daily transaction recording, bank reconciliation, and monthly MIS reports — books clean and closed by the 15th.",
-              features: [
+                icon: <TbNorthStar size={30} />,
+                badge: null,
+                title: "Offshore Bookkeeping",
+                desc: "Daily transaction recording, bank reconciliation, and monthly MIS reports — books clean and closed by the 15th.",
+                features: [
                   "Daily Bookkeeping",
                   "Bank Reconciliation",
                   "Monthly MIS Reports",
                   "Closed by 15th",
-              ],
-              link: "/services",
+                ],
+                link: "/services",
               },
               {
-              icon: <TiSpannerOutline size={30} />,
-              badge: null,
-              title: "Virtual CFO Services",
-              desc: "Strategic financial oversight, cash flow planning, investor-ready reporting, and board-level advisory — without the full-time cost.",
-              features: [
+                icon: <TiSpannerOutline size={30} />,
+                badge: null,
+                title: "Virtual CFO Services",
+                desc: "Strategic financial oversight, cash flow planning, investor-ready reporting, and board-level advisory — without the full-time cost.",
+                features: [
                   "Cash Flow Planning",
                   "Investor Reporting",
                   "Budget vs Actuals",
                   "Board Advisory",
-              ],
-              link: "/services",
+                ],
+                link: "/services",
               },
               {
-              icon: <IoCubeOutline size={30} />,
-              badge: null,
-              title: "Cross-Border Tax Advisory",
-              desc: "FEMA compliance, transfer pricing, DTAA planning, and India–US tax structuring for founders and growing companies.",
-              features: [
+                icon: <IoCubeOutline size={30} />,
+                badge: null,
+                title: "Cross-Border Tax Advisory",
+                desc: "FEMA compliance, transfer pricing, DTAA planning, and India–US tax structuring for founders and growing companies.",
+                features: [
                   "FEMA Compliance",
                   "Transfer Pricing",
                   "DTAA Planning",
                   "India–US Structuring",
-              ],
-              link: "/services",
+                ],
+                link: "/services",
               },
-          ].map((card, i) => (
+            ].map((card, i) => (
               <motion.div
-              key={i}
-              variants={{
+                key={i}
+                variants={{
                   hidden: { opacity: 0, clipPath: "inset(0 100% 0 0)" },
                   visible: { opacity: 1, clipPath: "inset(0 0% 0 0)" },
-              }}
-              transition={{ duration: 0.5, ease: [0.77, 0, 0.175, 1] }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              className="group relative rounded-sm p-5 sm:p-6
+                }}
+                transition={{ duration: 0.5, ease: [0.77, 0, 0.175, 1] }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="group relative rounded-sm p-5 sm:p-6
                           min-h-[280px] sm:min-h-[300px]
                           transition-all duration-200 flex flex-col justify-between
                           bg-[#11464d] hover:bg-[#15525a]"
               >
-              {/* Top Row */}
-              <div>
+                {/* Top Row */}
+                <div>
                   <div className="flex items-start justify-between mb-5">
-                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3">
                       {/* Icon */}
                       <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/10 text-white">
-                      {card.icon}
+                        {card.icon}
                       </div>
 
                       {/* Badge */}
                       {card.badge && (
-                      <motion.span
+                        <motion.span
                           initial={{ opacity: 0, scale: 0.8 }}
                           whileInView={{ opacity: 1, scale: 1 }}
                           viewport={{ once: false }}
@@ -609,43 +646,43 @@ const Home = () => {
                           className="text-[10px] font-semibold tracking-widest uppercase
                                   bg-white/10 text-white px-2.5 py-1 rounded-full
                                   border border-white/15"
-                      >
+                        >
                           {card.badge}
-                      </motion.span>
+                        </motion.span>
                       )}
-                  </div>
+                    </div>
 
-                  {/* Arrow */}
-                  <motion.a
+                    {/* Arrow */}
+                    <motion.a
                       href={card.link}
                       whileHover={{ x: 3, y: -3 }}
                       transition={{ duration: 0.25 }}
                       className="text-[20px] sm:text-[22px] transition-all duration-300
                               group-hover:translate-x-[3px] group-hover:-translate-y-[3px]
                               text-white"
-                  >
+                    >
                       ↗
-                  </motion.a>
+                    </motion.a>
                   </div>
 
                   {/* Title */}
                   <h3 className="text-[19px] sm:text-[22px] leading-tight font-semibold mb-3 text-white">
-                  {card.title}
+                    {card.title}
                   </h3>
 
                   {/* Desc */}
                   <p className="text-[13px] sm:text-[14px] leading-[1.8] text-[#c0d0d1]">
-                  {card.desc}
+                    {card.desc}
                   </p>
-              </div>
+                </div>
 
-              {/* Divider */}
-              <div className="my-4 h-[1px] bg-white/10" />
+                {/* Divider */}
+                <div className="my-4 h-[1px] bg-white/10" />
 
-              {/* Feature Pills */}
-              <div className="flex flex-wrap gap-2">
+                {/* Feature Pills */}
+                <div className="flex flex-wrap gap-2">
                   {card.features.map((f, fi) => (
-                  <motion.span
+                    <motion.span
                       key={fi}
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -653,62 +690,63 @@ const Home = () => {
                       transition={{ duration: 0.3, delay: fi * 0.08 }}
                       className="text-[11px] sm:text-[12px] font-medium px-2.5 py-1
                               rounded-full border border-white/15 text-[#c0d0d1] bg-white/5"
-                  >
+                    >
                       ✓ {f}
-                  </motion.span>
+                    </motion.span>
                   ))}
-              </div>
+                </div>
               </motion.div>
-          ))}
+            ))}
           </motion.div>
 
           {/* Bottom CTA */}
           <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="mt-10 sm:mt-14 flex flex-col sm:flex-row items-center
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="mt-10 sm:mt-14 flex flex-col sm:flex-row items-center
                       justify-between gap-5 border-t border-white/10 pt-8 sm:pt-10"
           >
-          <p className="text-[#b5c7c8] text-[14px] sm:text-[16px] text-center sm:text-left">
+            <p className="text-[#b5c7c8] text-[14px] sm:text-[16px] text-center sm:text-left">
               Not sure which service fits your situation?
-              <span className="text-white font-medium"> Talk to our team - free 30-min call.</span>
+              <span className="text-white font-medium"> Talk to our team — free 30-min call.</span>
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
               <motion.a
-              whileHover={{ scale: 1.04, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              href="/services"
-              className="bg-[#dff5b7] hover:bg-[#cef0a0] text-[#052f35]
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                href="/services"
+                className="bg-[#dff5b7] hover:bg-[#cef0a0] text-[#052f35]
                           px-6 py-3 rounded-xl text-[14px] sm:text-[15px]
                           font-semibold transition-all duration-300
                           text-center whitespace-nowrap"
               >
-              Explore All Services →
+                Explore All Services →
               </motion.a>
 
               <motion.a
-              whileHover={{ scale: 1.04, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              href="/contact"
-              className="border border-white/20 hover:border-white/50 text-white
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                href="/contact"
+                className="border border-white/20 hover:border-white/50 text-white
                           px-6 py-3 rounded-xl text-[14px] sm:text-[15px]
                           font-medium transition-all duration-300
                           text-center whitespace-nowrap"
               >
-              Book Free Call
+                Book Free Call
               </motion.a>
-          </div>
+            </div>
           </motion.div>
-
-      </div>
+        </div>
       </section>
 
       {/* ─────────────────── COMPLIANCE DEADLINE SECTION ─────────────────── */}
-      <section className="w-full bg-[#f5f5f3] pb-10 sm:pb-14 lg:pb-16
-                          px-4 sm:px-6 overflow-hidden">
+      <section
+        className="w-full bg-[#f5f5f3] pb-10 sm:pb-14 lg:pb-16
+                          px-4 sm:px-6 overflow-hidden"
+      >
         <div className="max-w-[1500px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 80 }}
@@ -728,8 +766,10 @@ const Home = () => {
             />
 
             {/* Top Row */}
-            <div className="relative z-10 flex flex-wrap items-start sm:items-center
-                            justify-between gap-4 mb-8 sm:mb-10">
+            <div
+              className="relative z-10 flex flex-wrap items-start sm:items-center
+                            justify-between gap-4 mb-8 sm:mb-10"
+            >
               <div>
                 <motion.p
                   initial={{ opacity: 0, x: -40 }}
@@ -751,11 +791,17 @@ const Home = () => {
                              lg:text-[58px] leading-[1.05] tracking-[-0.04em]
                              font-semibold max-w-5xl"
                 >
-                  <span className="text-[#050816]">The IRS and state tax agencies</span>
+                  <span className="text-[#050816]">
+                    The IRS and state tax agencies
+                  </span>
                   <br />
-                  <span className="text-[#0d3d43]">run on fixed deadlines.</span>
+                  <span className="text-[#0d3d43]">
+                    run on fixed deadlines.
+                  </span>
                   <br />
-                  <span className="text-[#050816]">Are you tracking all of them?</span>
+                  <span className="text-[#050816]">
+                    Are you tracking all of them?
+                  </span>
                 </motion.h2>
               </div>
 
@@ -774,7 +820,6 @@ const Home = () => {
 
             {/* Content Grid */}
             <div className="relative z-10 grid grid-cols-1 xl:grid-cols-[1fr_380px] gap-8 sm:gap-10 items-center">
-
               {/* Left Content */}
               <motion.div
                 initial={{ opacity: 0, x: -60 }}
@@ -783,15 +828,15 @@ const Home = () => {
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
                 <p className="text-[#5f6368] text-[15px] sm:text-[18px] leading-[1.9] max-w-4xl">
-                  Missing a US compliance deadline isn't just a fine.
-                  It can trigger an audit, invalidate your business
-                  registration, or freeze your US bank account.
+                  Missing a US compliance deadline isn't just a fine. It can
+                  trigger an audit, invalidate your business registration, or
+                  freeze your US bank account.
                 </p>
 
                 <p className="mt-4 sm:mt-6 text-[#5f6368] text-[15px] sm:text-[18px]
                                leading-[1.9] max-w-4xl">
                   FinliGen tracks every filing deadline for every state
-                  you operate in - and files before them, not on them.
+                  you operate in — and files before them, not on them.
                 </p>
 
                 <div className="mt-7 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-5">
@@ -832,8 +877,10 @@ const Home = () => {
                 className="bg-[#0d3d43] rounded-[1.5rem] sm:rounded-[2rem]
                            p-6 sm:p-8 relative overflow-hidden"
               >
-                <div className="absolute -top-10 -right-10 w-40 h-40
-                                bg-[#dff5b7]/10 blur-3xl rounded-full" />
+                <div
+                  className="absolute -top-10 -right-10 w-40 h-40
+                                bg-[#dff5b7]/10 blur-3xl rounded-full"
+                />
 
                 <div className="relative z-10 flex items-center justify-between mb-6 sm:mb-8">
                   <div>
@@ -873,7 +920,9 @@ const Home = () => {
                                  border border-white/10 rounded-xl sm:rounded-2xl
                                  px-4 sm:px-5 py-3 sm:py-4"
                     >
-                      <p className="text-white text-[13px] sm:text-[15px]">{item.title}</p>
+                      <p className="text-white text-[13px] sm:text-[15px]">
+                        {item.title}
+                      </p>
                       <span className="text-[#dff5b7] font-semibold text-sm sm:text-base">
                         {item.date}
                       </span>
@@ -881,10 +930,12 @@ const Home = () => {
                   ))}
                 </div>
 
-                <p className="relative z-10 mt-6 sm:mt-8 text-white/50
-                               text-[12px] sm:text-sm leading-6">
-                  Automated reminders and deadline tracking for every
-                  US state your business operates in.
+                <p
+                  className="relative z-10 mt-6 sm:mt-8 text-white/50
+                               text-[12px] sm:text-sm leading-6"
+                >
+                  Automated reminders and deadline tracking for every US state
+                  your business operates in.
                 </p>
               </motion.div>
             </div>
@@ -892,14 +943,12 @@ const Home = () => {
         </div>
       </section>
 
-
       <ImpactSection />
       <Howitworks />
 
       {/* ─────────────────── AUDIENCE ENTRY PATHS ─────────────────── */}
       <section className="w-full bg-white py-10 sm:py-14 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-
           {/* Heading */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -930,9 +979,9 @@ const Home = () => {
               className="mt-4 text-[#666] text-[14px] sm:text-[17px]
               leading-[1.8] max-w-2xl mx-auto"
             >
-              Whether you're a CPA firm, ecommerce founder,
-              or expanding into the US — we tailor the workflow,
-              reporting, and compliance process around your business.
+              Whether you're a CPA firm, ecommerce founder, or expanding into
+              the US — we tailor the workflow, reporting, and compliance process
+              around your business.
             </p>
           </motion.div>
 
@@ -955,32 +1004,29 @@ const Home = () => {
               {
                 tag: "US CPA FIRM",
                 title: "Invisible offshore support for your firm.",
-                desc:
-                  "Need bookkeeping, workpapers, or tax prep support? We operate as your white-label back-office team.",
+                desc: "Need bookkeeping, workpapers, or tax prep support? We operate as your white-label back-office team.",
                 cta: "See CPA outsourcing →",
                 link: "/services/cpa-firm-outsourcing",
               },
               {
                 tag: "EXPANDING TO THE US",
                 title: "Launch your US entity the right way.",
-                desc:
-                  "From LLC setup and EIN registration to first-year compliance — we handle the operational side of entering the US market.",
+                desc: "From LLC setup and EIN registration to first-year compliance — we handle the operational side of entering the US market.",
                 cta: "See US market entry →",
                 link: "/services/us-llc-setup-advisory",
               },
               {
                 tag: "ECOMMERCE BRAND",
-                title: "Selling online? Sales tax applies faster than you think.",
-                desc:
-                  "Amazon, Shopify, and marketplace sellers often trigger nexus obligations without realizing it.",
+                title:
+                  "Selling online? Sales tax applies faster than you think.",
+                desc: "Amazon, Shopify, and marketplace sellers often trigger nexus obligations without realizing it.",
                 cta: "Check your nexus →",
                 link: "/services/us-tax-sales-tax-compliance",
               },
               {
                 tag: "ALREADY OPERATING",
                 title: "Cross-border finance operations built properly.",
-                desc:
-                  "Need a finance team handling India + US compliance together? We manage both sides under one workflow.",
+                desc: "Need a finance team handling India + US compliance together? We manage both sides under one workflow.",
                 cta: "See all services →",
                 link: "/services",
               },
@@ -1091,7 +1137,6 @@ const Home = () => {
       {/* ─────────────────── TESTIMONIALS SECTION ─────────────────── */}
       <section className="w-full bg-gray-200 py-10 sm:py-14 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-
           {/* Top Heading */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -1131,8 +1176,8 @@ const Home = () => {
                         text-[14px] sm:text-[16px]
                         leading-[1.9]"
             >
-              Long-term partnerships built on accuracy,
-              responsiveness, and real operational capacity.
+              Long-term partnerships built on accuracy, responsiveness, and real
+              operational capacity.
             </p>
           </motion.div>
 
@@ -1151,7 +1196,6 @@ const Home = () => {
             }}
             className="mt-10 grid grid-cols-1 xl:grid-cols-2 gap-5"
           >
-
             {[
               {
                 quote:
@@ -1316,14 +1360,12 @@ const Home = () => {
               </div>
             </div>
           </motion.div>*/}
-
         </div>
       </section>
 
       {/* ─────────────────── BLOG / INSIGHTS SECTION ─────────────────── */}
       <section className="w-full bg-white py-10 sm:py-14 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-
           {/* Heading */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -1365,9 +1407,8 @@ const Home = () => {
                         text-[14px] sm:text-[16px]
                         leading-[1.9]"
             >
-              Guides, compliance breakdowns, and cross-border
-              finance insights for founders, CPA firms,
-              and ecommerce businesses.
+              Guides, compliance breakdowns, and cross-border finance insights
+              for founders, CPA firms, and ecommerce businesses.
             </p>
           </motion.div>
 
@@ -1386,54 +1427,47 @@ const Home = () => {
             }}
             className="mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
           >
-
             {[
               {
                 category: "US TAX",
                 title:
                   "US Economic Nexus Explained: A 2025 Guide for Foreign Ecommerce Sellers",
-                desc:
-                  "Understand when your business becomes liable for US sales tax and how economic nexus rules apply across states.",
+                desc: "Understand when your business becomes liable for US sales tax and how economic nexus rules apply across states.",
                 read: "8 min read",
               },
               {
                 category: "LLC SETUP",
                 title:
                   "How to Set Up a US LLC as an Indian Citizen (Step-by-Step 2025)",
-                desc:
-                  "Everything founders need to know about LLC formation, EIN registration, and first-year US compliance.",
+                desc: "Everything founders need to know about LLC formation, EIN registration, and first-year US compliance.",
                 read: "11 min read",
               },
               {
                 category: "CPA OUTSOURCING",
                 title:
                   "CPA Firm Outsourcing to India: What to Look for (and What to Avoid)",
-                desc:
-                  "A practical guide for US CPA firms evaluating offshore bookkeeping and tax preparation partners.",
+                desc: "A practical guide for US CPA firms evaluating offshore bookkeeping and tax preparation partners.",
                 read: "7 min read",
               },
               {
                 category: "US SALES TAX",
                 title:
                   "US Sales Tax for Amazon FBA Sellers: The Complete Compliance Playbook",
-                desc:
-                  "Multi-state filing, nexus analysis, and sales tax risks every Amazon seller should understand.",
+                desc: "Multi-state filing, nexus analysis, and sales tax risks every Amazon seller should understand.",
                 read: "9 min read",
               },
               {
                 category: "CROSS-BORDER",
                 title:
                   "FEMA ODI Compliance for Indian Companies with US Subsidiaries",
-                desc:
-                  "Key FEMA obligations, ODI reporting requirements, and compliance timelines explained clearly.",
+                desc: "Key FEMA obligations, ODI reporting requirements, and compliance timelines explained clearly.",
                 read: "6 min read",
               },
               {
                 category: "STARTUPS",
                 title:
                   "Series A Readiness: What Investors Expect from Your Financial Statements",
-                desc:
-                  "The reporting systems, metrics, and finance hygiene investors expect before your next raise.",
+                desc: "The reporting systems, metrics, and finance hygiene investors expect before your next raise.",
                 read: "10 min read",
               },
             ].map((post, i) => (
@@ -1461,7 +1495,6 @@ const Home = () => {
                           rounded-[28px]
                           overflow-hidden"
               >
-
                 {/* Top Gradient */}
                 <div
                   className="h-[5px] w-full
@@ -1472,7 +1505,6 @@ const Home = () => {
                 />
 
                 <div className="p-6 sm:p-7">
-
                   {/* Category */}
                   <div
                     className="inline-flex items-center
@@ -1576,8 +1608,8 @@ const Home = () => {
                 className="mt-1 text-[#666]
                           text-[14px]"
               >
-                Explore detailed guides on US tax, LLC setup,
-                CPA outsourcing, and cross-border compliance.
+                Explore detailed guides on US tax, LLC setup, CPA outsourcing,
+                and cross-border compliance.
               </p>
             </div>
 
@@ -1598,16 +1630,13 @@ const Home = () => {
               Explore All Articles →
             </motion.a>
           </motion.div>
-
         </div>
       </section>
 
       {/* ─────────────────── VALUES SECTION ─────────────────── */}
       <section className="w-full bg-[#f5f5f3] py-10 sm:py-14 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-
             {/* Left Heading */}
             <motion.div
               initial={{ opacity: 0, x: -120 }}
@@ -1615,14 +1644,18 @@ const Home = () => {
               viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 1, ease: "easeOut" }}
             >
-              <p className="text-[#3f655b] text-[11px] sm:text-[13px]
-                            tracking-[0.18em] font-semibold uppercase">
+              <p
+                className="text-[#3f655b] text-[11px] sm:text-[13px]
+                            tracking-[0.18em] font-semibold uppercase"
+              >
                 VALUES
               </p>
 
-              <h2 className="mt-4 sm:mt-5 text-[#050816]
+              <h2
+                className="mt-4 sm:mt-5 text-[#050816]
                              text-[38px] sm:text-[52px] md:text-[62px] lg:text-[72px]
-                             leading-[1.02] tracking-[-0.05em] font-semibold">
+                             leading-[1.02] tracking-[-0.05em] font-semibold"
+              >
                 Make your
                 <br />
                 business,
@@ -1638,8 +1671,10 @@ const Home = () => {
               transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
               className="lg:pt-20"
             >
-              <p className="max-w-[520px] text-[#5f6368] text-[18px] sm:text-[22px]
-                            lg:text-[24px] leading-[1.7] font-normal">
+              <p
+                className="max-w-[520px] text-[#5f6368] text-[18px] sm:text-[22px]
+                            lg:text-[24px] leading-[1.7] font-normal"
+              >
                 Manages modern manufacturing operations with efficient
                 technology-enabled systems and scalable production workflows.
               </p>
@@ -1659,7 +1694,10 @@ const Home = () => {
           >
             {/* Card 1 */}
             <motion.div
-              variants={{ hidden: { opacity: 0, y: 120 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 120 },
+                visible: { opacity: 1, y: 0 },
+              }}
               transition={{ duration: 0.5, ease: "easeOut" }}
               whileHover={{ y: -10 }}
               className="group border border-[#e6e6e4] bg-white p-5 sm:p-6
@@ -1668,13 +1706,23 @@ const Home = () => {
             >
               <div>
                 <div className="relative w-12 h-12">
-                  {["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"].map((pos, i) => (
-                    <div key={i} className={`absolute ${pos} w-7 h-7 border border-[#111] rounded-full`} />
+                  {[
+                    "top-0 left-0",
+                    "top-0 right-0",
+                    "bottom-0 left-0",
+                    "bottom-0 right-0",
+                  ].map((pos, i) => (
+                    <div
+                      key={i}
+                      className={`absolute ${pos} w-7 h-7 border border-[#111] rounded-full`}
+                    />
                   ))}
                 </div>
 
-                <h3 className="mt-6 sm:mt-8 text-[#111] text-[22px] sm:text-[28px]
-                               leading-tight font-semibold">
+                <h3
+                  className="mt-6 sm:mt-8 text-[#111] text-[22px] sm:text-[28px]
+                               leading-tight font-semibold"
+                >
                   Smart Manufacturing
                 </h3>
 
@@ -1699,7 +1747,10 @@ const Home = () => {
 
             {/* Card 2 */}
             <motion.div
-              variants={{ hidden: { opacity: 0, y: 120 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 120 },
+                visible: { opacity: 1, y: 0 },
+              }}
               transition={{ duration: 0.5, ease: "easeOut" }}
               whileHover={{ y: -10 }}
               className="group border border-[#e6e6e4] bg-white p-5 sm:p-6
@@ -1714,8 +1765,10 @@ const Home = () => {
                   </div>
                 </div>
 
-                <h3 className="mt-6 sm:mt-8 text-[#111] text-[22px] sm:text-[28px]
-                               leading-tight font-semibold">
+                <h3
+                  className="mt-6 sm:mt-8 text-[#111] text-[22px] sm:text-[28px]
+                               leading-tight font-semibold"
+                >
                   Process Optimization
                 </h3>
 
@@ -1726,10 +1779,12 @@ const Home = () => {
               </div>
 
               <div className="mt-5 sm:mt-8">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full text-[28px] sm:text-[34px]
+                <div
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full text-[28px] sm:text-[34px]
                                 border border-[#dcdcdc] flex items-center justify-center
                                 transition-all duration-200 group-hover:bg-[#0d3d43]
-                                group-hover:text-white">
+                                group-hover:text-white"
+                >
                   ↗
                 </div>
               </div>
@@ -1737,7 +1792,10 @@ const Home = () => {
 
             {/* Card 3 */}
             <motion.div
-              variants={{ hidden: { opacity: 0, y: 120 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 120 },
+                visible: { opacity: 1, y: 0 },
+              }}
               transition={{ duration: 0.5, ease: "easeOut" }}
               whileHover={{ y: -10 }}
               className="group bg-[#e9e7da] p-5 sm:p-6 min-h-[200px]
@@ -1746,17 +1804,23 @@ const Home = () => {
                          sm:col-span-2 xl:col-span-1"
             >
               <div>
-                <div className="w-12 h-12 sm:w-12 sm:h-12 rounded-full border border-[#3f655b]
-                                flex items-center justify-center">
+                <div
+                  className="w-12 h-12 sm:w-12 sm:h-12 rounded-full border border-[#3f655b]
+                                flex items-center justify-center"
+                >
                   <div className="relative">
                     <div className="w-9 h-9 sm:w-9 sm:h-9 border translate-y-[5px] border-[#3f655b] rounded-full" />
-                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[1px]
-                                    w-4 h-4 sm:w-6 sm:h-6 border border-[#3f655b] rounded-full" />
+                    <div
+                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[1px]
+                                    w-4 h-4 sm:w-6 sm:h-6 border border-[#3f655b] rounded-full"
+                    />
                   </div>
                 </div>
 
-                <h3 className="mt-5 sm:mt-6 text-[#173c37] text-[22px] sm:text-[28px]
-                               leading-tight font-semibold">
+                <h3
+                  className="mt-5 sm:mt-6 text-[#173c37] text-[22px] sm:text-[28px]
+                               leading-tight font-semibold"
+                >
                   AI-Powered Production
                 </h3>
 
@@ -1767,10 +1831,12 @@ const Home = () => {
               </div>
 
               <div className="mt-5 sm:mt-8">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full text-[28px] sm:text-[34px]
+                <div
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full text-[28px] sm:text-[34px]
                                 border border-[#dcdcdc] flex items-center justify-center
                                 transition-all duration-300 group-hover:bg-[#0d3d43]
-                                group-hover:text-white">
+                                group-hover:text-white"
+                >
                   ↗
                 </div>
               </div>
@@ -2037,7 +2103,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-      
 
       {/* Global Keyframe Styles */}
       <style>{`
