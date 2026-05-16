@@ -455,11 +455,11 @@ export default function ServicesPage() {
                 <img
                   src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&q=80"
                   alt="Financial Services Team"
-                  className="w-full h-auto object-cover"
+                  className="w-full h-full object-cover"
                 />
                 
                 {/* Overlay Badge */}
-                <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm
+                <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm
                               rounded-xl p-4 sm:p-5 shadow-lg">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-[#06363c] text-white
@@ -674,7 +674,7 @@ export default function ServicesPage() {
       {/* ═══════════════════════════════════════════════════════════
           SECTION 3 — DETAILED SERVICE EXPLORER (Dark Section)
       ═══════════════════════════════════════════════════════════ */}
-      <section className="w-full py-16 sm:py-24 bg-[#0a0a0a]">
+      <section className="w-full py-16 sm:py-24 bg-white-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -689,7 +689,7 @@ export default function ServicesPage() {
                            bg-[#7ecfc0]/5">
               DEEP DIVE
             </span>
-            <h2 className="text-white text-[28px] sm:text-[38px] md:text-[48px]
+            <h2 className="text-[#06363c] text-[28px] sm:text-[38px] md:text-[48px]
                          font-bold leading-[1.12] tracking-tight">
               Explore Each Service
               <br />
@@ -711,7 +711,7 @@ export default function ServicesPage() {
                             text-left transition-all duration-300 whitespace-nowrap
                             lg:whitespace-normal min-w-fit lg:min-w-0
                             ${activeService === i
-                              ? "bg-white/10 border border-[#7ecfc0]/30 text-white shadow-lg"
+                              ? "bg-white/10 border border-[#7ecfc0]/30 text-[#06363c] shadow-lg"
                               : "bg-transparent border border-white/5 text-gray-400 hover:bg-white/5"
                             }`}
                 >
@@ -746,7 +746,7 @@ export default function ServicesPage() {
                       {services[activeService].icon}
                     </div>
                     <div>
-                      <h3 className="text-white text-[22px] sm:text-[28px] font-bold">
+                      <h3 className="text-[#06363c] text-[22px] sm:text-[28px] font-bold">
                         {services[activeService].title}
                       </h3>
                       {services[activeService].badge && (
@@ -764,7 +764,7 @@ export default function ServicesPage() {
                   </h4>
 
                   {/* Full Description */}
-                  <p className="text-gray-300 text-[14px] sm:text-[16px] leading-[1.8] mb-8">
+                  <p className="text-gray-500 text-[14px] sm:text-[16px] leading-[1.8] mb-8">
                     {services[activeService].fullDesc}
                   </p>
 
@@ -772,7 +772,7 @@ export default function ServicesPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                     {/* Features */}
                     <div>
-                      <h4 className="text-white text-[16px] sm:text-[18px] font-semibold mb-4
+                      <h4 className="text-[#7ecfc0] text-[16px] sm:text-[18px] font-semibold mb-4
                                    flex items-center gap-2">
                         <HiOutlineLightBulb className="text-[#7ecfc0]" size={20} />
                         What's Included
@@ -784,7 +784,7 @@ export default function ServicesPage() {
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: fi * 0.08 }}
-                            className="flex items-start gap-3 text-gray-300 text-[13px] sm:text-[14px]"
+                            className="flex items-start gap-3 text-gray-500 text-[13px] sm:text-[14px]"
                           >
                             <AiOutlineCheckCircle className="text-[#7ecfc0] mt-0.5 flex-shrink-0" size={16} />
                             {f}
@@ -795,7 +795,7 @@ export default function ServicesPage() {
 
                     {/* Benefits */}
                     <div>
-                      <h4 className="text-white text-[16px] sm:text-[18px] font-semibold mb-4
+                      <h4 className="text-[#7ecfc0] text-[16px] sm:text-[18px] font-semibold mb-4
                                    flex items-center gap-2">
                         <HiOutlineChartBar className="text-[#dff5b7]" size={20} />
                         Key Benefits
@@ -809,11 +809,11 @@ export default function ServicesPage() {
                             transition={{ delay: bi * 0.08 + 0.3 }}
                             className="flex items-start gap-3"
                           >
-                            <div className="w-6 h-6 rounded-full bg-[#dff5b7]/15 flex items-center
+                            <div className="w-6 h-6 rounded-full bg-[#dff5b7]/10 flex items-center
                                          justify-center flex-shrink-0 mt-0.5">
                               <FiCheck className="text-[#dff5b7]" size={12} />
                             </div>
-                            <span className="text-gray-300 text-[13px] sm:text-[14px]">{b}</span>
+                            <span className="text-gray-500 text-[13px] sm:text-[14px]">{b}</span>
                           </motion.li>
                         ))}
                       </ul>
