@@ -129,52 +129,44 @@ export default function AboutSection() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8">
-        {/* Eyebrow pill */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-7
-            bg-[#ecfdf3] border border-[rgba(29,158,117,0.25)]"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#1d9e75] animate-pulse" />
-          <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-[#1d9e75]">
-            About Us
-          </span>
-        </motion.div>
-
-        {/* Headline */}
-        <motion.h2
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
-          transition={{ duration: 0.6, delay: 0.08 }}
-          className="text-[clamp(34px,5.5vw,62px)] leading-[1.04] tracking-[-0.02em]
-            text-[#111827] max-w-2xl mb-4"
-          style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
-        >
-          One platform for all your{" "}
-          <em
-            className="text-[#1d9e75] italic"
-            style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
+        {/* Heading */}
+        <div className="text-center max-w-4xl mx-auto mb-10">
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-[#3f655b] text-[11px] sm:text-[13px]
+                         font-semibold tracking-[0.18em] uppercase"
           >
-            manufacturing
-          </em>{" "}
-          needs
-        </motion.h2>
+            ABOUT US
+          </motion.p>
 
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
-          transition={{ duration: 0.6, delay: 0.16 }}
-          className="text-[#667085] text-[15px] leading-[1.75] max-w-md mb-14"
-        >
-          Remove operational friction and streamline your manufacturing workflow
-          with intelligent, always-on automation.
-        </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+            className="mt-3 text-[#050816] text-[28px] sm:text-[38px]
+                         md:text-[52px] leading-[1.03] tracking-[-0.05em] font-semibold"
+          >
+            One platform for all your
+            <br />
+            manufacturing needs
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            className="mt-3 sm:mt-4 text-[#666] text-[13px] sm:text-[14px]
+                         leading-[1.7] max-w-[700px] mx-auto"
+          >
+            Remove operational friction and streamline your manufacturing
+            workflow with smart automation.
+          </motion.p>
+        </div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-3.5">
