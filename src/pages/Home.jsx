@@ -32,370 +32,134 @@ const Home = () => {
   return (
     <div className="w-full bg-[#f5f5f3]">
         {/* Hero Section */}
-        <section className="relative overflow-hidden bg-[#f5f5f3] pt-2 pb-12">
-            <div className="max-w-7xl mx-auto px-6 lg:px-10">
+<section className=" max-w-[1500px] pb-20 mx-auto">
+  <div className="relative rounded-b-[2rem] overflow-hidden h-[700px] group">
+    
+    {/* Background Image with Ken Burns Effect */}
+    <div
+      className="absolute inset-0 bg-cover bg-center transition-transform duration-[8000ms] ease-out group-hover:scale-110"
+      style={{
+        backgroundImage: `url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1600&q=80')`,
+        animation: 'fadeIn 1.5s ease-out',
+      }}
+    />
+    
+    <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
 
-                {/* Floating Icons */}
-                <div className="hidden lg:block">
+    {/* Content */}
+    <div className="relative z-10 h-full flex flex-col justify-center px-12">
+      
+      {/* Top Badge */}
+      <p
+        className="text-white/90 text-sm mb-6 uppercase tracking-wide"
+        style={{ animation: 'slideInLeft 0.8s ease-out 0.3s both' }}
+      >
+        CA-LED • US & INDIA • 500+ BUSINESSES SERVED
+      </p>
 
-                {/* Left Icons */}
-                <div className="absolute left-[200px] top-[130px]">
-                    <div className="w-14 h-14 rounded-full border border-[#0d3d43] flex items-center justify-center bg-white shadow-sm">
-                    <ArrowUpRight
-                        size={24}
-                        className="text-[#0d3d43]"
-                    />
-                    </div>
-                </div>
+      {/* Heading */}
+      <h1
+        className="text-white text-7xl font-light leading-tight mb-8 max-w-5xl"
+        style={{ animation: 'slideInLeft 1s ease-out 0.5s both' }}
+      >
+        US tax deadlines don't move.
+        <br />
+        Neither do we.
+      </h1>
 
-                <div className="absolute left-[260px] top-[90px]">
-                    <div className="w-12 h-12 rounded-full bg-[#0d3d43] flex items-center justify-center shadow-sm">
-                    <ShieldCheck
-                        size={18}
-                        className="text-white"
-                    />
-                    </div>
-                </div>
+      {/* Description */}
+      <p
+        className="max-w-4xl text-white/80 text-xl leading-[1.8] mb-12"
+        style={{ animation: 'fadeInUp 0.8s ease-out 0.7s both' }}
+      >
+        FinliGen's CA-led team handles your US sales tax, IRS filings,
+        cross-border compliance, and offshore bookkeeping — so your
+        business stays clean, your clients stay happy, and you're never
+        caught off-guard by a notice from the IRS.
+      </p>
 
-                <div className="absolute left-[260px] top-[175px]">
-                    <div className="w-11 h-11 rounded-full bg-[#dff5b7] flex items-center justify-center shadow-sm">
-                    <BadgeCheck
-                        size={17}
-                        className="text-[#0d3d43]"
-                    />
-                    </div>
-                </div>
+      {/* Buttons */}
+      <div
+        className="flex gap-8"
+        style={{ animation: 'fadeInUp 0.8s ease-out 0.9s both' }}
+      >
+        <a
+          href="#"
+          className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-2xl transition-all duration-300 flex items-center gap-2"
+        >
+          Check my US compliance →
+        </a>
 
-                {/* Right Icons */}
-                <div className="absolute right-[180px] top-[65px]">
-                    <div className="w-11 h-11 rounded-full bg-[#dff5b7] flex items-center justify-center shadow-sm">
-                    <BarChart3
-                        size={17}
-                        className="text-[#0d3d43]"
-                    />
-                    </div>
-                </div>
+        <a
+          href="#"
+          className="text-white border-b border-white/50 pb-1 flex items-center gap-2 hover:gap-4 transition-all"
+        >
+          See how we work <span>↗</span>
+        </a>
+      </div>
+    </div>
 
-                {/* <div className="absolute right-[260px] top-[155px]">
-                    <div className="w-14 h-14 rounded-full border border-[#0d3d43] flex items-center justify-center bg-white shadow-sm">
-                    <div className="flex flex-col gap-[3px]">
-                        <div className="w-5 h-[2px] bg-[#0d3d43] rounded-full"></div>
-                        <div className="w-5 h-[2px] bg-[#0d3d43] rounded-full"></div>
-                        <div className="w-5 h-[2px] bg-[#0d3d43] rounded-full"></div>
-                    </div>
-                    </div>
-                </div> */}
-                </div>
-                {/* Floating Analytics Icon */}
-                    {/* <div className="absolute right-[180px] top-[35px]">
-                    <div className="w-11 h-11 rounded-full bg-[#dff5b7] flex items-center justify-center shadow-sm">
-                        <BarChart3
-                        size={17}
-                        className="text-[#0d3d43]"
-                        />
-                    </div>
-                    </div> */}
+    {/* Floating Project Card */}
+    <div
+      className="absolute top-12 right-12 w-72 bg-white/20 backdrop-blur-md rounded-2xl p-3 z-10 animate-float"
+      style={{ animation: 'scaleIn 1s ease-out 0.7s both, float 4s ease-in-out 1.5s infinite' }}
+    >
+      <div className="flex justify-end mb-1">
+        <span className="text-white text-xl">⋯</span>
+      </div>
 
-                    {/* GSAP Rotating Windmill */}
-                    <div
-                    id="pin-windmill-wrap"
-                    className="absolute right-[260px] top-[155px]"
-                    >
-                    <div
-                        id="pin-windmill"
-                        className="flex items-center justify-center"
-                    >
+      <img
+        src="https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=400&q=80"
+        alt="project"
+        className="w-full h-44 object-cover rounded-xl"
+      />
 
-                        <div
-                        id="pin-windmill-svg"
-                        className="w-16 h-16 rounded-full border border-[#0d3d43] bg-white shadow-sm flex items-center justify-center"
-                        >
+      <div className="flex items-center justify-between mt-3 px-2 pb-2">
+        <button className="w-10 h-10 rounded-full bg-white/30 flex items-center justify-center text-white hover:bg-white/50 transition-all hover:rotate-45">
+          ↗
+        </button>
 
-                        {/* Windmill Lines */}
-                        <div className="relative w-7 h-7">
-                            <TbNorthStar
-                            size={28}
-                            className="text-[#0d3d43]"
-                            />
-                        </div>
-                        </div>
-                    </div>
-                    </div>
+        <p className="text-white text-sm text-right leading-tight">
+          Discover Our
+          <br />
+          Recent Project
+        </p>
+      </div>
+    </div>
 
-                {/* Main Content */}
-                <div className="text-center max-w-5xl mx-auto">
+    {/* Bottom Stats Card */}
+    <div
+      className="absolute bottom-0 right-0 bg-white rounded-tl-3xl p-8 flex gap-12 z-10"
+      style={{ animation: 'slideInRight 1s ease-out 1.1s both' }}
+    >
+      {[
+        {
+          num: '500+',
+          label: 'Businesses served\nacross US & India',
+        },
+        {
+          num: '15+',
+          label: 'Years cross-border\ncompliance experience',
+        },
+        {
+          num: '0',
+          label: 'IRS penalty notices\non our watch',
+        },
+      ].map((stat, i) => (
+        <div key={i} className="group cursor-default">
+          <h3 className="text-4xl font-light mb-2 transition-all duration-300 group-hover:text-emerald-500">
+            {stat.num}
+          </h3>
 
-                {/* Heading */}
-                <motion.h1
-                initial={{ opacity: 0, y: 80 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                    duration: 1,
-                    ease: "easeOut",
-                }}
-                className="text-[34px] sm:text-[44px] md:text-[58px] leading-tight font-bold tracking-tight text-[#171717]"
-                >
-                    The Future of Manufacturing
-                    <br />
-                    with{" "}
-                    <span className="text-[#0d3d43]">
-                    Latest Technology
-                    </span>
-                </motion.h1>
+          <p className="text-sm text-gray-600 whitespace-pre-line">
+            {stat.label}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
-                {/* Description */}
-                <motion.p
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                    duration: 1,
-                    delay: 0.3,
-                }}
-                className="mt-1 text-[18px] text-[#5b5b5b] leading-8 max-w-3xl mx-auto"
-                >
-                    Expert tech to elevate your manufacturing.
-                    Let's take your business further.
-                </motion.p>
-
-                {/* Buttons */}
-                <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                    duration: 1,
-                    delay: 0.5,
-                }}
-                className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-4"
-                >
-                    <button className="bg-[#0d3d43] hover:bg-[#092d33] text-white px-10 py-4 rounded-full text-[16px] font-medium transition-all duration-300 shadow-sm">
-                    Get Started
-                    </button>
-
-                    <button className="bg-white border border-[#e5e5e5] hover:border-[#cfcfcf] text-[#1b1b1b] px-10 py-4 rounded-full text-[16px] font-medium transition-all duration-300 shadow-sm">
-                    Try Demo
-                    </button>
-                </motion.div>
-
-                {/* Ratings */}
-                <div className="mt-3 flex flex-col items-center">
-
-                    <div className="flex items-center gap-1">
-                    {[1, 2, 3, 4, 5].map((item) => (
-                        <Star
-                        key={item}
-                        size={18}
-                        fill="#facc15"
-                        className="text-[#facc15]"
-                        />
-                    ))}
-
-                    <span className="ml-2 text-[#171717] font-medium text-[16px]">
-                        5.0
-                    </span>
-                    </div>
-
-                    <p className="mt-1 text-[#6b6b6b] text-[15px]">
-                    from 80+{" "}
-                    <span className="underline text-[#171717]">
-                        reviews
-                    </span>
-                    </p>
-                </div>
-                </div>
-
-                {/* Bottom Cards */}
-                <div className="-mt-20 hidden xl:flex justify-center items-end gap-6">
-
-                {/* Image Card - From Left */}
-                <motion.div
-                    initial={{ opacity: 0, x: -120 }}
-                    animate={{
-                    opacity: 1,
-                    x: 0,
-                    y: [0, -12, 0],
-                    }}
-                    transition={{
-                    opacity: { duration: 1, delay: 0.2 },
-                    x: { duration: 1, delay: 0.2, ease: "easeOut" },
-                    y: {
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    },
-                    }}
-                    className="w-[250px] h-[380px] rounded-[28px] overflow-hidden shadow-sm"
-                >
-                    <img
-                    src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=1200&auto=format&fit=crop"
-                    alt="Factory"
-                    className="w-full h-full object-cover"
-                    />
-                </motion.div>
-
-                {/* Card 1 - From Left */}
-                <motion.div
-                    initial={{ opacity: 0, x: -100 }}
-                    animate={{
-                    opacity: 1,
-                    x: 0,
-                    y: [0, -12, 0],
-                    }}
-                    transition={{
-                    opacity: { duration: 1, delay: 0.2 },
-                    x: { duration: 1, delay: 0.2, ease: "easeOut" },
-                    y: {
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    },
-                    }}
-                    className="w-[210px] h-[280px] bg-[#0d3d43] rounded-[28px] p-8 flex flex-col justify-center shadow-sm"
-                >
-                    <h2 className="text-white text-[52px] font-semibold leading-none">
-                    100+
-                    </h2>
-
-                    <p className="mt-6 text-[#d4d4d4] text-[18px] leading-8">
-                    Our Esteemed
-                    <br />
-                    Clients and
-                    <br />
-                    Partners
-                    </p>
-                </motion.div>
-
-                {/* Center Card - From Bottom */}
-                <motion.div
-                    initial={{ opacity: 0, y: 120 }}
-                    animate={{
-                    opacity: 1,
-                    x: 0,
-                    y: [0, -12, 0],
-                    }}
-                    transition={{
-                    opacity: { duration: 1, delay: 0.2 },
-                    x: { duration: 1, delay: 0.2, ease: "easeOut" },
-                    y: {
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    },
-                    }}
-                    className="w-[220px] h-[230px] bg-white rounded-[28px] p-6 shadow-sm border border-[#ededed] relative"
-                >
-                    <div className="flex items-center justify-between">
-
-                    <div className="-mt-2 w-11 h-11 rounded-xl bg-[#dff5b7] flex items-center justify-center">
-                        <BadgeCheck
-                        size={20}
-                        className="text-[#0d3d43]"
-                        />
-                    </div>
-
-                    <MoreVertical
-                        size={20}
-                        className="text-[#8b8b8b]"
-                    />
-                    </div>
-
-                    <p className="mt-4 text-[#707070] text-[16px]">
-                    Total Projects
-                    </p>
-
-                    <div className="flex items-center gap-2 mt-1">
-                    <div className="w-2 h-2 rounded-full bg-[#0d3d43]"></div>
-
-                    <span className="text-[#0d3d43] text-[13px] font-medium">
-                        8%
-                    </span>
-                    </div>
-
-                    <h2 className="mt-2 text-[#171717] text-[44px] leading-none font-semibold">
-                    1951+
-                    </h2>
-
-                    <p className="mt-2 text-[#8b8b8b] text-[14px] leading-6">
-                    Increase of{" "}
-                    <span className="text-[#77c255] font-medium">
-                        126
-                    </span>{" "}
-                    this month
-                    </p>
-                </motion.div>
-
-                {/* Card 3 - From Right */}
-                <motion.div
-                    initial={{ opacity: 0, x: 100 }}
-                    animate={{
-                    opacity: 1,
-                    x: 0,
-                    y: [0, -12, 0],
-                    }}
-                    transition={{
-                    opacity: { duration: 1, delay: 0.2 },
-                    x: { duration: 1, delay: 0.2, ease: "easeOut" },
-                    y: {
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    },
-                    }}
-                    className="w-[210px] h-[280px] bg-[#dff5b7] rounded-[28px] p-8 flex flex-col justify-center shadow-sm"
-                >
-                    <h2 className="text-[#171717] text-[52px] font-semibold leading-none">
-                    6+
-                    </h2>
-
-                    <p className="mt-6 text-[#3d3d3d] text-[18px] leading-8">
-                    Years of
-                    <br />
-                    Dedicated
-                    <br />
-                    Service
-                    </p>
-                </motion.div>
-
-                {/* Last Card - From Right */}
-                <motion.div
-                    initial={{ opacity: 0, x: 120 }}
-                    animate={{
-                    opacity: 1,
-                    x: 0,
-                    y: [0, -12, 0],
-                    }}
-                    transition={{
-                    opacity: { duration: 1, delay: 0.2 },
-                    x: { duration: 1, delay: 0.2, ease: "easeOut" },
-                    y: {
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    },
-                    }}
-                    className="relative overflow-hidden w-[250px] h-[380px] bg-[#0d3d43] rounded-[28px] p-9 flex flex-col justify-end shadow-sm"
-                >
-                    {/* Background Gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-teal-700/30 to-transparent"></div>
-
-                    <div className="relative z-10">
-
-                    <div className="w-11 h-11 rounded-full border border-white/30 flex items-center justify-center mb-8">
-                        <ShieldCheck
-                        size={18}
-                        className="text-white"
-                        />
-                    </div>
-
-                    <h2 className="text-white text-[36px] leading-[1.25] font-medium">
-                        Achieve Optimal
-                        Efficiency and Boost
-                        Productivity
-                    </h2>
-                    </div>
-                </motion.div>
-                </div>
-            </div>
-        </section>
 
         {/* Services Section */}
         <section className="w-full bg-[#06363c] py-10 overflow-hidden">
