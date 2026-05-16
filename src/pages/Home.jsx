@@ -3,21 +3,13 @@ import { useEffect } from "react";
 import gsap from "gsap";
 
 import ImpactSection from "../components/Impact";
-import TestimonialsSection from "../components/TestimonialsSection";
+import Howitworks from "../components/TestimonialsSection";
 import { TiSpannerOutline } from "react-icons/ti";
 import { IoCubeOutline } from "react-icons/io5";
 import { LuShieldHalf } from "react-icons/lu";
 import { AiOutlineLineChart } from "react-icons/ai";
 import { TbStack, TbNorthStar } from "react-icons/tb";
 import { BsGlobe } from "react-icons/bs";
-import {
-  ArrowUpRight,
-  ShieldCheck,
-  BarChart3,
-  BadgeCheck,
-  Star,
-  MoreVertical,
-} from "lucide-react";
 
 const Home = () => {
   useEffect(() => {
@@ -456,6 +448,264 @@ const Home = () => {
         </div>
       </section>
 
+      {/* ─────────────────── SERVICES SECTION ─────────────────── */}
+    <section className="w-full bg-[#06363c] py-10 sm:py-14 overflow-hidden">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+
+        {/* Heading */}
+        <motion.div
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false }}
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        className="text-center max-w-3xl mx-auto"
+        >
+        <motion.span
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="inline-block text-[#7ecfc0] text-[11px] sm:text-[13px]
+                    tracking-[0.18em] font-semibold uppercase mb-4
+                    border border-[#7ecfc0]/30 rounded-full px-4 py-1.5
+                    bg-white/5"
+        >
+            OUR SERVICES
+        </motion.span>
+
+        <h2 className="text-white text-[26px] sm:text-[34px] md:text-[46px] font-semibold leading-[1.15] tracking-tight">
+            Every Service Your Finance
+            <br />
+            Function Needs.
+        </h2>
+
+        <p className="mt-4 sm:mt-5 text-[#b5c7c8] text-[15px] sm:text-[17px] leading-7 max-w-2xl mx-auto">
+            From daily bookkeeping to complex cross-border compliance —
+            one trusted partner for businesses operating between
+            India and the United States.
+        </p>
+        </motion.div>
+
+        {/* Cards Grid */}
+        <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.15 }}
+        variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.15 } },
+        }}
+        className="mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6"
+        >
+        {[
+            {
+            icon: <AiOutlineLineChart size={30} />,
+            badge: "Most Popular",
+            title: "US Tax & Sales Tax Compliance",
+            desc: "Nexus analysis, multi-state registration, monthly filings, and IRS return preparation — every state, every deadline.",
+            features: [
+                "Nexus Analysis",
+                "All 50-State Registration",
+                "Monthly/Quarterly Filings",
+                "IRS Return Preparation",
+            ],
+            link: "/services/us-tax-sales-tax-compliance",
+            },
+            {
+            icon: <TbStack size={30} />,
+            badge: null,
+            title: "CPA Firm Outsourcing",
+            desc: "CA-reviewed bookkeeping, workpaper prep, and tax return drafts delivered white-label to your US CPA firm.",
+            features: [
+                "QuickBooks / Xero Bookkeeping",
+                "Account Finalization",
+                "Tax Return Drafts",
+                "White-Label Delivery",
+            ],
+            link: "/services/cpa-firm-outsourcing",
+            },
+            {
+            icon: <LuShieldHalf size={30} />,
+            badge: null,
+            title: "US LLC Setup & Advisory",
+            desc: "LLC or C-Corp formation, EIN registration, operating agreements, and first-year compliance for non-US founders.",
+            features: [
+                "LLC / C-Corp Formation",
+                "EIN Application",
+                "Operating Agreement",
+                "First-Year Compliance",
+            ],
+            link: "/services/us-llc-setup-advisory",
+            },
+            {
+            icon: <TbNorthStar size={30} />,
+            badge: null,
+            title: "Offshore Bookkeeping",
+            desc: "Daily transaction recording, bank reconciliation, and monthly MIS reports — books clean and closed by the 15th.",
+            features: [
+                "Daily Bookkeeping",
+                "Bank Reconciliation",
+                "Monthly MIS Reports",
+                "Closed by 15th",
+            ],
+            link: "/services",
+            },
+            {
+            icon: <TiSpannerOutline size={30} />,
+            badge: null,
+            title: "Virtual CFO Services",
+            desc: "Strategic financial oversight, cash flow planning, investor-ready reporting, and board-level advisory — without the full-time cost.",
+            features: [
+                "Cash Flow Planning",
+                "Investor Reporting",
+                "Budget vs Actuals",
+                "Board Advisory",
+            ],
+            link: "/services",
+            },
+            {
+            icon: <IoCubeOutline size={30} />,
+            badge: null,
+            title: "Cross-Border Tax Advisory",
+            desc: "FEMA compliance, transfer pricing, DTAA planning, and India–US tax structuring for founders and growing companies.",
+            features: [
+                "FEMA Compliance",
+                "Transfer Pricing",
+                "DTAA Planning",
+                "India–US Structuring",
+            ],
+            link: "/services",
+            },
+        ].map((card, i) => (
+            <motion.div
+            key={i}
+            variants={{
+                hidden: { opacity: 0, clipPath: "inset(0 100% 0 0)" },
+                visible: { opacity: 1, clipPath: "inset(0 0% 0 0)" },
+            }}
+            transition={{ duration: 0.5, ease: [0.77, 0, 0.175, 1] }}
+            whileHover={{ y: -8, scale: 1.02 }}
+            className="group relative rounded-sm p-5 sm:p-6
+                        min-h-[280px] sm:min-h-[300px]
+                        transition-all duration-200 flex flex-col justify-between
+                        bg-[#11464d] hover:bg-[#15525a]"
+            >
+            {/* Top Row */}
+            <div>
+                <div className="flex items-start justify-between mb-5">
+                <div className="flex items-center gap-3">
+                    {/* Icon */}
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/10 text-white">
+                    {card.icon}
+                    </div>
+
+                    {/* Badge */}
+                    {card.badge && (
+                    <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: false }}
+                        transition={{ duration: 0.4, delay: 0.3 }}
+                        className="text-[10px] font-semibold tracking-widest uppercase
+                                bg-white/10 text-white px-2.5 py-1 rounded-full
+                                border border-white/15"
+                    >
+                        {card.badge}
+                    </motion.span>
+                    )}
+                </div>
+
+                {/* Arrow */}
+                <motion.a
+                    href={card.link}
+                    whileHover={{ x: 3, y: -3 }}
+                    transition={{ duration: 0.25 }}
+                    className="text-[20px] sm:text-[22px] transition-all duration-300
+                            group-hover:translate-x-[3px] group-hover:-translate-y-[3px]
+                            text-white"
+                >
+                    ↗
+                </motion.a>
+                </div>
+
+                {/* Title */}
+                <h3 className="text-[19px] sm:text-[22px] leading-tight font-semibold mb-3 text-white">
+                {card.title}
+                </h3>
+
+                {/* Desc */}
+                <p className="text-[13px] sm:text-[14px] leading-[1.8] text-[#c0d0d1]">
+                {card.desc}
+                </p>
+            </div>
+
+            {/* Divider */}
+            <div className="my-4 h-[1px] bg-white/10" />
+
+            {/* Feature Pills */}
+            <div className="flex flex-wrap gap-2">
+                {card.features.map((f, fi) => (
+                <motion.span
+                    key={fi}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false }}
+                    transition={{ duration: 0.3, delay: fi * 0.08 }}
+                    className="text-[11px] sm:text-[12px] font-medium px-2.5 py-1
+                            rounded-full border border-white/15 text-[#c0d0d1] bg-white/5"
+                >
+                    ✓ {f}
+                </motion.span>
+                ))}
+            </div>
+            </motion.div>
+        ))}
+        </motion.div>
+
+        {/* Bottom CTA */}
+        <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false }}
+        transition={{ duration: 0.7, delay: 0.2 }}
+        className="mt-10 sm:mt-14 flex flex-col sm:flex-row items-center
+                    justify-between gap-5 border-t border-white/10 pt-8 sm:pt-10"
+        >
+        <p className="text-[#b5c7c8] text-[14px] sm:text-[16px] text-center sm:text-left">
+            Not sure which service fits your situation?
+            <span className="text-white font-medium"> Talk to our team — free 30-min call.</span>
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
+            <motion.a
+            whileHover={{ scale: 1.04, y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            href="/services"
+            className="bg-[#dff5b7] hover:bg-[#cef0a0] text-[#052f35]
+                        px-6 py-3 rounded-xl text-[14px] sm:text-[15px]
+                        font-semibold transition-all duration-300
+                        text-center whitespace-nowrap"
+            >
+            Explore All Services →
+            </motion.a>
+
+            <motion.a
+            whileHover={{ scale: 1.04, y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            href="/contact"
+            className="border border-white/20 hover:border-white/50 text-white
+                        px-6 py-3 rounded-xl text-[14px] sm:text-[15px]
+                        font-medium transition-all duration-300
+                        text-center whitespace-nowrap"
+            >
+            Book Free Call
+            </motion.a>
+        </div>
+        </motion.div>
+
+    </div>
+    </section>
+
       {/* ─────────────────── COMPLIANCE DEADLINE SECTION ─────────────────── */}
       <section className="w-full bg-[#f5f5f3] pb-10 sm:pb-14 lg:pb-16
                           px-4 sm:px-6 overflow-hidden">
@@ -642,266 +892,9 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ─────────────────── SERVICES SECTION ─────────────────── */}
-<section className="w-full bg-[#06363c] py-10 sm:py-14 overflow-hidden">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-
-    {/* Heading */}
-    <motion.div
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false }}
-      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-      className="text-center max-w-3xl mx-auto"
-    >
-      <motion.span
-        initial={{ opacity: 0, scale: 0.8 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: false }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="inline-block text-[#7ecfc0] text-[11px] sm:text-[13px]
-                   tracking-[0.18em] font-semibold uppercase mb-4
-                   border border-[#7ecfc0]/30 rounded-full px-4 py-1.5
-                   bg-white/5"
-      >
-        OUR SERVICES
-      </motion.span>
-
-      <h2 className="text-white text-[26px] sm:text-[34px] md:text-[46px] font-semibold leading-[1.15] tracking-tight">
-        Every Service Your Finance
-        <br />
-        Function Needs.
-      </h2>
-
-      <p className="mt-4 sm:mt-5 text-[#b5c7c8] text-[15px] sm:text-[17px] leading-7 max-w-2xl mx-auto">
-        From daily bookkeeping to complex cross-border compliance —
-        one trusted partner for businesses operating between
-        India and the United States.
-      </p>
-    </motion.div>
-
-    {/* Cards Grid */}
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: false, amount: 0.15 }}
-      variants={{
-        hidden: {},
-        visible: { transition: { staggerChildren: 0.15 } },
-      }}
-      className="mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6"
-    >
-      {[
-        {
-          icon: <AiOutlineLineChart size={30} />,
-          badge: "Most Popular",
-          title: "US Tax & Sales Tax Compliance",
-          desc: "Nexus analysis, multi-state registration, monthly filings, and IRS return preparation — every state, every deadline.",
-          features: [
-            "Nexus Analysis",
-            "All 50-State Registration",
-            "Monthly/Quarterly Filings",
-            "IRS Return Preparation",
-          ],
-          link: "/services/us-tax-sales-tax-compliance",
-        },
-        {
-          icon: <TbStack size={30} />,
-          badge: null,
-          title: "CPA Firm Outsourcing",
-          desc: "CA-reviewed bookkeeping, workpaper prep, and tax return drafts delivered white-label to your US CPA firm.",
-          features: [
-            "QuickBooks / Xero Bookkeeping",
-            "Account Finalization",
-            "Tax Return Drafts",
-            "White-Label Delivery",
-          ],
-          link: "/services/cpa-firm-outsourcing",
-        },
-        {
-          icon: <LuShieldHalf size={30} />,
-          badge: null,
-          title: "US LLC Setup & Advisory",
-          desc: "LLC or C-Corp formation, EIN registration, operating agreements, and first-year compliance for non-US founders.",
-          features: [
-            "LLC / C-Corp Formation",
-            "EIN Application",
-            "Operating Agreement",
-            "First-Year Compliance",
-          ],
-          link: "/services/us-llc-setup-advisory",
-        },
-        {
-          icon: <TbNorthStar size={30} />,
-          badge: null,
-          title: "Offshore Bookkeeping",
-          desc: "Daily transaction recording, bank reconciliation, and monthly MIS reports — books clean and closed by the 15th.",
-          features: [
-            "Daily Bookkeeping",
-            "Bank Reconciliation",
-            "Monthly MIS Reports",
-            "Closed by 15th",
-          ],
-          link: "/services",
-        },
-        {
-          icon: <TiSpannerOutline size={30} />,
-          badge: null,
-          title: "Virtual CFO Services",
-          desc: "Strategic financial oversight, cash flow planning, investor-ready reporting, and board-level advisory — without the full-time cost.",
-          features: [
-            "Cash Flow Planning",
-            "Investor Reporting",
-            "Budget vs Actuals",
-            "Board Advisory",
-          ],
-          link: "/services",
-        },
-        {
-          icon: <IoCubeOutline size={30} />,
-          badge: null,
-          title: "Cross-Border Tax Advisory",
-          desc: "FEMA compliance, transfer pricing, DTAA planning, and India–US tax structuring for founders and growing companies.",
-          features: [
-            "FEMA Compliance",
-            "Transfer Pricing",
-            "DTAA Planning",
-            "India–US Structuring",
-          ],
-          link: "/services",
-        },
-      ].map((card, i) => (
-        <motion.div
-          key={i}
-          variants={{
-            hidden: { opacity: 0, clipPath: "inset(0 100% 0 0)" },
-            visible: { opacity: 1, clipPath: "inset(0 0% 0 0)" },
-          }}
-          transition={{ duration: 0.5, ease: [0.77, 0, 0.175, 1] }}
-          whileHover={{ y: -8, scale: 1.02 }}
-          className="group relative rounded-sm p-5 sm:p-6
-                     min-h-[280px] sm:min-h-[300px]
-                     transition-all duration-200 flex flex-col justify-between
-                     bg-[#11464d] hover:bg-[#15525a]"
-        >
-          {/* Top Row */}
-          <div>
-            <div className="flex items-start justify-between mb-5">
-              <div className="flex items-center gap-3">
-                {/* Icon */}
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/10 text-white">
-                  {card.icon}
-                </div>
-
-                {/* Badge */}
-                {card.badge && (
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: false }}
-                    transition={{ duration: 0.4, delay: 0.3 }}
-                    className="text-[10px] font-semibold tracking-widest uppercase
-                               bg-white/10 text-white px-2.5 py-1 rounded-full
-                               border border-white/15"
-                  >
-                    {card.badge}
-                  </motion.span>
-                )}
-              </div>
-
-              {/* Arrow */}
-              <motion.a
-                href={card.link}
-                whileHover={{ x: 3, y: -3 }}
-                transition={{ duration: 0.25 }}
-                className="text-[20px] sm:text-[22px] transition-all duration-300
-                           group-hover:translate-x-[3px] group-hover:-translate-y-[3px]
-                           text-white"
-              >
-                ↗
-              </motion.a>
-            </div>
-
-            {/* Title */}
-            <h3 className="text-[19px] sm:text-[22px] leading-tight font-semibold mb-3 text-white">
-              {card.title}
-            </h3>
-
-            {/* Desc */}
-            <p className="text-[13px] sm:text-[14px] leading-[1.8] text-[#c0d0d1]">
-              {card.desc}
-            </p>
-          </div>
-
-          {/* Divider */}
-          <div className="my-4 h-[1px] bg-white/10" />
-
-          {/* Feature Pills */}
-          <div className="flex flex-wrap gap-2">
-            {card.features.map((f, fi) => (
-              <motion.span
-                key={fi}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false }}
-                transition={{ duration: 0.3, delay: fi * 0.08 }}
-                className="text-[11px] sm:text-[12px] font-medium px-2.5 py-1
-                           rounded-full border border-white/15 text-[#c0d0d1] bg-white/5"
-              >
-                ✓ {f}
-              </motion.span>
-            ))}
-          </div>
-        </motion.div>
-      ))}
-    </motion.div>
-
-    {/* Bottom CTA */}
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false }}
-      transition={{ duration: 0.7, delay: 0.2 }}
-      className="mt-10 sm:mt-14 flex flex-col sm:flex-row items-center
-                 justify-between gap-5 border-t border-white/10 pt-8 sm:pt-10"
-    >
-      <p className="text-[#b5c7c8] text-[14px] sm:text-[16px] text-center sm:text-left">
-        Not sure which service fits your situation?
-        <span className="text-white font-medium"> Talk to our team — free 30-min call.</span>
-      </p>
-
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
-        <motion.a
-          whileHover={{ scale: 1.04, y: -2 }}
-          whileTap={{ scale: 0.97 }}
-          href="/services"
-          className="bg-[#dff5b7] hover:bg-[#cef0a0] text-[#052f35]
-                     px-6 py-3 rounded-xl text-[14px] sm:text-[15px]
-                     font-semibold transition-all duration-300
-                     text-center whitespace-nowrap"
-        >
-          Explore All Services →
-        </motion.a>
-
-        <motion.a
-          whileHover={{ scale: 1.04, y: -2 }}
-          whileTap={{ scale: 0.97 }}
-          href="/contact"
-          className="border border-white/20 hover:border-white/50 text-white
-                     px-6 py-3 rounded-xl text-[14px] sm:text-[15px]
-                     font-medium transition-all duration-300
-                     text-center whitespace-nowrap"
-        >
-          Book Free Call
-        </motion.a>
-      </div>
-    </motion.div>
-
-  </div>
-</section>
 
       <ImpactSection />
-      <TestimonialsSection />
+      <Howitworks />
 
       {/* ─────────────────── VALUES SECTION ─────────────────── */}
       <section className="w-full bg-[#f5f5f3] py-10 sm:py-14 overflow-hidden">
