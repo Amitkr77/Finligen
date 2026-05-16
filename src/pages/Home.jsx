@@ -930,13 +930,13 @@ const Home = () => {
                         {/* Icon */}
                         <div className="relative w-12 h-12">
                             {/* Top Left */}
-                            <div className="absolute top-0 left-0 w-6 h-6 border border-[#111] rounded-full"></div>
+                            <div className="absolute top-0 left-0 w-8 h-8 border border-[#111] rounded-full"></div>
                             {/* Top Right */}
-                            <div className="absolute top-0 right-0 w-6 h-6 border border-[#111] rounded-full"></div>
+                            <div className="absolute top-0 right-0 w-8 h-8 border border-[#111] rounded-full"></div>
                             {/* Bottom Left */}
-                            <div className="absolute bottom-0 left-0 w-6 h-6 border border-[#111] rounded-full"></div>
+                            <div className="absolute bottom-0 left-0 w-8 h-8 border border-[#111] rounded-full"></div>
                             {/* Bottom Right */}
-                            <div className="absolute bottom-0 right-0 w-6 h-6 border border-[#111] rounded-full"></div>
+                            <div className="absolute bottom-0 right-0 w-8 h-8 border border-[#111] rounded-full"></div>
                         </div>
                             <h3 className="mt-8 text-[#111] text-[28px] leading-tight font-semibold">
                                 Smart Manufacturing
@@ -979,8 +979,8 @@ const Home = () => {
                         {/* Icon */}
                         <div className="w-10 h-10 flex items-center justify-center">
                             <div className="relative w-10 h-10 rotate-45">
-                                <div className="absolute inset-0 border border-[#111] rounded-[10px]"></div>
-                                <div className="absolute top-2 left-2 w-10 h-10 border border-[#111] rounded-[10px]"></div>
+                                <div className="absolute inset-0 w-8 h-8 border border-[#111] rounded-[10px]"></div>
+                                <div className="absolute top-4 left-4 w-8 h-8 border border-[#111] rounded-[10px]"></div>
                             </div>
                         </div>
                             <h3 className="mt-8 text-[#111] text-[28px] leading-tight font-semibold">
