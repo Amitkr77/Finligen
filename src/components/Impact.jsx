@@ -3,58 +3,58 @@ import { useState } from "react";
 const statCards = [
   {
     id: 1,
-    label: "FASTER LISTING",
-    value: "3x",
-    description: "List your products 3x faster with our automated tools",
+    label: "FASTER COMPLIANCE",
+    value: "100%",
+    description: "Complete US tax filings within 48 hours of documentation",
     icon: "⚡",
     image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=80",
-    stats: "100+",
-    statsLabel: "Products Listed Daily",
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?w=900&q=80",
+    stats: "500+",
+    statsLabel: "Businesses Served",
   },
   {
     id: 2,
-    label: "SEARCH VISIBILITY",
-    value: "85%",
-    description: "Boost your search visibility by up to 85% organically",
-    icon: "🔍",
+    label: "ZERO PENALTIES",
+    value: "$0",
+    description: "No IRS penalty notices on FinliGen-managed filings",
+    icon: "🛡️",
     image:
-"https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=900&q=80",
-    stats: "250K+",
-    statsLabel: "Monthly Impressions",
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900&q=80",
+    stats: "15+",
+    statsLabel: "Years Cross-Border Expertise",
   },
   {
     id: 3,
-    label: "BOOSTED SALES",
-    value: "2x",
-    description: "Double your sales with our smart recommendation engine",
-    icon: "📈",
+    label: "BOOKS CLOSED",
+    value: "15th",
+    description: "Monthly financial close guaranteed by the 15th, every month",
+    icon: "📊",
     image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=900&q=80",
-    stats: "500+",
-    statsLabel: "Active Merchants",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80",
+    stats: "48hrs",
+    statsLabel: "Average Response Time",
   },
   {
     id: 4,
-    label: "FEWER INQUIRIES",
-    value: "60%",
-    description: "Reduce support inquiries by 60% with better listings",
-    icon: "💬",
+    label: "DUAL EXPERTISE",
+    value: "2",
+    description: "CA-led team fluent in both Indian and US compliance standards",
+    icon: "🌐",
     image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=80",
-    stats: "24/7",
-    statsLabel: "Support Available",
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?w=900&q=80",
+    stats: "4",
+    statsLabel: "Offices Across India",
   },
   {
     id: 5,
-    label: "GLOBAL REACH",
-    value: "40+",
-    description: "Expand to 40+ countries with our localization engine",
-    icon: "🌍",
+    label: "FULL COVERAGE",
+    value: "50+",
+    description: "All US states covered for sales tax, IRS, and cross-border compliance",
+    icon: "🗺️",
     image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900&q=80",
-    stats: "1M+",
-    statsLabel: "Users Worldwide",
+      "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=900&q=80",
+    stats: "40+",
+    statsLabel: "Countries Supported",
   },
 ];
 
@@ -68,16 +68,16 @@ const ImpactSection = () => {
         <div className="flex items-center justify-center gap-2 mb-5">
           <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
           <span className="text-orange-500 text-xs font-bold tracking-[0.3em] uppercase">
-            Impact
+            Why FinliGen
           </span>
         </div>
 
         {/* Heading */}
         <div className="text-center mb-14">
           <h2 className="text-4xl md:text-6xl font-black text-gray-900 leading-tight">
-            B2B Made Simple.
+            Compliance Made Certain.
             <br />
-            Growth Made Inevitable.
+            Growth Made Possible.
           </h2>
         </div>
 
@@ -167,11 +167,11 @@ const ImpactSection = () => {
                     {/* Badge */}
                     <div className="flex items-center gap-2 bg-white/15 backdrop-blur-xl border border-white/20 px-4 py-2 rounded-full">
                       <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-                        ✨
+                        ✓
                       </div>
 
                       <span className="text-white text-sm font-semibold">
-                        Premium
+                        Verified
                       </span>
                     </div>
 
