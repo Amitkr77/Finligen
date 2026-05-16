@@ -897,7 +897,7 @@ const Home = () => {
       <Howitworks />
 
       {/* ─────────────────── AUDIENCE ENTRY PATHS ─────────────────── */}
-      <section className="w-full bg-[#f5f5f3] py-10 sm:py-14 overflow-hidden">
+      <section className="w-full bg-white py-10 sm:py-14 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
 
           {/* Heading */}
@@ -1088,6 +1088,520 @@ const Home = () => {
         </div>
       </section>
 
+      {/* ─────────────────── TESTIMONIALS SECTION ─────────────────── */}
+      <section className="w-full bg-gray-200 py-10 sm:py-14 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+
+          {/* Top Heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
+          >
+            <div className="max-w-3xl">
+              <span
+                className="inline-flex items-center text-[#3f655b]
+                          text-[11px] sm:text-[13px]
+                          tracking-[0.18em] font-semibold uppercase
+                          border border-[#3f655b]/15
+                          rounded-full px-4 py-1.5 bg-white"
+              >
+                CLIENT TESTIMONIALS
+              </span>
+
+              <h2
+                className="mt-4 text-[#050816]
+                          text-[30px] sm:text-[42px]
+                          md:text-[54px]
+                          leading-[1.08]
+                          tracking-[-0.04em]
+                          font-semibold"
+              >
+                What CPA firms say after
+                <br />
+                the first year working with us.
+              </h2>
+            </div>
+
+            <p
+              className="max-w-[420px]
+                        text-[#666]
+                        text-[14px] sm:text-[16px]
+                        leading-[1.9]"
+            >
+              Long-term partnerships built on accuracy,
+              responsiveness, and real operational capacity.
+            </p>
+          </motion.div>
+
+          {/* Testimonials Grid */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.15,
+                },
+              },
+            }}
+            className="mt-10 grid grid-cols-1 xl:grid-cols-2 gap-5"
+          >
+
+            {[
+              {
+                quote:
+                  "I was skeptical after a bad experience with another offshore firm. FinliGen did a two-week trial on one of our mid-size clients. The output was better than what my in-house staff was producing. We now outsource about 40% of our write-up work to them. That capacity let us take on six new clients this year we'd otherwise have turned away.",
+                initials: "JM",
+                name: "Jennifer M., CPA",
+                role: "Managing Partner · Boutique Tax Practice · Illinois",
+              },
+              {
+                quote:
+                  "The CA review process is what sold us. When I send a file to FinliGen, I know a qualified accountant has looked at it before it comes back to me — not just a junior staff member running through a checklist. The error rate over 18 months has been essentially zero. For a firm our size, that matters.",
+                initials: "RD",
+                name: "Robert D., EA",
+                role: "Principal · Tax & Advisory Firm · Texas",
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                variants={{
+                  hidden: {
+                    opacity: 0,
+                    y: 60,
+                  },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                  },
+                }}
+                transition={{
+                  duration: 0.7,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{
+                  y: -8,
+                }}
+                className="group relative bg-white
+                          border border-[#e7e7e5]
+                          rounded-[30px]
+                          p-6 sm:p-8 lg:p-10
+                          overflow-hidden"
+              >
+                {/* Background Glow */}
+                <div
+                  className="absolute -top-10 -right-10
+                            w-40 h-40
+                            bg-[#dff5b7]/20
+                            blur-3xl
+                            opacity-0
+                            group-hover:opacity-100
+                            transition-all duration-500"
+                />
+
+                {/* Quote Icon
+                <div
+                  className="relative z-10
+                            w-14 h-14
+                            rounded-2xl
+                            bg-[#0d3d43]
+                            text-white
+                            flex items-center justify-center
+                            text-3xl mb-8"
+                >
+                  “
+                </div> */}
+
+                {/* Quote */}
+                <p
+                  className="relative z-10
+                            text-[#222]
+                            text-[15px] sm:text-[17px]
+                            leading-[2]
+                            font-normal"
+                >
+                  ❝ {item.quote} ❞
+                </p>
+
+                {/* Divider */}
+                <div className="relative z-10 mt-8 h-[1px] bg-[#ececeb]" />
+
+                {/* Author */}
+                <div
+                  className="relative z-10
+                            mt-6 flex items-center gap-4"
+                >
+                  {/* Avatar */}
+                  <div
+                    className="w-14 h-14 rounded-full
+                              bg-[#0d3d43]
+                              text-white
+                              flex items-center justify-center
+                              text-[15px]
+                              font-semibold"
+                  >
+                    {item.initials}
+                  </div>
+
+                  {/* Details */}
+                  <div>
+                    <h4
+                      className="text-[#111]
+                                text-[16px]
+                                font-semibold"
+                    >
+                      {item.name}
+                    </h4>
+
+                    <p
+                      className="mt-1
+                                text-[#666]
+                                text-[13px]
+                                leading-[1.7]"
+                    >
+                      {item.role}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Bottom Notice 
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="mt-6 sm:mt-8 bg-[#ebe7d8]
+                      border border-[#ddd7c6]
+                      rounded-2xl
+                      p-5 sm:p-6"
+          >
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
+              <div
+                className="w-10 h-10 rounded-xl
+                          bg-[#0d3d43]
+                          text-white
+                          flex items-center justify-center
+                          text-lg flex-shrink-0"
+              >
+                ✦
+              </div>
+
+              <div>
+                <h4
+                  className="text-[#173c37]
+                            text-[15px] sm:text-[16px]
+                            font-semibold"
+                >
+                  Before launch: replace placeholder client identities.
+                </h4>
+
+                <p
+                  className="mt-2 text-[#5f6368]
+                            text-[13px] sm:text-[14px]
+                            leading-[1.9]"
+                >
+                  Add real client names, photos, firm names,
+                  and ideally one short video testimonial.
+                  Even a single CPA partner video creates
+                  massive trust for offshore accounting services.
+                </p>
+              </div>
+            </div>
+          </motion.div>*/}
+
+        </div>
+      </section>
+
+      {/* ─────────────────── BLOG / INSIGHTS SECTION ─────────────────── */}
+      <section className="w-full bg-white py-10 sm:py-14 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+
+          {/* Heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
+          >
+            <div className="max-w-3xl">
+              <span
+                className="inline-flex items-center
+                          text-[#3f655b]
+                          text-[11px] sm:text-[13px]
+                          tracking-[0.18em]
+                          font-semibold uppercase
+                          border border-[#3f655b]/15
+                          rounded-full px-4 py-1.5 bg-white"
+              >
+                INSIGHTS & RESOURCES
+              </span>
+
+              <h2
+                className="mt-4 text-[#050816]
+                          text-[30px] sm:text-[42px]
+                          md:text-[54px]
+                          leading-[1.08]
+                          tracking-[-0.04em]
+                          font-semibold"
+              >
+                Stay ahead of compliance
+                <br />
+                before it becomes a problem.
+              </h2>
+            </div>
+
+            <p
+              className="max-w-[420px]
+                        text-[#666]
+                        text-[14px] sm:text-[16px]
+                        leading-[1.9]"
+            >
+              Guides, compliance breakdowns, and cross-border
+              finance insights for founders, CPA firms,
+              and ecommerce businesses.
+            </p>
+          </motion.div>
+
+          {/* Blog Cards */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.12,
+                },
+              },
+            }}
+            className="mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
+          >
+
+            {[
+              {
+                category: "US TAX",
+                title:
+                  "US Economic Nexus Explained: A 2025 Guide for Foreign Ecommerce Sellers",
+                desc:
+                  "Understand when your business becomes liable for US sales tax and how economic nexus rules apply across states.",
+                read: "8 min read",
+              },
+              {
+                category: "LLC SETUP",
+                title:
+                  "How to Set Up a US LLC as an Indian Citizen (Step-by-Step 2025)",
+                desc:
+                  "Everything founders need to know about LLC formation, EIN registration, and first-year US compliance.",
+                read: "11 min read",
+              },
+              {
+                category: "CPA OUTSOURCING",
+                title:
+                  "CPA Firm Outsourcing to India: What to Look for (and What to Avoid)",
+                desc:
+                  "A practical guide for US CPA firms evaluating offshore bookkeeping and tax preparation partners.",
+                read: "7 min read",
+              },
+              {
+                category: "US SALES TAX",
+                title:
+                  "US Sales Tax for Amazon FBA Sellers: The Complete Compliance Playbook",
+                desc:
+                  "Multi-state filing, nexus analysis, and sales tax risks every Amazon seller should understand.",
+                read: "9 min read",
+              },
+              {
+                category: "CROSS-BORDER",
+                title:
+                  "FEMA ODI Compliance for Indian Companies with US Subsidiaries",
+                desc:
+                  "Key FEMA obligations, ODI reporting requirements, and compliance timelines explained clearly.",
+                read: "6 min read",
+              },
+              {
+                category: "STARTUPS",
+                title:
+                  "Series A Readiness: What Investors Expect from Your Financial Statements",
+                desc:
+                  "The reporting systems, metrics, and finance hygiene investors expect before your next raise.",
+                read: "10 min read",
+              },
+            ].map((post, i) => (
+              <motion.div
+                key={i}
+                variants={{
+                  hidden: {
+                    opacity: 0,
+                    y: 50,
+                  },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                  },
+                }}
+                transition={{
+                  duration: 0.7,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{
+                  y: -8,
+                }}
+                className="group relative bg-white
+                          border border-[#e8e8e6]
+                          rounded-[28px]
+                          overflow-hidden"
+              >
+
+                {/* Top Gradient */}
+                <div
+                  className="h-[5px] w-full
+                            bg-gradient-to-r
+                            from-[#0d3d43]
+                            via-[#2F6B5A]
+                            to-[#dff5b7]"
+                />
+
+                <div className="p-6 sm:p-7">
+
+                  {/* Category */}
+                  <div
+                    className="inline-flex items-center
+                              text-[10px]
+                              tracking-[0.16em]
+                              uppercase font-semibold
+                              text-[#0d3d43]
+                              bg-[#0d3d43]/5
+                              border border-[#0d3d43]/10
+                              rounded-full px-3 py-1.5"
+                  >
+                    {post.category}
+                  </div>
+
+                  {/* Title */}
+                  <h3
+                    className="mt-5 text-[#111]
+                              text-[22px]
+                              leading-[1.3]
+                              font-semibold
+                              transition-all duration-300
+                              group-hover:text-[#0d3d43]"
+                  >
+                    {post.title}
+                  </h3>
+
+                  {/* Desc */}
+                  <p
+                    className="mt-4 text-[#666]
+                              text-[14px]
+                              leading-[1.9]"
+                  >
+                    {post.desc}
+                  </p>
+
+                  {/* Bottom */}
+                  <div
+                    className="group mt-8 flex items-center
+                              justify-between"
+                  >
+                    <span
+                      className="text-[#666]
+                                text-[13px]"
+                    >
+                      {post.read}
+                    </span>
+
+                    <motion.div
+                      whileHover={{
+                        rotate: 45,
+                      }}
+                      className="w-11 h-11
+                                rounded-full border border-[#0d3d43]
+                                bg-white group-hover:bg-[#0d3d43]
+                                text-[#0d3d43] group-hover:text-white
+                                flex items-center
+                                justify-center
+                                text-lg"
+                    >
+                      ↗
+                    </motion.div>
+                  </div>
+                </div>
+
+                {/* Glow */}
+                <div
+                  className="absolute -top-10 -right-10
+                            w-40 h-40
+                            bg-[#dff5b7]/20
+                            blur-3xl opacity-0
+                            group-hover:opacity-100
+                            transition-all duration-500"
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Bottom CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="mt-10 sm:mt-12
+                      flex flex-col sm:flex-row
+                      items-center justify-between
+                      gap-5
+                      border-t border-[#e5e5e3]
+                      pt-8"
+          >
+            <div>
+              <h4
+                className="text-[#111]
+                          text-[18px]
+                          font-semibold"
+              >
+                Looking for something specific?
+              </h4>
+
+              <p
+                className="mt-1 text-[#666]
+                          text-[14px]"
+              >
+                Explore detailed guides on US tax, LLC setup,
+                CPA outsourcing, and cross-border compliance.
+              </p>
+            </div>
+
+            <motion.a
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              href="/blog"
+              className="bg-[#0d3d43]
+                        hover:bg-[#145159]
+                        text-white
+                        px-6 py-3
+                        rounded-xl
+                        text-[14px]
+                        font-medium
+                        transition-all duration-300
+                        whitespace-nowrap"
+            >
+              Explore All Articles →
+            </motion.a>
+          </motion.div>
+
+        </div>
+      </section>
+
       {/* ─────────────────── VALUES SECTION ─────────────────── */}
       <section className="w-full bg-[#f5f5f3] py-10 sm:py-14 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
@@ -1266,7 +1780,7 @@ const Home = () => {
       </section>
 
       {/* ─────────────────── ABOUT US SECTION ─────────────────── */}
-      <section className="w-full bg-[#f5f5f3] py-10 sm:py-14 overflow-hidden">
+      <section className="w-full bg-gray-200 py-10 sm:py-14 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
 
           {/* Heading */}
