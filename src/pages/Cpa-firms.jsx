@@ -68,7 +68,7 @@ export default function CPAFirmPage() {
     <div className="bg-[#f5f5f3] overflow-hidden">
 
     {/* ─────────────────── HERO SECTION ─────────────────── */}
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#f5f5f3]">
+    <section className="-mt-16 relative min-h-screen flex items-center overflow-hidden bg-[#f5f5f3]">
 
       {/* BACKGROUND GLOWS */}
       <motion.div
@@ -196,7 +196,7 @@ export default function CPAFirmPage() {
                         text-[18px] sm:text-[20px]
                         leading-[1.9]"
             >
-              FinliGen provides US accounting firms with
+              FinliGen provides US accounting firm's with
               a dedicated offshore team — qualified CAs,
               trained in QuickBooks and US GAAP —
               delivering client-ready work on your timeline.
@@ -282,8 +282,9 @@ export default function CPAFirmPage() {
                             border border-[#e7e7e5]
                             rounded-full
                             px-5 py-3
-                            text-[13px]
+                            text-[10px]
                             text-[#555]
+                            font-bold
                             shadow-[0_4px_20px_rgba(0,0,0,0.03)]"
                 >
                   ✓ {item}
@@ -494,7 +495,7 @@ export default function CPAFirmPage() {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute -left-8 bottom-10
+              className="absolute -right-20 bottom-10
                         bg-white
                         border border-[#ececea]
                         rounded-[28px]
@@ -544,7 +545,7 @@ export default function CPAFirmPage() {
     </section>
 
     {/* ─────────────────── PAIN POINTS SECTION ─────────────────── */}
-    <section className="relative py-32 overflow-hidden bg-[#f5f5f3]">
+    <section className="relative py-10 overflow-hidden bg-[#f5f5f3]">
 
       {/* BACKGROUND */}
       <div
@@ -613,7 +614,7 @@ export default function CPAFirmPage() {
                         tracking-[-0.06em]
                         font-semibold"
             >
-              Most CPA firms
+              Most CPA firm's
               don’t have a
               <span className="relative inline-block">
 
@@ -694,7 +695,7 @@ export default function CPAFirmPage() {
                           text-[15px]
                           leading-[1.8]"
               >
-                Most firms lose growth opportunities because
+                Most firm's lose growth opportunities because
                 internal capacity becomes the bottleneck
                 during filing season.
               </p>
@@ -813,7 +814,7 @@ export default function CPAFirmPage() {
 
     </section>
 
-    {/* ─────────────────── WHY MOST OFFSHORE FIRMS FAIL ─────────────────── */}
+    {/* ─────────────────── WHY MOST OFFSHORE firm's FAIL ─────────────────── */}
     <section className="relative py-32 bg-white overflow-hidden">
 
       {/* GLOW */}
@@ -881,7 +882,7 @@ export default function CPAFirmPage() {
                       max-w-3xl"
           >
             They optimize for labor cost instead of accounting quality.
-            CPA firms end up spending more time reviewing,
+            CPA firm's end up spending more time reviewing,
             correcting, and managing offshore teams
             than they save.
           </p>
@@ -1152,7 +1153,7 @@ export default function CPAFirmPage() {
 
     </section>
 
-    {/* ─────────────────── WHY FIRMS SWITCH ─────────────────── */}
+    {/* ─────────────────── WHY firm's SWITCH ─────────────────── */}
     <section className="relative py-32 overflow-hidden bg-[#f5f5f3]">
 
       {/* GRID */}
@@ -1207,7 +1208,7 @@ export default function CPAFirmPage() {
                           bg-[#7cc576]"
               />
 
-              WHY FIRMS SWITCH
+              WHY firm's SWITCH
 
             </span>
 
@@ -1236,7 +1237,7 @@ export default function CPAFirmPage() {
 
               </span>
 
-              — not create more of it.
+              — not create more of it .
             </h2>
 
             {/* TEXT */}
@@ -1433,7 +1434,7 @@ export default function CPAFirmPage() {
               animate={{
                 y: [0, -10, 0],
               }}
-              className="absolute -bottom-10 -left-10
+              className="absolute -bottom-10 -right-30
                         hidden lg:block
                         bg-[#0d3d43]
                         text-white
@@ -1467,7 +1468,7 @@ export default function CPAFirmPage() {
                           max-w-[220px]"
               >
                 Long-term embedded partnerships
-                with accounting firms.
+                with accounting firm's.
               </p>
 
             </motion.div>
@@ -1554,7 +1555,7 @@ export default function CPAFirmPage() {
                       tracking-[-0.07em]
                       font-semibold"
           >
-            Built for firms that
+            Built for firm's that
             need scalable delivery
             without sacrificing quality.
           </h2>
@@ -2573,7 +2574,7 @@ export default function CPAFirmPage() {
                         leading-[1.9]
                         max-w-2xl"
             >
-              Most firms lose profitability during tax season
+              Most firm's lose profitability during tax season
               because their team becomes the bottleneck.
               FinliGen gives your firm scalable offshore capacity
               exactly when workload spikes.
@@ -2757,7 +2758,7 @@ export default function CPAFirmPage() {
               animate={{
                 y: [0, -10, 0],
               }}
-              className="absolute -bottom-10 -left-10
+              className="absolute -bottom-2 -right-30
                         hidden lg:block
                         bg-white
                         rounded-[28px]
@@ -3237,7 +3238,7 @@ export default function CPAFirmPage() {
                       tracking-[-0.07em]
                       font-semibold"
           >
-            Trusted by firms
+            Trusted by firm's
             that need reliable
             delivery at scale.
           </h2>
@@ -3575,7 +3576,7 @@ export default function CPAFirmPage() {
                       font-semibold"
           >
             Common questions
-            from CPA firms.
+            from CPA firm's.
           </h2>
 
         </motion.div>
@@ -3600,11 +3601,11 @@ export default function CPAFirmPage() {
             },
             {
               q: "How fast can you onboard?",
-              a: "Most firms are fully operational within 5–7 business days.",
+              a: "Most firm's are fully operational within 5–7 business days.",
             },
             {
               q: "Can we scale during busy season only?",
-              a: "Yes. Many CPA firms use us for seasonal capacity expansion.",
+              a: "Yes. Many CPA firm's use us for seasonal capacity expansion.",
             },
           ].map((faq, i) => {
             const isOpen = openFaq === i;
@@ -3946,7 +3947,7 @@ export default function CPAFirmPage() {
                         leading-[1.9]
                         max-w-3xl"
             >
-              Dedicated offshore support for CPA firms
+              Dedicated offshore support for CPA firm's
               that need more capacity, higher margins,
               and reliable delivery during busy season.
             </p>
@@ -4248,7 +4249,7 @@ export default function CPAFirmPage() {
                           max-w-[220px]"
               >
                 Long-term embedded accounting
-                partnerships with CPA firms.
+                partnerships with CPA firm's.
               </p>
 
             </motion.div>
@@ -4271,7 +4272,7 @@ export default function CPAFirmPage() {
 //   RiDoubleQuotesL,
 // } from "react-icons/ri";
 
-// export default function CpaFirms() {
+// export default function Cpafirm's() {
 
 //   const painPoints = [
 //     "Your team is buried in write-up work during busy season.",
@@ -4356,7 +4357,7 @@ export default function CPAFirmPage() {
 //                            text-[17px] sm:text-[20px]
 //                            leading-[1.9]"
 //               >
-//                 FinliGen provides US accounting firms with
+//                 FinliGen provides US accounting firm's with
 //                 a dedicated offshore team — qualified CAs,
 //                 trained in QuickBooks and US GAAP —
 //                 delivering client-ready work on your timeline.
@@ -4445,7 +4446,7 @@ export default function CPAFirmPage() {
 //                            tracking-[-0.04em]
 //                            font-semibold"
 //               >
-//                 Most CPA firms
+//                 Most CPA firm's
 //                 don’t have a demand problem.
 //               </h2>
 
@@ -4496,7 +4497,7 @@ export default function CPAFirmPage() {
 //         </div>
 //       </section>
 
-//       {/* WHY MOST OFFSHORE FIRMS FAIL */}
+//       {/* WHY MOST OFFSHORE firm's FAIL */}
 //       <section className="py-28 bg-white">
 
 //         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
@@ -4531,7 +4532,7 @@ export default function CPAFirmPage() {
 //                         max-w-3xl"
 //             >
 //               They optimize for labor cost instead of accounting quality.
-//               CPA firms end up spending more time reviewing,
+//               CPA firm's end up spending more time reviewing,
 //               correcting, and managing offshore teams
 //               than they save.
 //             </p>
@@ -4670,7 +4671,7 @@ export default function CPAFirmPage() {
 //                           tracking-[0.16em]
 //                           uppercase font-semibold"
 //               >
-//                 WHY FIRMS SWITCH
+//                 WHY firm's SWITCH
 //               </span>
 
 //               <h2
@@ -5123,7 +5124,7 @@ export default function CPAFirmPage() {
 //                           text-[18px]
 //                           leading-[1.9]"
 //               >
-//                 Most firms lose profitability during tax season
+//                 Most firm's lose profitability during tax season
 //                 because their team becomes the bottleneck.
 //                 FinliGen gives your firm scalable offshore capacity
 //                 exactly when workload spikes.
@@ -5497,7 +5498,7 @@ export default function CPAFirmPage() {
 //                         tracking-[-0.05em]
 //                         font-semibold"
 //             >
-//               Common questions from CPA firms.
+//               Common questions from CPA firm's.
 //             </h2>
 
 //           </div>
@@ -5515,11 +5516,11 @@ export default function CPAFirmPage() {
 //               },
 //               {
 //                 q: "How fast can you onboard?",
-//                 a: "Most firms are fully operational within 5–7 business days.",
+//                 a: "Most firm's are fully operational within 5–7 business days.",
 //               },
 //               {
 //                 q: "Can we scale during busy season only?",
-//                 a: "Yes. Many CPA firms use us for seasonal capacity expansion.",
+//                 a: "Yes. Many CPA firm's use us for seasonal capacity expansion.",
 //               },
 //             ].map((faq, i) => (
 //               <div
@@ -5582,7 +5583,7 @@ export default function CPAFirmPage() {
 //                       leading-[1.9]
 //                       max-w-3xl mx-auto"
 //           >
-//             Dedicated offshore support for CPA firms
+//             Dedicated offshore support for CPA firm's
 //             that need more capacity, higher margins,
 //             and reliable delivery during busy season.
 //           </p>
