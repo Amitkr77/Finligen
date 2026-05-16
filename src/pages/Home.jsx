@@ -9,7 +9,6 @@ import { IoCubeOutline } from "react-icons/io5";
 import { LuShieldHalf } from "react-icons/lu";
 import { AiOutlineLineChart } from "react-icons/ai";
 import { TbStack, TbNorthStar } from "react-icons/tb";
-import AboutSection from "../components/Home/AboutSection";
 
 const Home = () => {
   useEffect(() => {
