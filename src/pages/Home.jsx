@@ -872,37 +872,69 @@ const Home = () => {
                 initial={{ opacity: 0, x: 80 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false }}
-                transition={{ duration: 0.9, delay: 0.3 }}
-                whileHover={{ y: -6 }}
+                transition={{
+                  duration: 1.2,
+                  delay: 0.2,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{
+                  y: -8,
+                  transition: {
+                    duration: 0.45,
+                    ease: "easeOut",
+                  },
+                }}
                 className="bg-[#0d3d43] rounded-[1.5rem] sm:rounded-[2rem]
-                           p-6 sm:p-8 relative overflow-hidden"
+                          p-6 sm:p-8 relative overflow-hidden"
               >
-                <div
+                {/* Glow Background */}
+                <motion.div
+                  animate={{
+                    scale: [1, 1.08, 1],
+                    opacity: [0.25, 0.4, 0.25],
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                   className="absolute -top-10 -right-10 w-40 h-40
-                                bg-[#dff5b7]/10 blur-3xl rounded-full"
+                            bg-[#dff5b7]/10 blur-3xl rounded-full"
                 />
 
+                {/* Header */}
                 <div className="relative z-10 flex items-center justify-between mb-6 sm:mb-8">
                   <div>
                     <p className="text-white/50 text-[11px] sm:text-sm uppercase tracking-[0.18em]">
                       Upcoming
                     </p>
+
                     <h3 className="text-white text-xl sm:text-2xl font-semibold mt-1 sm:mt-2">
                       Filing Deadlines
                     </h3>
                   </div>
 
+                  {/* Floating Icon */}
                   <motion.div
-                    animate={{ rotate: [0, 8, -8, 0] }}
-                    transition={{ duration: 4, repeat: Infinity }}
+                    animate={{
+                      rotate: [0, 6, -6, 0],
+                      y: [0, -4, 0],
+                    }}
+                    transition={{
+                      duration: 6,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                     className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl
-                               bg-white/10 flex items-center justify-center
-                               text-white text-lg sm:text-xl"
+                              bg-white/10 backdrop-blur-md
+                              flex items-center justify-center
+                              text-white text-lg sm:text-xl"
                   >
                     📅
                   </motion.div>
                 </div>
 
+                {/* Deadline List */}
                 <div className="relative z-10 space-y-3 sm:space-y-4">
                   {[
                     { date: "15th", title: "Monthly Book Closing" },
@@ -914,15 +946,28 @@ const Home = () => {
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: false }}
-                      transition={{ duration: 0.5, delay: i * 0.15 }}
-                      whileHover={{ scale: 1.03 }}
+                      transition={{
+                        duration: 0.8,
+                        delay: i * 0.12,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      whileHover={{
+                        scale: 1.02,
+                        y: -2,
+                        transition: {
+                          duration: 0.35,
+                          ease: "easeOut",
+                        },
+                      }}
                       className="flex items-center justify-between bg-white/5
-                                 border border-white/10 rounded-xl sm:rounded-2xl
-                                 px-4 sm:px-5 py-3 sm:py-4"
+                                backdrop-blur-sm
+                                border border-white/10 rounded-xl sm:rounded-2xl
+                                px-4 sm:px-5 py-3 sm:py-4"
                     >
                       <p className="text-white text-[13px] sm:text-[15px]">
                         {item.title}
                       </p>
+
                       <span className="text-[#dff5b7] font-semibold text-sm sm:text-base">
                         {item.date}
                       </span>
@@ -930,13 +975,21 @@ const Home = () => {
                   ))}
                 </div>
 
-                <p
+                {/* Footer Text */}
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{
+                    duration: 1,
+                    delay: 0.6,
+                    ease: "easeOut",
+                  }}
                   className="relative z-10 mt-6 sm:mt-8 text-white/50
-                               text-[12px] sm:text-sm leading-6"
+                            text-[12px] sm:text-sm leading-6"
                 >
                   Automated reminders and deadline tracking for every US state
                   your business operates in.
-                </p>
+                </motion.p>
               </motion.div>
             </div>
           </motion.div>
