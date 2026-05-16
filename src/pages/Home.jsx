@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import gsap from "gsap";
-
+import { BsGlobe } from "react-icons/bs";
 import ImpactSection from "../components/Impact";
 import Howitworks from "../components/TestimonialsSection";
 import { TiSpannerOutline } from "react-icons/ti";
@@ -9,7 +9,6 @@ import { IoCubeOutline } from "react-icons/io5";
 import { LuShieldHalf } from "react-icons/lu";
 import { AiOutlineLineChart } from "react-icons/ai";
 import { TbStack, TbNorthStar } from "react-icons/tb";
-import AboutSection from "../components/Home/AboutSection";
 
 const Home = () => {
   useEffect(() => {
@@ -412,8 +411,8 @@ const Home = () => {
                 </h2>
 
                 <p className="mt-2 text-[#777] text-[15px] sm:text-[18px] leading-7 max-w-[560px]">
-                  Real metrics from real clients across the US–India corridor.
-                  No vanity numbers — just verified results.
+                  Real metrics from real clients across the US-India corridor.
+                  No vanity numbers - just verified results.
                 </p>
               </motion.div>
 
@@ -430,7 +429,7 @@ const Home = () => {
                 {[
                   {
                     title: "500+ Businesses Served",
-                    desc: "Trusted by founders and CFOs across the US–India corridor for end-to-end compliance and bookkeeping.",
+                    desc: "Trusted by founders and CFOs across the US-India corridor for end-to-end compliance and bookkeeping.",
                   },
                   {
                     title: "$0 IRS Penalty Notices",
@@ -710,11 +709,8 @@ const Home = () => {
           >
             <p className="text-[#b5c7c8] text-[14px] sm:text-[16px] text-center sm:text-left">
               Not sure which service fits your situation?
-              <span className="text-white font-medium">
-                {" "}
-                Talk to our team — free 30-min call.
-              </span>
-            </p>
+              <span className="text-white font-medium"> Talk to our team — free 30-min call.</span>
+          </p>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
               <motion.a
@@ -817,7 +813,7 @@ const Home = () => {
                 className="bg-[#e9e7da] text-[#173c37] px-4 sm:px-5 py-2 sm:py-3
                            rounded-full text-[11px] sm:text-sm font-semibold"
               >
-                NEW — RECOMMENDED ADDITION
+                NEW - RECOMMENDED ADDITION
               </motion.div>
             </div>
 
@@ -836,12 +832,10 @@ const Home = () => {
                   freeze your US bank account.
                 </p>
 
-                <p
-                  className="mt-4 sm:mt-6 text-[#5f6368] text-[15px] sm:text-[18px]
-                               leading-[1.9] max-w-4xl"
-                >
-                  FinliGen tracks every filing deadline for every state you
-                  operate in — and files before them, not on them.
+                <p className="mt-4 sm:mt-6 text-[#5f6368] text-[15px] sm:text-[18px]
+                               leading-[1.9] max-w-4xl">
+                  FinliGen tracks every filing deadline for every state
+                  you operate in — and files before them, not on them.
                 </p>
 
                 <div className="mt-7 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-5">
@@ -1850,9 +1844,264 @@ const Home = () => {
         </div>
       </section>
 
-     
+      {/* ─────────────────── ABOUT US SECTION ─────────────────── */}
+      <section className="w-full bg-gray-200 py-10 sm:py-14 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
 
-      <AboutSection/>
+          {/* Heading */}
+          <div className="text-center max-w-4xl mx-auto">
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="text-[#3f655b] text-[11px] sm:text-[13px]
+                         font-semibold tracking-[0.18em] uppercase"
+            >
+              ABOUT US
+            </motion.p>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+              className="mt-3 text-[#050816] text-[28px] sm:text-[38px]
+                         md:text-[52px] leading-[1.03] tracking-[-0.05em] font-semibold"
+            >
+              One platform for all your
+              <br />
+              manufacturing needs
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+              className="mt-3 sm:mt-4 text-[#666] text-[13px] sm:text-[14px]
+                         leading-[1.7] max-w-[700px] mx-auto"
+            >
+              Remove operational friction and streamline your manufacturing
+              workflow with smart automation.
+            </motion.p>
+          </div>
+
+          {/* Cards */}
+          <div className="mt-6 sm:mt-8 grid grid-cols-1 xl:grid-cols-[380px_1fr] gap-4 sm:gap-5 items-stretch">
+
+            {/* LEFT CARD */}
+            <motion.div
+              initial={{ opacity: 0, y: 120 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              whileHover={{ y: -10 }}
+              className="bg-[#0d3d43] min-h-[380px] sm:min-h-[480px] lg:min-h-[520px]
+                         p-5 relative overflow-hidden"
+            >
+              <h3 className="text-white text-[28px] sm:text-[36px] leading-[1.05] font-semibold">
+                Grow production
+                <br />
+                faster
+              </h3>
+
+              <div className="absolute bottom-0 left-0 w-full px-6 sm:px-10 pb-6 sm:pb-10">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="flex justify-left mb-4 sm:mb-6"
+                >
+                  <p className="text-white text-[22px] sm:text-[28px] font-medium">$12,000</p>
+                </motion.div>
+
+                <div className="mt-4 sm:mt-8 flex items-end justify-between h-[140px] sm:h-[180px]">
+                  {[
+                    { h: "h-[30px] sm:h-[40px]", active: false },
+                    { h: "h-[52px] sm:h-[70px]", active: false },
+                    { h: "h-[86px] sm:h-[115px]", active: false },
+                    { h: "h-full", active: true },
+                    { h: "h-[90px] sm:h-[120px]", active: false },
+                    { h: "h-[116px] sm:h-[155px]", active: false },
+                  ].map((bar, i) =>
+                    bar.active ? (
+                      <motion.div
+                        key={i}
+                        initial={{ height: 0 }}
+                        whileInView={{ height: "auto" }}
+                        viewport={{ once: false }}
+                        transition={{ duration: 0.8, delay: i * 0.1 }}
+                        className="relative flex justify-center w-6 sm:w-8 h-full"
+                      >
+                        <div className="absolute bottom-0 w-full h-full bg-white" />
+                        <div className="absolute -top-[120px] sm:-top-[165px] left-1/2 -translate-x-1/2">
+                          <div className="relative w-[70px] sm:w-[90px] h-[140px] sm:h-[180px]">
+                            <div className="absolute bottom-0 left-1/2 -translate-x-1/2
+                                            w-6 sm:w-8 h-[110px] sm:h-[145px] bg-white" />
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0
+                                            border-l-[35px] sm:border-l-[50px]
+                                            border-r-[35px] sm:border-r-[50px]
+                                            border-b-[50px] sm:border-b-[65px]
+                                            border-l-transparent border-r-transparent border-b-white" />
+                          </div>
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key={i}
+                        initial={{ height: 0 }}
+                        whileInView={{ height: "auto" }}
+                        viewport={{ once: false }}
+                        transition={{ duration: 0.7, delay: i * 0.1 }}
+                        className={`w-6 sm:w-8 ${bar.h} bg-white/15`}
+                      />
+                    )
+                  )}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* RIGHT CARD */}
+            <motion.div
+              initial={{ opacity: 0, y: 120 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+              whileHover={{ y: -10 }}
+              className="relative bg-[#0d3d43]/30 min-h-[380px] sm:min-h-[480px]
+                         lg:min-h-[520px] overflow-hidden p-6 sm:p-10
+                         rounded-bl-[80px] sm:rounded-bl-[140px]"
+            >
+              <motion.h3
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+                className="text-[#173c37] text-[32px] sm:text-[46px] lg:text-[60px]
+                           leading-[1.05] font-semibold max-w-[650px]"
+              >
+                Connect across the global manufacturing network
+              </motion.h3>
+
+              {/* Globe Rings */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                  className="relative w-[300px] h-[300px] sm:w-[450px] sm:h-[450px]
+                             lg:w-[600px] lg:h-[600px] rounded-full border border-[#dce3df]"
+                >
+                  <div className="absolute inset-[50px] sm:inset-[70px] rounded-full border border-[#dce3df]" />
+                  <div className="absolute inset-[100px] sm:inset-[140px] rounded-full border border-[#dce3df]" />
+                  <div className="absolute inset-[150px] sm:inset-[210px] rounded-full border border-[#dce3df]" />
+                  <BsGlobe
+                    size={48}
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2
+                               -translate-y-1/2 text-black sm:text-[68px]"
+                  />
+                </motion.div>
+              </div>
+
+              {/* Floating Card 1 */}
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                initial={{ opacity: 0, x: -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false }}
+                className="absolute left-4 sm:left-[80px] top-[180px] sm:top-[240px]
+                           bg-white shadow-sm p-3 sm:p-5
+                           w-[160px] sm:w-[200px] lg:w-[220px]"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop"
+                  alt=""
+                  className="w-full h-[70px] sm:h-[100px] object-cover"
+                />
+                <h4 className="mt-3 sm:mt-4 text-[#111] text-[24px] sm:text-[32px] font-semibold">
+                  $25,000
+                </h4>
+                <p className="text-[#666] text-[13px] sm:text-[16px]">Manufacturing Process</p>
+
+                <div className="flex items-center mt-3 sm:mt-5">
+                  {[
+                    "https://randomuser.me/api/portraits/men/32.jpg",
+                    "https://randomuser.me/api/portraits/women/44.jpg",
+                  ].map((src, i) => (
+                    <img
+                      key={i}
+                      src={src}
+                      alt=""
+                      className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2
+                                  border-white ${i > 0 ? "-ml-2 sm:-ml-3" : ""}`}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Floating Card 2 */}
+              <motion.div
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                initial={{ opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false }}
+                className="absolute right-4 sm:right-[90px] top-[120px] sm:top-[180px]
+                           bg-[#0d3d43] text-white p-4 sm:p-6
+                           w-[160px] sm:w-[200px] lg:w-[220px]"
+              >
+                <h4 className="text-[30px] sm:text-[38px] font-semibold">$40,000</h4>
+                <p className="mt-1 text-white/80 text-[13px] sm:text-[15px]">
+                  Production Completed
+                </p>
+                <div className="absolute -bottom-4 left-8 w-0 h-0
+                                border-l-[16px] border-r-[16px] border-t-[18px]
+                                border-l-transparent border-r-transparent border-t-[#0d3d43]" />
+              </motion.div>
+
+              {/* Profile */}
+              <motion.img
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: false }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                src="https://randomuser.me/api/portraits/women/68.jpg"
+                alt=""
+                className="absolute right-[220px] sm:right-[270px] top-[260px] sm:top-[310px]
+                           w-12 h-12 sm:w-16 sm:h-16 rounded-full border-4 border-white
+                           hidden sm:block"
+              />
+
+              {/* Flags */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="absolute right-4 sm:right-[90px] bottom-[50px] sm:bottom-[80px]
+                           flex items-center"
+              >
+                {[
+                  { src: "https://flagcdn.com/w80/us.png", alt: "US" },
+                  { src: "https://flagcdn.com/w80/de.png", alt: "DE" },
+                  { src: "https://flagcdn.com/w80/ng.png", alt: "NG" },
+                ].map((flag, i) => (
+                  <motion.div
+                    key={i}
+                    whileHover={{ scale: 1.2, zIndex: 10 }}
+                    className={`w-10 h-10 sm:w-14 sm:h-14 rounded-full overflow-hidden
+                                border-2 border-white ${i > 0 ? "-ml-2" : ""}`}
+                  >
+                    <img src={flag.src} alt={flag.alt} className="w-full h-full object-cover" />
+                  </motion.div>
+                ))}
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* Global Keyframe Styles */}
       <style>{`

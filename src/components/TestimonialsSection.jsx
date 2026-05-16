@@ -106,7 +106,7 @@ const TestimonialsSection = () => {
 
             <p className="text-gray-700 leading-relaxed mb-8">{current.text}</p>
 
-            <button className="px-6 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition-all hover:scale-105 hover:shadow-lg">
+            <button className="px-6 py-3 bg-[#7ecfc0] text-white rounded-full hover:bg-[#6dbdab] transition-all hover:scale-105 hover:shadow-lg">
               Start a free 2‑week trial engagement
             </button>
 
@@ -150,7 +150,7 @@ const TestimonialsSection = () => {
 
               {/* Progress Line */}
               <span
-                className="absolute bottom-0 left-0 h-0.5 bg-orange-500"
+                className="absolute bottom-0 left-0 h-0.5 bg-[#7ecfc0]"
                 style={{
                   width: activeTab === i ? `${progress}%` : "0%",
                   transition: activeTab === i ? "width 50ms linear" : "none",
