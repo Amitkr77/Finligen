@@ -1669,7 +1669,7 @@ const Home = () => {
               <div>
                 <div className="relative w-12 h-12">
                   {["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"].map((pos, i) => (
-                    <div key={i} className={`absolute ${pos} w-8 h-8 border border-[#111] rounded-full`} />
+                    <div key={i} className={`absolute ${pos} w-7 h-7 border border-[#111] rounded-full`} />
                   ))}
                 </div>
 
@@ -1710,7 +1710,7 @@ const Home = () => {
                 <div className="w-10 h-10 flex items-center justify-center">
                   <div className="relative w-10 h-10 rotate-45">
                     <div className="absolute inset-0 w-8 h-8 border border-[#111] rounded-[10px]" />
-                    <div className="absolute top-4 left-4 w-8 h-8 border border-[#111] rounded-[10px]" />
+                    <div className="absolute -top-4 left-4 w-8 h-8 border border-[#111] rounded-[10px]" />
                   </div>
                 </div>
 
@@ -1746,16 +1746,16 @@ const Home = () => {
                          sm:col-span-2 xl:col-span-1"
             >
               <div>
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-[#3f655b]
+                <div className="w-12 h-12 sm:w-12 sm:h-12 rounded-full border border-[#3f655b]
                                 flex items-center justify-center">
                   <div className="relative">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 border border-[#3f655b] rounded-full" />
-                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-                                    w-4 h-4 sm:w-5 sm:h-5 border border-[#3f655b] rounded-full" />
+                    <div className="w-9 h-9 sm:w-9 sm:h-9 border translate-y-[5px] border-[#3f655b] rounded-full" />
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[1px]
+                                    w-4 h-4 sm:w-6 sm:h-6 border border-[#3f655b] rounded-full" />
                   </div>
                 </div>
 
-                <h3 className="mt-6 sm:mt-8 text-[#173c37] text-[22px] sm:text-[28px]
+                <h3 className="mt-5 sm:mt-6 text-[#173c37] text-[22px] sm:text-[28px]
                                leading-tight font-semibold">
                   AI-Powered Production
                 </h3>
