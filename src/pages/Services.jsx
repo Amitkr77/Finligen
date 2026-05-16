@@ -14,17 +14,12 @@ import {
   AiOutlineClockCircle,
   AiOutlineSafety,
   AiOutlineRise,
-  AiOutlineFileText,
   AiOutlineDollar,
-  AiOutlineBank,
 } from "react-icons/ai";
 import {
   TbStack,
   TbNorthStar,
-  TbArrowUpRight,
-  TbCheck,
   TbChevronDown,
-  TbChevronUp,
 } from "react-icons/tb";
 import { LuShieldHalf } from "react-icons/lu";
 import { TiSpannerOutline } from "react-icons/ti";
@@ -34,59 +29,38 @@ import {
   HiOutlineLightBulb,
   HiOutlineChartBar,
 } from "react-icons/hi";
-import { BsArrowRight, BsPlay } from "react-icons/bs";
 import { FiCheck, FiArrowUpRight } from "react-icons/fi";
 
-// ─── Animation Variants ─────────────────────────────────────────
+/* ─── Animation Variants ──────────────────────────────────────── */
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
   visible: { opacity: 1, y: 0 },
 };
 
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-};
-
-const slideRight = {
-  hidden: { opacity: 0, x: -60 },
-  visible: { opacity: 1, x: 0 },
-};
-
-const slideLeft = {
-  hidden: { opacity: 0, x: 60 },
-  visible: { opacity: 1, x: 0 },
-};
-
-const scaleUp = {
-  hidden: { opacity: 0, scale: 0.85 },
-  visible: { opacity: 1, scale: 1 },
-};
-
 const staggerContainer = {
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.12 },
-  },
+  visible: { transition: { staggerChildren: 0.12 } },
 };
 
-// ─── Services Data ───────────────────────────────────────────────
+/* ─── Services Data ───────────────────────────────────────────── */
 const services = [
   {
-    icon: <AiOutlineLineChart size={30} />,
+    icon: <AiOutlineLineChart size={28} />,
     badge: "Most Popular",
     title: "US Tax & Sales Tax Compliance",
+    headline:
+      "Stop Losing Sleep Over US Sales Tax. We've Got Every State Covered.",
     shortDesc:
       "Nexus analysis, multi-state registration, monthly filings, and IRS return preparation — every state, every deadline.",
     fullDesc:
-      "Our comprehensive US tax compliance service covers everything from initial nexus analysis to ongoing multi-state sales tax filings. We handle state registrations across all 50 states, prepare and file monthly/quarterly sales tax returns, and manage your federal IRS obligations. Whether you're a SaaS company with customers in multiple states or an e-commerce brand shipping nationwide, we ensure you're always compliant — no penalties, no surprises.",
+      "US sales tax is the #1 compliance risk for foreign-owned businesses and ecommerce brands. With 45 states levying sales tax — each with different nexus rules, rates, and filing schedules — the margin for error is razor thin. FinliGen's dedicated sales tax practice handles nexus analysis, registration in required states, monthly or quarterly return preparation, and amendment filing. We also manage your IRS income tax returns and work directly with your US CPA on account finalization. Whether you're an Indian SaaS company with US customers or a UK brand selling via Amazon FBA, we make your US tax posture bulletproof.",
     features: [
-      "Nexus Analysis & Determination",
-      "All 50-State Registration",
-      "Monthly/Quarterly Filings",
+      "Nexus Analysis",
+      "Sales Tax Registration (all 50 states)",
+      "Monthly/Quarterly Return Filing",
       "IRS Return Preparation",
-      "Penalty Abatement Support",
-      "Audit Defense & Representation",
+      "QuickBooks Bookkeeping",
+      "CPA Account Finalization",
     ],
     benefits: [
       "Zero missed deadlines",
@@ -95,23 +69,26 @@ const services = [
       "Real-time compliance dashboard",
     ],
     link: "/services/us-tax-sales-tax-compliance",
-    color: "#7ecfc0",
+    color: "#06363c",
+    accent: "#7ecfc0",
   },
   {
-    icon: <TbStack size={30} />,
+    icon: <TbStack size={28} />,
     badge: null,
     title: "CPA Firm Outsourcing",
+    headline:
+      "Your CPA Firm's Invisible Back-Office. Deadline-Driven. CA-Reviewed.",
     shortDesc:
       "CA-reviewed bookkeeping, workpaper prep, and tax return drafts delivered white-label to your US CPA firm.",
     fullDesc:
-      "We serve as your dedicated offshore team — handling bookkeeping, workpaper preparation, and tax return drafts under your CPA firm's brand. Every deliverable is reviewed by a qualified Chartered Accountant before it reaches you. Our white-label model means your clients never know about us — they just see faster turnarounds and cleaner work from your firm.",
+      "Busy season doesn't have to break your practice. FinliGen works as an extension of your US CPA firm — delivering client-ready bookkeeping, account finalization, workpaper preparation, and tax return drafts, all at offshore cost structures without offshore quality risk. Our teams are trained in US GAAP, QuickBooks, and CPA workflow standards. You review and sign. We do the heavy lifting — and we understand that in your industry, one error matters. That's why every file goes through a dual-review process before it reaches you.",
     features: [
-      "QuickBooks / Xero Bookkeeping",
-      "Account Finalization",
-      "Tax Return Drafts (1040, 1120, 1065)",
+      "Client Bookkeeping (QuickBooks / Xero)",
+      "Account Finalization & Workpapers",
+      "Tax Return Drafts",
+      "Payroll Reconciliation",
       "White-Label Delivery",
-      "Workpaper Preparation",
-      "Year-End Close Support",
+      "Dedicated Team Model",
     ],
     benefits: [
       "60% cost savings vs US staff",
@@ -120,16 +97,18 @@ const services = [
       "Your brand, our work",
     ],
     link: "/services/cpa-firm-outsourcing",
-    color: "#dff5b7",
+    color: "#1a5c3a",
+    accent: "#dff5b7",
   },
   {
-    icon: <LuShieldHalf size={30} />,
+    icon: <LuShieldHalf size={28} />,
     badge: null,
     title: "US LLC Setup & Advisory",
+    headline: "Your US Business Entity. Set Up Right from Day One.",
     shortDesc:
       "LLC or C-Corp formation, EIN registration, operating agreements, and first-year compliance for non-US founders.",
     fullDesc:
-      "Starting a US business from India? We handle the entire process — from choosing the right entity type (LLC vs C-Corp) and the best state for incorporation, to filing formation documents, obtaining your EIN, drafting operating agreements, and setting up your first-year compliance calendar. We also connect you with US banking partners and payment processors.",
+      "Thousands of international founders are entering the US market every year — and most get the legal and compliance setup wrong, which costs them later. FinliGen guides you through LLC or C-Corp formation in your optimal state, EIN application, registered agent setup, operating agreement drafting, and the first-year compliance calendar. We also advise on the Delaware vs. Wyoming vs. home-state question based on your specific business model and investor requirements. Post-formation, we transition seamlessly into ongoing bookkeeping and tax compliance so your US entity stays clean and investor-ready from day one.",
     features: [
       "LLC / C-Corp Formation",
       "EIN Application & ITIN Support",
@@ -145,16 +124,18 @@ const services = [
       "Banking & payment setup help",
     ],
     link: "/services/us-llc-setup-advisory",
-    color: "#a8d8ea",
+    color: "#2a4a7f",
+    accent: "#a8d8ea",
   },
   {
-    icon: <TbNorthStar size={30} />,
+    icon: <TbNorthStar size={28} />,
     badge: null,
     title: "Offshore Bookkeeping",
+    headline: "Books Clean. Closed by the 15th. Every Month.",
     shortDesc:
       "Daily transaction recording, bank reconciliation, and monthly MIS reports — books clean and closed by the 15th.",
     fullDesc:
-      "Our offshore bookkeeping service ensures your financial records are always accurate, up-to-date, and audit-ready. We handle daily transaction recording, categorization, bank and credit card reconciliation, vendor bill management, and monthly MIS reporting. Your books are closed by the 15th of every month — guaranteed.",
+      "Our offshore bookkeeping service ensures your financial records are always accurate, up-to-date, and audit-ready. We handle daily transaction recording, categorization, bank and credit card reconciliation, vendor bill management, and monthly MIS reporting. Your books are closed by the 15th of every month — guaranteed. Whether you use QuickBooks, Xero, or any other platform, our dedicated bookkeepers adapt to your workflow and deliver consistently clean financials.",
     features: [
       "Daily Transaction Recording",
       "Bank & CC Reconciliation",
@@ -170,12 +151,15 @@ const services = [
       "Monthly financial insights",
     ],
     link: "/services",
-    color: "#f0c27f",
+    color: "#7a4f1a",
+    accent: "#f0c27f",
   },
   {
-    icon: <TiSpannerOutline size={30} />,
+    icon: <TiSpannerOutline size={28} />,
     badge: null,
     title: "Virtual CFO Services",
+    headline:
+      "CFO-Level Financial Strategy. Without the Full-Time Price Tag.",
     shortDesc:
       "Strategic financial oversight, cash flow planning, investor-ready reporting, and board-level advisory — without the full-time cost.",
     fullDesc:
@@ -195,16 +179,19 @@ const services = [
       "Data-driven decisions",
     ],
     link: "/services",
-    color: "#c3b1e1",
+    color: "#4a3080",
+    accent: "#c3b1e1",
   },
   {
-    icon: <IoCubeOutline size={30} />,
+    icon: <IoCubeOutline size={28} />,
     badge: null,
     title: "Cross-Border Tax Advisory",
+    headline:
+      "India–US Tax Structuring That Actually Saves You Money.",
     shortDesc:
       "FEMA compliance, transfer pricing, DTAA planning, and India–US tax structuring for founders and growing companies.",
     fullDesc:
-      "Operating between India and the US creates complex tax obligations. Our cross-border advisory covers FEMA compliance for outward/inward remittances, transfer pricing documentation, DTAA benefit optimization, and India-US entity structuring. Whether you're an Indian founder with a US subsidiary or a US company with Indian operations, we ensure both-side compliance.",
+      "Operating between India and the US creates complex tax obligations. Our cross-border advisory covers FEMA compliance for outward/inward remittances, transfer pricing documentation, DTAA benefit optimization, and India-US entity structuring. Whether you're an Indian founder with a US subsidiary or a US company with Indian operations, we ensure both-side compliance and minimize double taxation.",
     features: [
       "FEMA Compliance & Reporting",
       "Transfer Pricing Documentation",
@@ -220,11 +207,12 @@ const services = [
       "Optimized fund flow",
     ],
     link: "/services",
-    color: "#ff9a9e",
+    color: "#7a2040",
+    accent: "#ff9a9e",
   },
 ];
 
-// ─── Process Steps ───────────────────────────────────────────────
+/* ─── Process Steps ───────────────────────────────────────────── */
 const processSteps = [
   {
     step: "01",
@@ -252,7 +240,7 @@ const processSteps = [
   },
 ];
 
-// ─── Stats ───────────────────────────────────────────────────────
+/* ─── Stats ───────────────────────────────────────────────────── */
 const stats = [
   { number: "200+", label: "Active Clients", icon: <AiOutlineTeam size={22} /> },
   { number: "50", label: "States Covered", icon: <AiOutlineGlobal size={22} /> },
@@ -260,7 +248,7 @@ const stats = [
   { number: "15th", label: "Books Closed By", icon: <AiOutlineClockCircle size={22} /> },
 ];
 
-// ─── FAQs ────────────────────────────────────────────────────────
+/* ─── FAQs ────────────────────────────────────────────────────── */
 const faqs = [
   {
     q: "How quickly can you start working on our accounts?",
@@ -288,18 +276,18 @@ const faqs = [
   },
 ];
 
-// ─── Testimonials ────────────────────────────────────────────────
+/* ─── Testimonials ────────────────────────────────────────────── */
 const testimonials = [
   {
     name: "Rajesh Patel",
     role: "Founder, TechBridge Solutions",
-    text: "FinanSure handled our entire US LLC setup and ongoing tax compliance. We went from zero US presence to fully operational in under 2 weeks. Incredible team.",
+    text: "FinliGen handled our entire US LLC setup and ongoing tax compliance. We went from zero US presence to fully operational in under 2 weeks.",
     rating: 5,
   },
   {
     name: "Sarah Mitchell",
     role: "Managing Partner, Mitchell & Co. CPA",
-    text: "We've been outsourcing our bookkeeping and tax prep to FinanSure for 2 years now. The quality is consistently excellent, and our capacity has tripled without adding staff.",
+    text: "We've been outsourcing our bookkeeping and tax prep to FinliGen for 2 years now. The quality is consistently excellent, and our capacity has tripled.",
     rating: 5,
   },
   {
@@ -310,142 +298,202 @@ const testimonials = [
   },
 ];
 
-// ═══════════════════════════════════════════════════════════════════
-//  MAIN COMPONENT
-// ═══════════════════════════════════════════════════════════════════
-
+/* ═══════════════════════════════════════════════════════════════
+   MAIN COMPONENT
+   ═══════════════════════════════════════════════════════════════ */
 export default function ServicesPage() {
   const [openFaq, setOpenFaq] = useState(null);
   const [activeService, setActiveService] = useState(0);
 
+  React.useEffect(() => {
+    document.title = "Accounting & Compliance Services — FinliGen";
+  }, []);
+
   return (
-    <main className="bg-[#06363c] min-h-screen overflow-hidden">
-
+    <main className="bg-white min-h-screen overflow-hidden">
       {/* ═══════════════════════════════════════════════════════════
-          SECTION 1 — HERO
+          SECTION 1 — HERO WITH IMAGE
       ═══════════════════════════════════════════════════════════ */}
-      <section className="relative w-full min-h-[85vh] flex items-center justify-center overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-[#7ecfc0]/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#dff5b7]/8 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#7ecfc0]/5 rounded-full blur-3xl" />
-        </div>
-
-        {/* Grid Pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
-        />
-
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 text-center">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-6"
-          >
-            <span className="inline-flex items-center gap-2 text-[#7ecfc0] text-[11px] sm:text-[13px]
-                           tracking-[0.18em] font-semibold uppercase
-                           border border-[#7ecfc0]/30 rounded-full px-5 py-2
-                           bg-white/5 backdrop-blur-sm">
-              <span className="w-2 h-2 bg-[#7ecfc0] rounded-full animate-pulse" />
-              OUR SERVICES
-            </span>
-          </motion.div>
-
-          {/* Title */}
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="text-white text-[32px] sm:text-[44px] md:text-[58px] lg:text-[68px]
-                       font-bold leading-[1.08] tracking-tight"
-          >
-            Every Service Your
-            <br />
-            <span className="text-[#7ecfc0]">Finance Function</span> Needs.
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="mt-5 sm:mt-7 text-[#b5c7c8] text-[15px] sm:text-[18px] md:text-[20px]
-                       leading-[1.7] max-w-2xl mx-auto"
-          >
-            From daily bookkeeping to complex cross-border compliance —
-            one trusted partner for businesses operating between
-            <span className="text-white font-medium"> India</span> and the
-            <span className="text-white font-medium"> United States</span>.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.7 }}
-            className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <motion.a
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              href="/contact"
-              className="bg-[#dff5b7] hover:bg-[#cef0a0] text-[#052f35]
-                         px-8 py-4 rounded-xl text-[15px] sm:text-[16px]
-                         font-semibold transition-all duration-300
-                         flex items-center gap-2 shadow-lg shadow-[#dff5b7]/20"
-            >
-              Book Free Consultation
-              <AiOutlineArrowRight size={18} />
-            </motion.a>
-
-            <motion.a
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              href="#services-grid"
-              className="border border-white/20 hover:border-white/50 text-white
-                         px-8 py-4 rounded-xl text-[15px] sm:text-[16px]
-                         font-medium transition-all duration-300
-                         flex items-center gap-2"
-            >
-              Explore Services
-              <TbChevronDown size={18} />
-            </motion.a>
-          </motion.div>
-
-          {/* Stats Row */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-            className="mt-14 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8"
-          >
-            {stats.map((stat, i) => (
+      <section className="relative w-full min-h-[85vh] lg:min-h-[90vh] flex items-center
+                      justify-center overflow-hidden bg-white">
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16 lg:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            
+            {/* LEFT — Content */}
+            <div className="relative z-10 text-center lg:text-left">
+              {/* Badge */}
               <motion.div
-                key={i}
-                variants={fadeUp}
-                transition={{ duration: 0.5 }}
-                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="mb-6"
               >
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <span className="text-[#7ecfc0]">{stat.icon}</span>
-                  <span className="text-white text-[28px] sm:text-[36px] font-bold">
-                    {stat.number}
-                  </span>
-                </div>
-                <p className="text-[#b5c7c8] text-[12px] sm:text-[14px] tracking-wide uppercase">
-                  {stat.label}
-                </p>
+                <span
+                  className="inline-flex items-center gap-2 text-[#06363c]
+                           text-[11px] sm:text-[13px] tracking-[0.18em] font-semibold
+                           uppercase border border-[#06363c]/30 rounded-full
+                           px-5 py-2 bg-[#06363c]/5"
+                >
+                  <span className="w-2 h-2 bg-[#06363c] rounded-full animate-pulse" />
+                  OUR SERVICES
+                </span>
               </motion.div>
-            ))}
-          </motion.div>
+
+              {/* Title */}
+              <motion.h1
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.3,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="text-[#0a0a0a] text-[32px] sm:text-[44px] md:text-[52px]
+                         lg:text-[62px] font-bold leading-[1.08] tracking-tight"
+              >
+                Every Service Your Finance
+                <br />
+                Function Needs.{" "}
+                <span className="text-[#06363c]">One Trusted Partner.</span>
+              </motion.h1>
+
+              {/* Subtitle */}
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.5 }}
+                className="mt-5 sm:mt-7 text-[#6b7280] text-[15px] sm:text-[18px]
+                         md:text-[19px] leading-[1.7] max-w-2xl mx-auto lg:mx-0"
+              >
+                From daily bookkeeping to complex cross-border compliance —
+                FinliGen provides end-to-end financial services for businesses
+                operating between{" "}
+                <span className="text-[#0a0a0a] font-medium">India</span> and the{" "}
+                <span className="text-[#0a0a0a] font-medium">United States</span>.
+              </motion.p>
+
+              {/* CTAs */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.7 }}
+                className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center
+                         lg:justify-start justify-center gap-4"
+              >
+                <motion.a
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  href="/contact"
+                  className="bg-[#06363c] hover:bg-[#052f35] text-white
+                           px-8 py-4 rounded-xl text-[15px] sm:text-[16px]
+                           font-semibold transition-all duration-300
+                           flex items-center gap-2 shadow-lg shadow-[#06363c]/20"
+                >
+                  Book Free Consultation
+                  <AiOutlineArrowRight size={18} />
+                </motion.a>
+
+                <motion.a
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  href="#services-grid"
+                  className="border border-[#06363c]/20 hover:border-[#06363c]/50 
+                           text-[#06363c] px-8 py-4 rounded-xl text-[15px] sm:text-[16px]
+                           font-medium transition-all duration-300
+                           flex items-center gap-2"
+                >
+                  Explore Services
+                  <TbChevronDown size={18} />
+                </motion.a>
+              </motion.div>
+
+              {/* Stats */}
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={staggerContainer}
+                className="mt-12 sm:mt-14 grid grid-cols-2 md:grid-cols-4
+                         gap-6 sm:gap-8"
+              >
+                {stats.map((stat, i) => (
+                  <motion.div
+                    key={i}
+                    variants={fadeUp}
+                    transition={{ duration: 0.5 }}
+                    className="text-center lg:text-left"
+                  >
+                    <div className="flex items-center justify-center lg:justify-start gap-2 mb-2">
+                      <span className="text-[#06363c]">{stat.icon}</span>
+                      <span className="text-[#0a0a0a] text-[28px] sm:text-[36px] font-bold">
+                        {stat.number}
+                      </span>
+                    </div>
+                    <p className="text-[#6b7280] text-[12px] sm:text-[14px]
+                                tracking-wide uppercase">
+                      {stat.label}
+                    </p>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* RIGHT — Hero Image */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="relative order-first lg:order-last"
+            >
+              {/* Background Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#06363c]/5 
+                            to-[#7ecfc0]/5 rounded-3xl blur-3xl" />
+              
+              {/* Image Container */}
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl 
+                            border border-gray-200/50">
+                <img
+                  src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&q=80"
+                  alt="Financial Services Team"
+                  className="w-full h-auto object-cover"
+                />
+                
+                {/* Overlay Badge */}
+                <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm
+                              rounded-xl p-4 sm:p-5 shadow-lg">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-[#06363c] text-white
+                                  flex items-center justify-center">
+                      <AiOutlineCheckCircle size={20} />
+                    </div>
+                    <div>
+                      <p className="text-[#0a0a0a] text-[14px] sm:text-[16px] font-bold">
+                        Trusted by 200+ Businesses
+                      </p>
+                      <p className="text-[#6b7280] text-[12px] sm:text-[13px]">
+                        Across India & United States
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating Elements */}
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="absolute -top-4 -right-4 w-20 h-20 bg-[#7ecfc0]/20 
+                         rounded-full blur-2xl"
+              />
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 4, repeat: Infinity }}
+                className="absolute -bottom-6 -left-6 w-24 h-24 bg-[#dff5b7]/20 
+                         rounded-full blur-2xl"
+              />
+            </motion.div>
+
+          </div>
         </div>
 
         {/* Scroll Indicator */}
@@ -453,14 +501,15 @@ export default function ServicesPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:block"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2"
+            className="w-6 h-10 border-2 border-[#06363c]/30 rounded-full
+                     flex justify-center pt-2"
           >
-            <div className="w-1.5 h-3 bg-white/50 rounded-full" />
+            <div className="w-1.5 h-3 bg-[#06363c]/50 rounded-full" />
           </motion.div>
         </motion.div>
       </section>
@@ -468,9 +517,12 @@ export default function ServicesPage() {
       {/* ═══════════════════════════════════════════════════════════
           SECTION 2 — SERVICES CARDS GRID
       ═══════════════════════════════════════════════════════════ */}
-      <section id="services-grid" className="w-full py-16 sm:py-24">
+      <section
+        id="services-grid"
+        className="w-full py-16 sm:py-24 bg-gray-50"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-          {/* Section Header */}
+          {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -478,31 +530,37 @@ export default function ServicesPage() {
             transition={{ duration: 0.8 }}
             className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
           >
-            <span className="inline-block text-[#7ecfc0] text-[11px] sm:text-[13px]
-                           tracking-[0.18em] font-semibold uppercase mb-4
-                           border border-[#7ecfc0]/30 rounded-full px-4 py-1.5
-                           bg-white/5">
+            <span
+              className="inline-block text-[#06363c] text-[11px] sm:text-[13px]
+                       tracking-[0.18em] font-semibold uppercase mb-4
+                       border border-[#06363c]/20 rounded-full px-4 py-1.5
+                       bg-[#06363c]/5"
+            >
               WHAT WE OFFER
             </span>
-            <h2 className="text-white text-[28px] sm:text-[38px] md:text-[48px]
-                         font-bold leading-[1.12] tracking-tight">
+            <h2
+              className="text-[#0a0a0a] text-[28px] sm:text-[38px] md:text-[48px]
+                       font-bold leading-[1.12] tracking-tight"
+            >
               Comprehensive Financial
               <br />
               Services Suite
             </h2>
-            <p className="mt-4 text-[#b5c7c8] text-[15px] sm:text-[17px] leading-7 max-w-2xl mx-auto">
+            <p className="mt-4 text-[#6b7280] text-[15px] sm:text-[17px]
+                        leading-7 max-w-2xl mx-auto">
               Six core service lines designed to cover every financial need
               of businesses operating across India and the United States.
             </p>
           </motion.div>
 
-          {/* Cards Grid */}
+          {/* Cards */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.1 }}
             variants={staggerContainer}
-            className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3
+                     gap-5 sm:gap-6"
           >
             {services.map((card, i) => (
               <motion.div
@@ -511,38 +569,50 @@ export default function ServicesPage() {
                   hidden: { opacity: 0, y: 40 },
                   visible: { opacity: 1, y: 0 },
                 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                transition={{
+                  duration: 0.6,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 whileHover={{ y: -8, scale: 1.02 }}
                 className="group relative rounded-2xl p-6 sm:p-7
-                           min-h-[320px] sm:min-h-[350px]
-                           transition-all duration-300 flex flex-col justify-between
-                           bg-[#11464d] hover:bg-[#15525a]
-                           border border-white/5 hover:border-white/15
-                           cursor-pointer"
+                         min-h-[320px] sm:min-h-[360px]
+                         transition-all duration-300 flex flex-col
+                         justify-between bg-white hover:bg-white
+                         border border-gray-200/80 hover:border-[#06363c]/20
+                         cursor-pointer hover:shadow-xl hover:shadow-gray-200/50"
                 onClick={() => setActiveService(i)}
               >
                 {/* Hover Glow */}
-                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100
-                               transition-opacity duration-500 pointer-events-none"
-                     style={{
-                       background: `radial-gradient(circle at 50% 0%, ${card.color}10, transparent 70%)`,
-                     }}
+                <div
+                  className="absolute inset-0 rounded-2xl opacity-0
+                           group-hover:opacity-100 transition-opacity
+                           duration-500 pointer-events-none"
+                  style={{
+                    background: `radial-gradient(circle at 50% 0%,${card.accent}15,transparent 70%)`,
+                  }}
                 />
 
                 <div className="relative z-10">
                   <div className="flex items-start justify-between mb-5">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl flex items-center justify-center
-                                     bg-white/10 text-white group-hover:scale-110
-                                     transition-transform duration-300"
-                           style={{ boxShadow: `0 0 20px ${card.color}15` }}>
+                      <div
+                        className="w-12 h-12 rounded-xl flex items-center
+                                 justify-center transition-transform duration-300
+                                 group-hover:scale-110"
+                        style={{
+                          backgroundColor: `${card.accent}20`,
+                          color: card.color,
+                        }}
+                      >
                         {card.icon}
                       </div>
 
                       {card.badge && (
-                        <span className="text-[10px] font-semibold tracking-widest uppercase
-                                       bg-[#dff5b7]/15 text-[#dff5b7] px-3 py-1 rounded-full
-                                       border border-[#dff5b7]/20">
+                        <span
+                          className="text-[10px] font-semibold tracking-widest
+                                   uppercase px-3 py-1 rounded-full
+                                   bg-[#06363c] text-white"
+                        >
                           {card.badge}
                         </span>
                       )}
@@ -551,35 +621,44 @@ export default function ServicesPage() {
                     <motion.a
                       href={card.link}
                       whileHover={{ x: 3, y: -3 }}
-                      className="w-10 h-10 rounded-xl flex items-center justify-center
-                                bg-white/5 group-hover:bg-white/15
-                                transition-all duration-300 text-white"
+                      className="w-10 h-10 rounded-xl flex items-center
+                               justify-center bg-gray-100 group-hover:bg-[#06363c]
+                               group-hover:text-white text-gray-500
+                               transition-all duration-300"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <FiArrowUpRight size={18} />
                     </motion.a>
                   </div>
 
-                  <h3 className="text-[20px] sm:text-[22px] leading-tight font-semibold mb-3 text-white
-                               group-hover:text-[#dff5b7] transition-colors duration-300">
+                  <h3
+                    className="text-[20px] sm:text-[22px] leading-tight
+                             font-semibold mb-3 text-[#0a0a0a]
+                             group-hover:text-[#06363c]
+                             transition-colors duration-300"
+                  >
                     {card.title}
                   </h3>
 
-                  <p className="text-[13px] sm:text-[14px] leading-[1.8] text-[#b5c7c8]">
+                  <p className="text-[13px] sm:text-[14px] leading-[1.8]
+                             text-[#6b7280]">
                     {card.shortDesc}
                   </p>
                 </div>
 
                 <div className="relative z-10">
-                  <div className="my-4 h-[1px] bg-white/10" />
+                  <div className="my-4 h-[1px] bg-gray-200" />
 
                   <div className="flex flex-wrap gap-2">
                     {card.features.slice(0, 4).map((f, fi) => (
                       <span
                         key={fi}
-                        className="text-[11px] sm:text-[12px] font-medium px-3 py-1.5
-                                 rounded-full border border-white/10 text-[#b5c7c8] bg-white/5
-                                 group-hover:border-white/20 transition-colors duration-300"
+                        className="text-[11px] sm:text-[12px] font-medium
+                                 px-3 py-1.5 rounded-full border
+                                 border-gray-200 text-[#4b5563] bg-gray-50
+                                 group-hover:border-[#06363c]/20
+                                 group-hover:bg-[#06363c]/5
+                                 transition-colors duration-300"
                       >
                         ✓ {f}
                       </span>
@@ -593,9 +672,9 @@ export default function ServicesPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          SECTION 3 — DETAILED SERVICE EXPLORER
+          SECTION 3 — DETAILED SERVICE EXPLORER (Dark Section)
       ═══════════════════════════════════════════════════════════ */}
-      <section className="w-full py-16 sm:py-24 bg-[#052f35]">
+      <section className="w-full py-16 sm:py-24 bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -607,7 +686,7 @@ export default function ServicesPage() {
             <span className="inline-block text-[#7ecfc0] text-[11px] sm:text-[13px]
                            tracking-[0.18em] font-semibold uppercase mb-4
                            border border-[#7ecfc0]/30 rounded-full px-4 py-1.5
-                           bg-white/5">
+                           bg-[#7ecfc0]/5">
               DEEP DIVE
             </span>
             <h2 className="text-white text-[28px] sm:text-[38px] md:text-[48px]
@@ -632,12 +711,12 @@ export default function ServicesPage() {
                             text-left transition-all duration-300 whitespace-nowrap
                             lg:whitespace-normal min-w-fit lg:min-w-0
                             ${activeService === i
-                              ? "bg-[#11464d] border border-[#7ecfc0]/30 text-white"
-                              : "bg-transparent border border-transparent text-[#b5c7c8] hover:bg-white/5"
+                              ? "bg-white/10 border border-[#7ecfc0]/30 text-white shadow-lg"
+                              : "bg-transparent border border-white/5 text-gray-400 hover:bg-white/5"
                             }`}
                 >
                   <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0
-                                ${activeService === i ? "bg-[#7ecfc0]/20 text-[#7ecfc0]" : "bg-white/10 text-[#b5c7c8]"}`}>
+                                ${activeService === i ? "bg-[#7ecfc0]/20 text-[#7ecfc0]" : "bg-white/5 text-gray-500"}`}>
                     {s.icon}
                   </div>
                   <span className="text-[13px] sm:text-[14px] font-medium">{s.title}</span>
@@ -654,13 +733,16 @@ export default function ServicesPage() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -30 }}
                   transition={{ duration: 0.4 }}
-                  className="bg-[#11464d] rounded-2xl p-6 sm:p-8 lg:p-10
+                  className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 sm:p-8 lg:p-10
                             border border-white/10"
                 >
                   {/* Header */}
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
-                    <div className="w-14 h-14 rounded-xl flex items-center justify-center
-                                   bg-[#7ecfc0]/15 text-[#7ecfc0]">
+                    <div className="w-14 h-14 rounded-xl flex items-center justify-center"
+                         style={{
+                           backgroundColor: `${services[activeService].accent}20`,
+                           color: services[activeService].accent
+                         }}>
                       {services[activeService].icon}
                     </div>
                     <div>
@@ -669,15 +751,20 @@ export default function ServicesPage() {
                       </h3>
                       {services[activeService].badge && (
                         <span className="text-[10px] font-semibold tracking-widest uppercase
-                                       bg-[#dff5b7]/15 text-[#dff5b7] px-3 py-1 rounded-full mt-2 inline-block">
+                                       bg-[#7ecfc0]/20 text-[#7ecfc0] px-3 py-1 rounded-full mt-2 inline-block">
                           {services[activeService].badge}
                         </span>
                       )}
                     </div>
                   </div>
 
+                  {/* Headline */}
+                  <h4 className="text-[#7ecfc0] text-[17px] sm:text-[20px] font-semibold mb-4 leading-snug">
+                    {services[activeService].headline}
+                  </h4>
+
                   {/* Full Description */}
-                  <p className="text-[#b5c7c8] text-[14px] sm:text-[16px] leading-[1.8] mb-8">
+                  <p className="text-gray-300 text-[14px] sm:text-[16px] leading-[1.8] mb-8">
                     {services[activeService].fullDesc}
                   </p>
 
@@ -697,7 +784,7 @@ export default function ServicesPage() {
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: fi * 0.08 }}
-                            className="flex items-start gap-3 text-[#c0d0d1] text-[13px] sm:text-[14px]"
+                            className="flex items-start gap-3 text-gray-300 text-[13px] sm:text-[14px]"
                           >
                             <AiOutlineCheckCircle className="text-[#7ecfc0] mt-0.5 flex-shrink-0" size={16} />
                             {f}
@@ -726,7 +813,7 @@ export default function ServicesPage() {
                                          justify-center flex-shrink-0 mt-0.5">
                               <FiCheck className="text-[#dff5b7]" size={12} />
                             </div>
-                            <span className="text-[#c0d0d1] text-[13px] sm:text-[14px]">{b}</span>
+                            <span className="text-gray-300 text-[13px] sm:text-[14px]">{b}</span>
                           </motion.li>
                         ))}
                       </ul>
@@ -739,7 +826,7 @@ export default function ServicesPage() {
                       whileHover={{ scale: 1.04, y: -2 }}
                       whileTap={{ scale: 0.97 }}
                       href={services[activeService].link}
-                      className="bg-[#dff5b7] hover:bg-[#cef0a0] text-[#052f35]
+                      className="bg-[#7ecfc0] hover:bg-[#6dbfaf] text-[#0a0a0a]
                                px-6 py-3 rounded-xl text-[14px] sm:text-[15px]
                                font-semibold transition-all duration-300
                                flex items-center justify-center gap-2"
@@ -767,9 +854,9 @@ export default function ServicesPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          SECTION 4 — HOW WE WORK (PROCESS)
+          SECTION 4 — HOW WE WORK (White BG)
       ═══════════════════════════════════════════════════════════ */}
-      <section className="w-full py-16 sm:py-24">
+      <section className="w-full py-16 sm:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -778,17 +865,17 @@ export default function ServicesPage() {
             transition={{ duration: 0.8 }}
             className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
           >
-            <span className="inline-block text-[#7ecfc0] text-[11px] sm:text-[13px]
+            <span className="inline-block text-[#06363c] text-[11px] sm:text-[13px]
                            tracking-[0.18em] font-semibold uppercase mb-4
-                           border border-[#7ecfc0]/30 rounded-full px-4 py-1.5
-                           bg-white/5">
+                           border border-[#06363c]/20 rounded-full px-4 py-1.5
+                           bg-[#06363c]/5">
               OUR PROCESS
             </span>
-            <h2 className="text-white text-[28px] sm:text-[38px] md:text-[48px]
+            <h2 className="text-[#0a0a0a] text-[28px] sm:text-[38px] md:text-[48px]
                          font-bold leading-[1.12] tracking-tight">
               How We Work
             </h2>
-            <p className="mt-4 text-[#b5c7c8] text-[15px] sm:text-[17px] leading-7 max-w-2xl mx-auto">
+            <p className="mt-4 text-[#6b7280] text-[15px] sm:text-[17px] leading-7 max-w-2xl mx-auto">
               A simple, transparent four-step process from first call to ongoing delivery.
               No complexity, no surprises.
             </p>
@@ -807,29 +894,30 @@ export default function ServicesPage() {
                 variants={fadeUp}
                 transition={{ duration: 0.6 }}
                 whileHover={{ y: -6 }}
-                className="relative group bg-[#11464d] rounded-2xl p-6 sm:p-7
-                          border border-white/5 hover:border-[#7ecfc0]/30
-                          transition-all duration-300"
+                className="relative group bg-gray-50 rounded-2xl p-6 sm:p-7
+                          border border-gray-200 hover:border-[#06363c]/30
+                          hover:shadow-xl transition-all duration-300"
               >
                 {/* Step Number */}
-                <div className="text-[48px] sm:text-[56px] font-black text-white/5
-                              group-hover:text-[#7ecfc0]/10 transition-colors duration-300
+                <div className="text-[48px] sm:text-[56px] font-black text-gray-100
+                              group-hover:text-[#06363c]/10 transition-colors duration-300
                               absolute top-4 right-5">
                   {step.step}
                 </div>
 
                 <div className="relative z-10">
-                  <div className="w-12 h-12 rounded-xl bg-[#7ecfc0]/15 text-[#7ecfc0]
+                  <div className="w-12 h-12 rounded-xl bg-[#06363c]/10 text-[#06363c]
                                 flex items-center justify-center mb-5
-                                group-hover:scale-110 transition-transform duration-300">
+                                group-hover:bg-[#06363c] group-hover:text-white
+                                group-hover:scale-110 transition-all duration-300">
                     {step.icon}
                   </div>
 
-                  <h3 className="text-white text-[18px] sm:text-[20px] font-semibold mb-3">
+                  <h3 className="text-[#0a0a0a] text-[18px] sm:text-[20px] font-semibold mb-3">
                     {step.title}
                   </h3>
 
-                  <p className="text-[#b5c7c8] text-[13px] sm:text-[14px] leading-[1.8]">
+                  <p className="text-[#6b7280] text-[13px] sm:text-[14px] leading-[1.8]">
                     {step.desc}
                   </p>
                 </div>
@@ -837,7 +925,7 @@ export default function ServicesPage() {
                 {/* Connector Line */}
                 {i < processSteps.length - 1 && (
                   <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-[2px]
-                                bg-[#7ecfc0]/20" />
+                                bg-[#06363c]/15" />
                 )}
               </motion.div>
             ))}
@@ -846,9 +934,9 @@ export default function ServicesPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          SECTION 5 — WHY CHOOSE US
+          SECTION 5 — WHY CHOOSE US (Gray BG)
       ═══════════════════════════════════════════════════════════ */}
-      <section className="w-full py-16 sm:py-24 bg-[#052f35]">
+      <section className="w-full py-16 sm:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16 items-center">
             {/* Left */}
@@ -858,21 +946,21 @@ export default function ServicesPage() {
               viewport={{ once: false }}
               transition={{ duration: 0.8 }}
             >
-              <span className="inline-block text-[#7ecfc0] text-[11px] sm:text-[13px]
+              <span className="inline-block text-[#06363c] text-[11px] sm:text-[13px]
                              tracking-[0.18em] font-semibold uppercase mb-4
-                             border border-[#7ecfc0]/30 rounded-full px-4 py-1.5
-                             bg-white/5">
-                WHY US
+                             border border-[#06363c]/20 rounded-full px-4 py-1.5
+                             bg-[#06363c]/5">
+                WHY FINLIGEN
               </span>
 
-              <h2 className="text-white text-[28px] sm:text-[38px] md:text-[46px]
+              <h2 className="text-[#0a0a0a] text-[28px] sm:text-[38px] md:text-[46px]
                            font-bold leading-[1.12] tracking-tight mb-6">
                 Built for India–US
                 <br />
                 Business Corridors
               </h2>
 
-              <p className="text-[#b5c7c8] text-[15px] sm:text-[17px] leading-[1.8] mb-8">
+              <p className="text-[#6b7280] text-[15px] sm:text-[17px] leading-[1.8] mb-8">
                 We're not a generic outsourcing firm. Our team specializes exclusively
                 in the India–US business corridor, combining deep expertise in both
                 countries' tax systems, regulations, and business practices.
@@ -908,17 +996,18 @@ export default function ServicesPage() {
                     viewport={{ once: false }}
                     transition={{ delay: i * 0.1 }}
                     className="flex items-start gap-4 p-4 rounded-xl
-                              hover:bg-white/5 transition-colors duration-300"
+                              hover:bg-white transition-colors duration-300 border border-transparent
+                              hover:border-gray-200"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-[#7ecfc0]/15 text-[#7ecfc0]
+                    <div className="w-10 h-10 rounded-xl bg-[#06363c]/10 text-[#06363c]
                                   flex items-center justify-center flex-shrink-0">
                       {item.icon}
                     </div>
                     <div>
-                      <h4 className="text-white text-[15px] sm:text-[16px] font-semibold mb-1">
+                      <h4 className="text-[#0a0a0a] text-[15px] sm:text-[16px] font-semibold mb-1">
                         {item.title}
                       </h4>
-                      <p className="text-[#b5c7c8] text-[13px] sm:text-[14px] leading-relaxed">
+                      <p className="text-[#6b7280] text-[13px] sm:text-[14px] leading-relaxed">
                         {item.desc}
                       </p>
                     </div>
@@ -927,7 +1016,7 @@ export default function ServicesPage() {
               </div>
             </motion.div>
 
-            {/* Right — Visual Card Stack */}
+            {/* Right — Stats Card */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -937,17 +1026,17 @@ export default function ServicesPage() {
             >
               <div className="relative">
                 {/* Background Glow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#7ecfc0]/10 to-[#dff5b7]/5
+                <div className="absolute inset-0 bg-gradient-to-br from-[#06363c]/5 to-[#7ecfc0]/5
                               rounded-3xl blur-2xl" />
 
-                <div className="relative bg-[#11464d] rounded-2xl p-6 sm:p-8 border border-white/10">
+                <div className="relative bg-white rounded-2xl p-6 sm:p-8 border border-gray-200 shadow-xl">
                   {/* Mini Stats */}
                   <div className="grid grid-cols-2 gap-4 mb-6">
                     {[
-                      { label: "Client Retention", value: "96%", color: "#7ecfc0" },
-                      { label: "Avg Response Time", value: "<2hrs", color: "#dff5b7" },
-                      { label: "Tax Savings", value: "$2.4M+", color: "#a8d8ea" },
-                      { label: "Team Members", value: "45+", color: "#f0c27f" },
+                      { label: "Client Retention", value: "96%", color: "#06363c" },
+                      { label: "Avg Response Time", value: "<2hrs", color: "#1a5c3a" },
+                      { label: "Tax Savings", value: "$2.4M+", color: "#2a4a7f" },
+                      { label: "Team Members", value: "45+", color: "#7a4f1a" },
                     ].map((s, i) => (
                       <motion.div
                         key={i}
@@ -955,15 +1044,15 @@ export default function ServicesPage() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: false }}
                         transition={{ delay: 0.3 + i * 0.1 }}
-                        className="bg-white/5 rounded-xl p-4 text-center
-                                 border border-white/5 hover:border-white/15
-                                 transition-colors duration-300"
+                        className="bg-gray-50 rounded-xl p-4 text-center
+                                 border border-gray-100 hover:border-gray-300
+                                 hover:shadow-md transition-all duration-300"
                       >
                         <div className="text-[22px] sm:text-[26px] font-bold mb-1"
                              style={{ color: s.color }}>
                           {s.value}
                         </div>
-                        <div className="text-[#b5c7c8] text-[11px] sm:text-[12px] uppercase tracking-wider">
+                        <div className="text-[#6b7280] text-[11px] sm:text-[12px] uppercase tracking-wider">
                           {s.label}
                         </div>
                       </motion.div>
@@ -976,8 +1065,8 @@ export default function ServicesPage() {
                       <span
                         key={i}
                         className="text-[10px] sm:text-[11px] font-medium px-3 py-1.5
-                                 rounded-full border border-[#7ecfc0]/20 text-[#7ecfc0]
-                                 bg-[#7ecfc0]/5"
+                                 rounded-full border border-[#06363c]/15 text-[#06363c]
+                                 bg-[#06363c]/5"
                       >
                         ✓ {badge}
                       </span>
@@ -991,9 +1080,9 @@ export default function ServicesPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          SECTION 6 — TESTIMONIALS
+          SECTION 6 — TESTIMONIALS (White BG)
       ═══════════════════════════════════════════════════════════ */}
-      <section className="w-full py-16 sm:py-24">
+      <section className="w-full py-16 sm:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -1002,13 +1091,13 @@ export default function ServicesPage() {
             transition={{ duration: 0.8 }}
             className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
           >
-            <span className="inline-block text-[#7ecfc0] text-[11px] sm:text-[13px]
+            <span className="inline-block text-[#06363c] text-[11px] sm:text-[13px]
                            tracking-[0.18em] font-semibold uppercase mb-4
-                           border border-[#7ecfc0]/30 rounded-full px-4 py-1.5
-                           bg-white/5">
+                           border border-[#06363c]/20 rounded-full px-4 py-1.5
+                           bg-[#06363c]/5">
               CLIENT STORIES
             </span>
-            <h2 className="text-white text-[28px] sm:text-[38px] md:text-[48px]
+            <h2 className="text-[#0a0a0a] text-[28px] sm:text-[38px] md:text-[48px]
                          font-bold leading-[1.12] tracking-tight">
               Trusted by Growing
               <br />
@@ -1029,29 +1118,29 @@ export default function ServicesPage() {
                 variants={fadeUp}
                 transition={{ duration: 0.6 }}
                 whileHover={{ y: -6 }}
-                className="bg-[#11464d] rounded-2xl p-6 sm:p-7
-                          border border-white/5 hover:border-[#7ecfc0]/20
-                          transition-all duration-300"
+                className="bg-gray-50 rounded-2xl p-6 sm:p-7
+                          border border-gray-200 hover:border-[#06363c]/20
+                          hover:shadow-xl transition-all duration-300"
               >
                 {/* Stars */}
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: t.rating }).map((_, si) => (
-                    <AiOutlineStar key={si} className="text-[#dff5b7]" size={16} />
+                    <AiOutlineStar key={si} className="text-[#f0c27f] fill-current" size={16} />
                   ))}
                 </div>
 
-                <p className="text-[#c0d0d1] text-[14px] sm:text-[15px] leading-[1.8] mb-6 italic">
+                <p className="text-[#4b5563] text-[14px] sm:text-[15px] leading-[1.8] mb-6 italic">
                   "{t.text}"
                 </p>
 
-                <div className="flex items-center gap-3 pt-4 border-t border-white/10">
-                  <div className="w-10 h-10 rounded-full bg-[#7ecfc0]/20 text-[#7ecfc0]
+                <div className="flex items-center gap-3 pt-4 border-t border-gray-200">
+                  <div className="w-10 h-10 rounded-full bg-[#06363c] text-white
                                 flex items-center justify-center text-[16px] font-bold">
                     {t.name.charAt(0)}
                   </div>
                   <div>
-                    <p className="text-white text-[14px] font-semibold">{t.name}</p>
-                    <p className="text-[#b5c7c8] text-[12px]">{t.role}</p>
+                    <p className="text-[#0a0a0a] text-[14px] font-semibold">{t.name}</p>
+                    <p className="text-[#6b7280] text-[12px]">{t.role}</p>
                   </div>
                 </div>
               </motion.div>
@@ -1061,9 +1150,9 @@ export default function ServicesPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          SECTION 7 — FAQ
+          SECTION 7 — FAQ (Gray BG)
       ═══════════════════════════════════════════════════════════ */}
-      <section className="w-full py-16 sm:py-24 bg-[#052f35]">
+      <section className="w-full py-16 sm:py-24 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -1072,13 +1161,13 @@ export default function ServicesPage() {
             transition={{ duration: 0.8 }}
             className="text-center mb-12 sm:mb-16"
           >
-            <span className="inline-block text-[#7ecfc0] text-[11px] sm:text-[13px]
+            <span className="inline-block text-[#06363c] text-[11px] sm:text-[13px]
                            tracking-[0.18em] font-semibold uppercase mb-4
-                           border border-[#7ecfc0]/30 rounded-full px-4 py-1.5
-                           bg-white/5">
+                           border border-[#06363c]/20 rounded-full px-4 py-1.5
+                           bg-[#06363c]/5">
               FAQ
             </span>
-            <h2 className="text-white text-[28px] sm:text-[38px] md:text-[48px]
+            <h2 className="text-[#0a0a0a] text-[28px] sm:text-[38px] md:text-[48px]
                          font-bold leading-[1.12] tracking-tight">
               Common Questions
             </h2>
@@ -1092,20 +1181,20 @@ export default function ServicesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false }}
                 transition={{ delay: i * 0.08 }}
-                className="bg-[#11464d] rounded-xl border border-white/5
-                          hover:border-white/15 transition-colors duration-300
-                          overflow-hidden"
+                className="bg-white rounded-xl border border-gray-200
+                          hover:border-[#06363c]/20 hover:shadow-lg transition-all
+                          duration-300 overflow-hidden"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="w-full flex items-center justify-between p-5 sm:p-6
                             text-left"
                 >
-                  <span className="text-white text-[14px] sm:text-[16px] font-medium pr-4">
+                  <span className="text-[#0a0a0a] text-[14px] sm:text-[16px] font-medium pr-4">
                     {faq.q}
                   </span>
-                  <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-white/10
-                                flex items-center justify-center text-white
+                  <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gray-100
+                                flex items-center justify-center text-[#06363c]
                                 transition-transform duration-300"
                        style={{ transform: openFaq === i ? "rotate(180deg)" : "rotate(0deg)" }}>
                     <TbChevronDown size={18} />
@@ -1122,8 +1211,8 @@ export default function ServicesPage() {
                       className="overflow-hidden"
                     >
                       <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-0">
-                        <div className="h-[1px] bg-white/10 mb-4" />
-                        <p className="text-[#b5c7c8] text-[13px] sm:text-[15px] leading-[1.8]">
+                        <div className="h-[1px] bg-gray-200 mb-4" />
+                        <p className="text-[#6b7280] text-[13px] sm:text-[15px] leading-[1.8]">
                           {faq.a}
                         </p>
                       </div>
@@ -1137,9 +1226,9 @@ export default function ServicesPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          SECTION 8 — FINAL CTA
+          SECTION 8 — FINAL CTA (Dark BG)
       ═══════════════════════════════════════════════════════════ */}
-      <section className="w-full py-16 sm:py-24">
+      <section className="w-full py-16 sm:py-24 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -1149,7 +1238,7 @@ export default function ServicesPage() {
             className="relative rounded-3xl overflow-hidden"
           >
             {/* Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#11464d] to-[#0a3a40]" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#06363c] to-[#052f35]" />
             <div className="absolute top-0 right-0 w-80 h-80 bg-[#7ecfc0]/10 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-60 h-60 bg-[#dff5b7]/8 rounded-full blur-3xl" />
 
@@ -1197,7 +1286,7 @@ export default function ServicesPage() {
                 <motion.a
                   whileHover={{ scale: 1.05, y: -3 }}
                   whileTap={{ scale: 0.97 }}
-                  href="mailto:hello@finansure.com"
+                  href="mailto:hello@finligen.com"
                   className="border border-white/20 hover:border-white/50 text-white
                            px-8 sm:px-10 py-4 rounded-xl text-[15px] sm:text-[17px]
                            font-medium transition-all duration-300
@@ -1228,7 +1317,7 @@ export default function ServicesPage() {
           </motion.div>
         </div>
       </section>
-
+      
     </main>
   );
 }
