@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import gsap from "gsap";
-
+import { BsGlobe } from "react-icons/bs";
 import ImpactSection from "../components/Impact";
 import Howitworks from "../components/TestimonialsSection";
 import { TiSpannerOutline } from "react-icons/ti";
