@@ -449,262 +449,262 @@ const Home = () => {
       </section>
 
       {/* ─────────────────── SERVICES SECTION ─────────────────── */}
-    <section className="w-full bg-[#06363c] py-10 sm:py-14 overflow-hidden">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <section className="w-full bg-[#06363c] py-10 sm:py-14 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
 
-        {/* Heading */}
-        <motion.div
-        initial={{ opacity: 0, y: 60 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false }}
-        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        className="text-center max-w-3xl mx-auto"
-        >
-        <motion.span
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: false }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-block text-[#7ecfc0] text-[11px] sm:text-[13px]
-                    tracking-[0.18em] font-semibold uppercase mb-4
-                    border border-[#7ecfc0]/30 rounded-full px-4 py-1.5
-                    bg-white/5"
-        >
-            OUR SERVICES
-        </motion.span>
+          {/* Heading */}
+          <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center max-w-3xl mx-auto"
+          >
+          <motion.span
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: false }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="inline-block text-[#7ecfc0] text-[11px] sm:text-[13px]
+                      tracking-[0.18em] font-semibold uppercase mb-4
+                      border border-[#7ecfc0]/30 rounded-full px-4 py-1.5
+                      bg-white/5"
+          >
+              OUR SERVICES
+          </motion.span>
 
-        <h2 className="text-white text-[26px] sm:text-[34px] md:text-[46px] font-semibold leading-[1.15] tracking-tight">
-            Every Service Your Finance
-            <br />
-            Function Needs.
-        </h2>
+          <h2 className="text-white text-[26px] sm:text-[34px] md:text-[46px] font-semibold leading-[1.15] tracking-tight">
+              Every Service Your Finance
+              <br />
+              Function Needs.
+          </h2>
 
-        <p className="mt-4 sm:mt-5 text-[#b5c7c8] text-[15px] sm:text-[17px] leading-7 max-w-2xl mx-auto">
-            From daily bookkeeping to complex cross-border compliance —
-            one trusted partner for businesses operating between
-            India and the United States.
-        </p>
-        </motion.div>
+          <p className="mt-4 sm:mt-5 text-[#b5c7c8] text-[15px] sm:text-[17px] leading-7 max-w-2xl mx-auto">
+              From daily bookkeeping to complex cross-border compliance —
+              one trusted partner for businesses operating between
+              India and the United States.
+          </p>
+          </motion.div>
 
-        {/* Cards Grid */}
-        <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.15 }}
-        variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.15 } },
-        }}
-        className="mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6"
-        >
-        {[
-            {
-            icon: <AiOutlineLineChart size={30} />,
-            badge: "Most Popular",
-            title: "US Tax & Sales Tax Compliance",
-            desc: "Nexus analysis, multi-state registration, monthly filings, and IRS return preparation — every state, every deadline.",
-            features: [
-                "Nexus Analysis",
-                "All 50-State Registration",
-                "Monthly/Quarterly Filings",
-                "IRS Return Preparation",
-            ],
-            link: "/services/us-tax-sales-tax-compliance",
-            },
-            {
-            icon: <TbStack size={30} />,
-            badge: null,
-            title: "CPA Firm Outsourcing",
-            desc: "CA-reviewed bookkeeping, workpaper prep, and tax return drafts delivered white-label to your US CPA firm.",
-            features: [
-                "QuickBooks / Xero Bookkeeping",
-                "Account Finalization",
-                "Tax Return Drafts",
-                "White-Label Delivery",
-            ],
-            link: "/services/cpa-firm-outsourcing",
-            },
-            {
-            icon: <LuShieldHalf size={30} />,
-            badge: null,
-            title: "US LLC Setup & Advisory",
-            desc: "LLC or C-Corp formation, EIN registration, operating agreements, and first-year compliance for non-US founders.",
-            features: [
-                "LLC / C-Corp Formation",
-                "EIN Application",
-                "Operating Agreement",
-                "First-Year Compliance",
-            ],
-            link: "/services/us-llc-setup-advisory",
-            },
-            {
-            icon: <TbNorthStar size={30} />,
-            badge: null,
-            title: "Offshore Bookkeeping",
-            desc: "Daily transaction recording, bank reconciliation, and monthly MIS reports — books clean and closed by the 15th.",
-            features: [
-                "Daily Bookkeeping",
-                "Bank Reconciliation",
-                "Monthly MIS Reports",
-                "Closed by 15th",
-            ],
-            link: "/services",
-            },
-            {
-            icon: <TiSpannerOutline size={30} />,
-            badge: null,
-            title: "Virtual CFO Services",
-            desc: "Strategic financial oversight, cash flow planning, investor-ready reporting, and board-level advisory — without the full-time cost.",
-            features: [
-                "Cash Flow Planning",
-                "Investor Reporting",
-                "Budget vs Actuals",
-                "Board Advisory",
-            ],
-            link: "/services",
-            },
-            {
-            icon: <IoCubeOutline size={30} />,
-            badge: null,
-            title: "Cross-Border Tax Advisory",
-            desc: "FEMA compliance, transfer pricing, DTAA planning, and India–US tax structuring for founders and growing companies.",
-            features: [
-                "FEMA Compliance",
-                "Transfer Pricing",
-                "DTAA Planning",
-                "India–US Structuring",
-            ],
-            link: "/services",
-            },
-        ].map((card, i) => (
-            <motion.div
-            key={i}
-            variants={{
-                hidden: { opacity: 0, clipPath: "inset(0 100% 0 0)" },
-                visible: { opacity: 1, clipPath: "inset(0 0% 0 0)" },
-            }}
-            transition={{ duration: 0.5, ease: [0.77, 0, 0.175, 1] }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            className="group relative rounded-sm p-5 sm:p-6
-                        min-h-[280px] sm:min-h-[300px]
-                        transition-all duration-200 flex flex-col justify-between
-                        bg-[#11464d] hover:bg-[#15525a]"
-            >
-            {/* Top Row */}
-            <div>
-                <div className="flex items-start justify-between mb-5">
-                <div className="flex items-center gap-3">
-                    {/* Icon */}
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/10 text-white">
-                    {card.icon}
-                    </div>
+          {/* Cards Grid */}
+          <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.15 }}
+          variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.15 } },
+          }}
+          className="mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6"
+          >
+          {[
+              {
+              icon: <AiOutlineLineChart size={30} />,
+              badge: "Most Popular",
+              title: "US Tax & Sales Tax Compliance",
+              desc: "Nexus analysis, multi-state registration, monthly filings, and IRS return preparation — every state, every deadline.",
+              features: [
+                  "Nexus Analysis",
+                  "All 50-State Registration",
+                  "Monthly/Quarterly Filings",
+                  "IRS Return Preparation",
+              ],
+              link: "/services/us-tax-sales-tax-compliance",
+              },
+              {
+              icon: <TbStack size={30} />,
+              badge: null,
+              title: "CPA Firm Outsourcing",
+              desc: "CA-reviewed bookkeeping, workpaper prep, and tax return drafts delivered white-label to your US CPA firm.",
+              features: [
+                  "QuickBooks / Xero Bookkeeping",
+                  "Account Finalization",
+                  "Tax Return Drafts",
+                  "White-Label Delivery",
+              ],
+              link: "/services/cpa-firm-outsourcing",
+              },
+              {
+              icon: <LuShieldHalf size={30} />,
+              badge: null,
+              title: "US LLC Setup & Advisory",
+              desc: "LLC or C-Corp formation, EIN registration, operating agreements, and first-year compliance for non-US founders.",
+              features: [
+                  "LLC / C-Corp Formation",
+                  "EIN Application",
+                  "Operating Agreement",
+                  "First-Year Compliance",
+              ],
+              link: "/services/us-llc-setup-advisory",
+              },
+              {
+              icon: <TbNorthStar size={30} />,
+              badge: null,
+              title: "Offshore Bookkeeping",
+              desc: "Daily transaction recording, bank reconciliation, and monthly MIS reports — books clean and closed by the 15th.",
+              features: [
+                  "Daily Bookkeeping",
+                  "Bank Reconciliation",
+                  "Monthly MIS Reports",
+                  "Closed by 15th",
+              ],
+              link: "/services",
+              },
+              {
+              icon: <TiSpannerOutline size={30} />,
+              badge: null,
+              title: "Virtual CFO Services",
+              desc: "Strategic financial oversight, cash flow planning, investor-ready reporting, and board-level advisory — without the full-time cost.",
+              features: [
+                  "Cash Flow Planning",
+                  "Investor Reporting",
+                  "Budget vs Actuals",
+                  "Board Advisory",
+              ],
+              link: "/services",
+              },
+              {
+              icon: <IoCubeOutline size={30} />,
+              badge: null,
+              title: "Cross-Border Tax Advisory",
+              desc: "FEMA compliance, transfer pricing, DTAA planning, and India–US tax structuring for founders and growing companies.",
+              features: [
+                  "FEMA Compliance",
+                  "Transfer Pricing",
+                  "DTAA Planning",
+                  "India–US Structuring",
+              ],
+              link: "/services",
+              },
+          ].map((card, i) => (
+              <motion.div
+              key={i}
+              variants={{
+                  hidden: { opacity: 0, clipPath: "inset(0 100% 0 0)" },
+                  visible: { opacity: 1, clipPath: "inset(0 0% 0 0)" },
+              }}
+              transition={{ duration: 0.5, ease: [0.77, 0, 0.175, 1] }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="group relative rounded-sm p-5 sm:p-6
+                          min-h-[280px] sm:min-h-[300px]
+                          transition-all duration-200 flex flex-col justify-between
+                          bg-[#11464d] hover:bg-[#15525a]"
+              >
+              {/* Top Row */}
+              <div>
+                  <div className="flex items-start justify-between mb-5">
+                  <div className="flex items-center gap-3">
+                      {/* Icon */}
+                      <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/10 text-white">
+                      {card.icon}
+                      </div>
 
-                    {/* Badge */}
-                    {card.badge && (
-                    <motion.span
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: false }}
-                        transition={{ duration: 0.4, delay: 0.3 }}
-                        className="text-[10px] font-semibold tracking-widest uppercase
-                                bg-white/10 text-white px-2.5 py-1 rounded-full
-                                border border-white/15"
-                    >
-                        {card.badge}
-                    </motion.span>
-                    )}
-                </div>
+                      {/* Badge */}
+                      {card.badge && (
+                      <motion.span
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: false }}
+                          transition={{ duration: 0.4, delay: 0.3 }}
+                          className="text-[10px] font-semibold tracking-widest uppercase
+                                  bg-white/10 text-white px-2.5 py-1 rounded-full
+                                  border border-white/15"
+                      >
+                          {card.badge}
+                      </motion.span>
+                      )}
+                  </div>
 
-                {/* Arrow */}
-                <motion.a
-                    href={card.link}
-                    whileHover={{ x: 3, y: -3 }}
-                    transition={{ duration: 0.25 }}
-                    className="text-[20px] sm:text-[22px] transition-all duration-300
-                            group-hover:translate-x-[3px] group-hover:-translate-y-[3px]
-                            text-white"
-                >
-                    ↗
-                </motion.a>
-                </div>
+                  {/* Arrow */}
+                  <motion.a
+                      href={card.link}
+                      whileHover={{ x: 3, y: -3 }}
+                      transition={{ duration: 0.25 }}
+                      className="text-[20px] sm:text-[22px] transition-all duration-300
+                              group-hover:translate-x-[3px] group-hover:-translate-y-[3px]
+                              text-white"
+                  >
+                      ↗
+                  </motion.a>
+                  </div>
 
-                {/* Title */}
-                <h3 className="text-[19px] sm:text-[22px] leading-tight font-semibold mb-3 text-white">
-                {card.title}
-                </h3>
+                  {/* Title */}
+                  <h3 className="text-[19px] sm:text-[22px] leading-tight font-semibold mb-3 text-white">
+                  {card.title}
+                  </h3>
 
-                {/* Desc */}
-                <p className="text-[13px] sm:text-[14px] leading-[1.8] text-[#c0d0d1]">
-                {card.desc}
-                </p>
-            </div>
+                  {/* Desc */}
+                  <p className="text-[13px] sm:text-[14px] leading-[1.8] text-[#c0d0d1]">
+                  {card.desc}
+                  </p>
+              </div>
 
-            {/* Divider */}
-            <div className="my-4 h-[1px] bg-white/10" />
+              {/* Divider */}
+              <div className="my-4 h-[1px] bg-white/10" />
 
-            {/* Feature Pills */}
-            <div className="flex flex-wrap gap-2">
-                {card.features.map((f, fi) => (
-                <motion.span
-                    key={fi}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false }}
-                    transition={{ duration: 0.3, delay: fi * 0.08 }}
-                    className="text-[11px] sm:text-[12px] font-medium px-2.5 py-1
-                            rounded-full border border-white/15 text-[#c0d0d1] bg-white/5"
-                >
-                    ✓ {f}
-                </motion.span>
-                ))}
-            </div>
-            </motion.div>
-        ))}
-        </motion.div>
+              {/* Feature Pills */}
+              <div className="flex flex-wrap gap-2">
+                  {card.features.map((f, fi) => (
+                  <motion.span
+                      key={fi}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: false }}
+                      transition={{ duration: 0.3, delay: fi * 0.08 }}
+                      className="text-[11px] sm:text-[12px] font-medium px-2.5 py-1
+                              rounded-full border border-white/15 text-[#c0d0d1] bg-white/5"
+                  >
+                      ✓ {f}
+                  </motion.span>
+                  ))}
+              </div>
+              </motion.div>
+          ))}
+          </motion.div>
 
-        {/* Bottom CTA */}
-        <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false }}
-        transition={{ duration: 0.7, delay: 0.2 }}
-        className="mt-10 sm:mt-14 flex flex-col sm:flex-row items-center
-                    justify-between gap-5 border-t border-white/10 pt-8 sm:pt-10"
-        >
-        <p className="text-[#b5c7c8] text-[14px] sm:text-[16px] text-center sm:text-left">
-            Not sure which service fits your situation?
-            <span className="text-white font-medium"> Talk to our team — free 30-min call.</span>
-        </p>
+          {/* Bottom CTA */}
+          <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="mt-10 sm:mt-14 flex flex-col sm:flex-row items-center
+                      justify-between gap-5 border-t border-white/10 pt-8 sm:pt-10"
+          >
+          <p className="text-[#b5c7c8] text-[14px] sm:text-[16px] text-center sm:text-left">
+              Not sure which service fits your situation?
+              <span className="text-white font-medium"> Talk to our team — free 30-min call.</span>
+          </p>
 
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
-            <motion.a
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            href="/services"
-            className="bg-[#dff5b7] hover:bg-[#cef0a0] text-[#052f35]
-                        px-6 py-3 rounded-xl text-[14px] sm:text-[15px]
-                        font-semibold transition-all duration-300
-                        text-center whitespace-nowrap"
-            >
-            Explore All Services →
-            </motion.a>
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
+              <motion.a
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              href="/services"
+              className="bg-[#dff5b7] hover:bg-[#cef0a0] text-[#052f35]
+                          px-6 py-3 rounded-xl text-[14px] sm:text-[15px]
+                          font-semibold transition-all duration-300
+                          text-center whitespace-nowrap"
+              >
+              Explore All Services →
+              </motion.a>
 
-            <motion.a
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            href="/contact"
-            className="border border-white/20 hover:border-white/50 text-white
-                        px-6 py-3 rounded-xl text-[14px] sm:text-[15px]
-                        font-medium transition-all duration-300
-                        text-center whitespace-nowrap"
-            >
-            Book Free Call
-            </motion.a>
-        </div>
-        </motion.div>
+              <motion.a
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              href="/contact"
+              className="border border-white/20 hover:border-white/50 text-white
+                          px-6 py-3 rounded-xl text-[14px] sm:text-[15px]
+                          font-medium transition-all duration-300
+                          text-center whitespace-nowrap"
+              >
+              Book Free Call
+              </motion.a>
+          </div>
+          </motion.div>
 
-    </div>
-    </section>
+      </div>
+      </section>
 
       {/* ─────────────────── COMPLIANCE DEADLINE SECTION ─────────────────── */}
       <section className="w-full bg-[#f5f5f3] pb-10 sm:pb-14 lg:pb-16
@@ -896,6 +896,712 @@ const Home = () => {
       <ImpactSection />
       <Howitworks />
 
+      {/* ─────────────────── AUDIENCE ENTRY PATHS ─────────────────── */}
+      <section className="w-full bg-white py-10 sm:py-14 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+
+          {/* Heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-center max-w-4xl mx-auto"
+          >
+            <span
+              className="inline-block text-[#3f655b] text-[11px] sm:text-[13px]
+              tracking-[0.18em] font-semibold uppercase mb-4
+              border border-[#3f655b]/20 rounded-full px-4 py-1.5 bg-white"
+            >
+              WHO WE WORK WITH
+            </span>
+
+            <h2
+              className="text-[#050816] text-[28px] sm:text-[38px]
+              md:text-[50px] leading-[1.08] tracking-[-0.04em]
+              font-semibold"
+            >
+              We work differently depending
+              <br />
+              on who you are.
+            </h2>
+
+            <p
+              className="mt-4 text-[#666] text-[14px] sm:text-[17px]
+              leading-[1.8] max-w-2xl mx-auto"
+            >
+              Whether you're a CPA firm, ecommerce founder,
+              or expanding into the US — we tailor the workflow,
+              reporting, and compliance process around your business.
+            </p>
+          </motion.div>
+
+          {/* Cards */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.15,
+                },
+              },
+            }}
+            className="mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5"
+          >
+            {[
+              {
+                tag: "US CPA FIRM",
+                title: "Invisible offshore support for your firm.",
+                desc:
+                  "Need bookkeeping, workpapers, or tax prep support? We operate as your white-label back-office team.",
+                cta: "See CPA outsourcing →",
+                link: "/services/cpa-firm-outsourcing",
+              },
+              {
+                tag: "EXPANDING TO THE US",
+                title: "Launch your US entity the right way.",
+                desc:
+                  "From LLC setup and EIN registration to first-year compliance — we handle the operational side of entering the US market.",
+                cta: "See US market entry →",
+                link: "/services/us-llc-setup-advisory",
+              },
+              {
+                tag: "ECOMMERCE BRAND",
+                title: "Selling online? Sales tax applies faster than you think.",
+                desc:
+                  "Amazon, Shopify, and marketplace sellers often trigger nexus obligations without realizing it.",
+                cta: "Check your nexus →",
+                link: "/services/us-tax-sales-tax-compliance",
+              },
+              {
+                tag: "ALREADY OPERATING",
+                title: "Cross-border finance operations built properly.",
+                desc:
+                  "Need a finance team handling India + US compliance together? We manage both sides under one workflow.",
+                cta: "See all services →",
+                link: "/services",
+              },
+            ].map((item, i) => (
+              <motion.a
+                key={i}
+                href={item.link}
+                variants={{
+                  hidden: {
+                    opacity: 0,
+                    y: 60,
+                  },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                  },
+                }}
+                transition={{
+                  duration: 0.6,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{
+                  y: -8,
+                }}
+                className="group relative bg-white border border-[#e7e7e5]
+                          rounded-[24px] p-6 sm:p-7 min-h-[320px]
+                          flex flex-col justify-between overflow-hidden"
+              >
+                {/* Glow */}
+                <div
+                  className="absolute top-0 right-0 w-32 h-32
+                            bg-[#dff5b7]/20 blur-3xl opacity-0
+                            group-hover:opacity-100 transition-all duration-500"
+                />
+
+                {/* Content */}
+                <div className="relative z-10">
+                  {/* Tag */}
+                  <span
+                    className="inline-flex items-center text-[10px]
+                              sm:text-[11px] tracking-[0.16em]
+                              font-semibold uppercase
+                              text-[#0d3d43]
+                              border border-[#0d3d43]/10
+                              bg-[#0d3d43]/5
+                              px-3 py-1.5 rounded-full"
+                  >
+                    {item.tag}
+                  </span>
+
+                  {/* Title */}
+                  <h3
+                    className="mt-5 text-[#111] text-[22px]
+                              sm:text-[26px] leading-[1.2]
+                              font-semibold"
+                  >
+                    {item.title}
+                  </h3>
+
+                  {/* Desc */}
+                  <p
+                    className="mt-4 text-[#666]
+                              text-[13px] sm:text-[14px]
+                              leading-[1.9]"
+                  >
+                    {item.desc}
+                  </p>
+                </div>
+
+                {/* Bottom CTA */}
+                <div
+                  className="group relative z-10 mt-8 flex items-center
+                            justify-between"
+                >
+                  <span
+                    className="text-[#0d3d43] text-[14px]
+                              font-semibold"
+                  >
+                    {item.cta}
+                  </span>
+
+                  <motion.div
+                    whileHover={{
+                      rotate: 45,
+                    }}
+                    className="w-11 h-11 rounded-full bg-white border border-[#0d3d43]
+                              group-hover:bg-[#0d3d43] text-[#0d3d43] group-hover:text-white
+                              flex items-center justify-center
+                              text-lg"
+                  >
+                    ↗
+                  </motion.div>
+                </div>
+
+                {/* Border Hover */}
+                <div
+                  className="absolute inset-0 rounded-[24px]
+                            border border-transparent
+                            group-hover:border-[#0d3d43]/15
+                            transition-all duration-300"
+                />
+              </motion.a>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ─────────────────── TESTIMONIALS SECTION ─────────────────── */}
+      <section className="w-full bg-gray-200 py-10 sm:py-14 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+
+          {/* Top Heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
+          >
+            <div className="max-w-3xl">
+              <span
+                className="inline-flex items-center text-[#3f655b]
+                          text-[11px] sm:text-[13px]
+                          tracking-[0.18em] font-semibold uppercase
+                          border border-[#3f655b]/15
+                          rounded-full px-4 py-1.5 bg-white"
+              >
+                CLIENT TESTIMONIALS
+              </span>
+
+              <h2
+                className="mt-4 text-[#050816]
+                          text-[30px] sm:text-[42px]
+                          md:text-[54px]
+                          leading-[1.08]
+                          tracking-[-0.04em]
+                          font-semibold"
+              >
+                What CPA firms say after
+                <br />
+                the first year working with us.
+              </h2>
+            </div>
+
+            <p
+              className="max-w-[420px]
+                        text-[#666]
+                        text-[14px] sm:text-[16px]
+                        leading-[1.9]"
+            >
+              Long-term partnerships built on accuracy,
+              responsiveness, and real operational capacity.
+            </p>
+          </motion.div>
+
+          {/* Testimonials Grid */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.15,
+                },
+              },
+            }}
+            className="mt-10 grid grid-cols-1 xl:grid-cols-2 gap-5"
+          >
+
+            {[
+              {
+                quote:
+                  "I was skeptical after a bad experience with another offshore firm. FinliGen did a two-week trial on one of our mid-size clients. The output was better than what my in-house staff was producing. We now outsource about 40% of our write-up work to them. That capacity let us take on six new clients this year we'd otherwise have turned away.",
+                initials: "JM",
+                name: "Jennifer M., CPA",
+                role: "Managing Partner · Boutique Tax Practice · Illinois",
+              },
+              {
+                quote:
+                  "The CA review process is what sold us. When I send a file to FinliGen, I know a qualified accountant has looked at it before it comes back to me — not just a junior staff member running through a checklist. The error rate over 18 months has been essentially zero. For a firm our size, that matters.",
+                initials: "RD",
+                name: "Robert D., EA",
+                role: "Principal · Tax & Advisory Firm · Texas",
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                variants={{
+                  hidden: {
+                    opacity: 0,
+                    y: 60,
+                  },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                  },
+                }}
+                transition={{
+                  duration: 0.7,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{
+                  y: -8,
+                }}
+                className="group relative bg-white
+                          border border-[#e7e7e5]
+                          rounded-[30px]
+                          p-6 sm:p-8 lg:p-10
+                          overflow-hidden"
+              >
+                {/* Background Glow */}
+                <div
+                  className="absolute -top-10 -right-10
+                            w-40 h-40
+                            bg-[#dff5b7]/20
+                            blur-3xl
+                            opacity-0
+                            group-hover:opacity-100
+                            transition-all duration-500"
+                />
+
+                {/* Quote Icon
+                <div
+                  className="relative z-10
+                            w-14 h-14
+                            rounded-2xl
+                            bg-[#0d3d43]
+                            text-white
+                            flex items-center justify-center
+                            text-3xl mb-8"
+                >
+                  “
+                </div> */}
+
+                {/* Quote */}
+                <p
+                  className="relative z-10
+                            text-[#222]
+                            text-[15px] sm:text-[17px]
+                            leading-[2]
+                            font-normal"
+                >
+                  ❝ {item.quote} ❞
+                </p>
+
+                {/* Divider */}
+                <div className="relative z-10 mt-8 h-[1px] bg-[#ececeb]" />
+
+                {/* Author */}
+                <div
+                  className="relative z-10
+                            mt-6 flex items-center gap-4"
+                >
+                  {/* Avatar */}
+                  <div
+                    className="w-14 h-14 rounded-full
+                              bg-[#0d3d43]
+                              text-white
+                              flex items-center justify-center
+                              text-[15px]
+                              font-semibold"
+                  >
+                    {item.initials}
+                  </div>
+
+                  {/* Details */}
+                  <div>
+                    <h4
+                      className="text-[#111]
+                                text-[16px]
+                                font-semibold"
+                    >
+                      {item.name}
+                    </h4>
+
+                    <p
+                      className="mt-1
+                                text-[#666]
+                                text-[13px]
+                                leading-[1.7]"
+                    >
+                      {item.role}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Bottom Notice 
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="mt-6 sm:mt-8 bg-[#ebe7d8]
+                      border border-[#ddd7c6]
+                      rounded-2xl
+                      p-5 sm:p-6"
+          >
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
+              <div
+                className="w-10 h-10 rounded-xl
+                          bg-[#0d3d43]
+                          text-white
+                          flex items-center justify-center
+                          text-lg flex-shrink-0"
+              >
+                ✦
+              </div>
+
+              <div>
+                <h4
+                  className="text-[#173c37]
+                            text-[15px] sm:text-[16px]
+                            font-semibold"
+                >
+                  Before launch: replace placeholder client identities.
+                </h4>
+
+                <p
+                  className="mt-2 text-[#5f6368]
+                            text-[13px] sm:text-[14px]
+                            leading-[1.9]"
+                >
+                  Add real client names, photos, firm names,
+                  and ideally one short video testimonial.
+                  Even a single CPA partner video creates
+                  massive trust for offshore accounting services.
+                </p>
+              </div>
+            </div>
+          </motion.div>*/}
+
+        </div>
+      </section>
+
+      {/* ─────────────────── BLOG / INSIGHTS SECTION ─────────────────── */}
+      <section className="w-full bg-white py-10 sm:py-14 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+
+          {/* Heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
+          >
+            <div className="max-w-3xl">
+              <span
+                className="inline-flex items-center
+                          text-[#3f655b]
+                          text-[11px] sm:text-[13px]
+                          tracking-[0.18em]
+                          font-semibold uppercase
+                          border border-[#3f655b]/15
+                          rounded-full px-4 py-1.5 bg-white"
+              >
+                INSIGHTS & RESOURCES
+              </span>
+
+              <h2
+                className="mt-4 text-[#050816]
+                          text-[30px] sm:text-[42px]
+                          md:text-[54px]
+                          leading-[1.08]
+                          tracking-[-0.04em]
+                          font-semibold"
+              >
+                Stay ahead of compliance
+                <br />
+                before it becomes a problem.
+              </h2>
+            </div>
+
+            <p
+              className="max-w-[420px]
+                        text-[#666]
+                        text-[14px] sm:text-[16px]
+                        leading-[1.9]"
+            >
+              Guides, compliance breakdowns, and cross-border
+              finance insights for founders, CPA firms,
+              and ecommerce businesses.
+            </p>
+          </motion.div>
+
+          {/* Blog Cards */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.12,
+                },
+              },
+            }}
+            className="mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
+          >
+
+            {[
+              {
+                category: "US TAX",
+                title:
+                  "US Economic Nexus Explained: A 2025 Guide for Foreign Ecommerce Sellers",
+                desc:
+                  "Understand when your business becomes liable for US sales tax and how economic nexus rules apply across states.",
+                read: "8 min read",
+              },
+              {
+                category: "LLC SETUP",
+                title:
+                  "How to Set Up a US LLC as an Indian Citizen (Step-by-Step 2025)",
+                desc:
+                  "Everything founders need to know about LLC formation, EIN registration, and first-year US compliance.",
+                read: "11 min read",
+              },
+              {
+                category: "CPA OUTSOURCING",
+                title:
+                  "CPA Firm Outsourcing to India: What to Look for (and What to Avoid)",
+                desc:
+                  "A practical guide for US CPA firms evaluating offshore bookkeeping and tax preparation partners.",
+                read: "7 min read",
+              },
+              {
+                category: "US SALES TAX",
+                title:
+                  "US Sales Tax for Amazon FBA Sellers: The Complete Compliance Playbook",
+                desc:
+                  "Multi-state filing, nexus analysis, and sales tax risks every Amazon seller should understand.",
+                read: "9 min read",
+              },
+              {
+                category: "CROSS-BORDER",
+                title:
+                  "FEMA ODI Compliance for Indian Companies with US Subsidiaries",
+                desc:
+                  "Key FEMA obligations, ODI reporting requirements, and compliance timelines explained clearly.",
+                read: "6 min read",
+              },
+              {
+                category: "STARTUPS",
+                title:
+                  "Series A Readiness: What Investors Expect from Your Financial Statements",
+                desc:
+                  "The reporting systems, metrics, and finance hygiene investors expect before your next raise.",
+                read: "10 min read",
+              },
+            ].map((post, i) => (
+              <motion.div
+                key={i}
+                variants={{
+                  hidden: {
+                    opacity: 0,
+                    y: 50,
+                  },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                  },
+                }}
+                transition={{
+                  duration: 0.7,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{
+                  y: -8,
+                }}
+                className="group relative bg-white
+                          border border-[#e8e8e6]
+                          rounded-[28px]
+                          overflow-hidden"
+              >
+
+                {/* Top Gradient */}
+                <div
+                  className="h-[5px] w-full
+                            bg-gradient-to-r
+                            from-[#0d3d43]
+                            via-[#2F6B5A]
+                            to-[#dff5b7]"
+                />
+
+                <div className="p-6 sm:p-7">
+
+                  {/* Category */}
+                  <div
+                    className="inline-flex items-center
+                              text-[10px]
+                              tracking-[0.16em]
+                              uppercase font-semibold
+                              text-[#0d3d43]
+                              bg-[#0d3d43]/5
+                              border border-[#0d3d43]/10
+                              rounded-full px-3 py-1.5"
+                  >
+                    {post.category}
+                  </div>
+
+                  {/* Title */}
+                  <h3
+                    className="mt-5 text-[#111]
+                              text-[22px]
+                              leading-[1.3]
+                              font-semibold
+                              transition-all duration-300
+                              group-hover:text-[#0d3d43]"
+                  >
+                    {post.title}
+                  </h3>
+
+                  {/* Desc */}
+                  <p
+                    className="mt-4 text-[#666]
+                              text-[14px]
+                              leading-[1.9]"
+                  >
+                    {post.desc}
+                  </p>
+
+                  {/* Bottom */}
+                  <div
+                    className="group mt-8 flex items-center
+                              justify-between"
+                  >
+                    <span
+                      className="text-[#666]
+                                text-[13px]"
+                    >
+                      {post.read}
+                    </span>
+
+                    <motion.div
+                      whileHover={{
+                        rotate: 45,
+                      }}
+                      className="w-11 h-11
+                                rounded-full border border-[#0d3d43]
+                                bg-white group-hover:bg-[#0d3d43]
+                                text-[#0d3d43] group-hover:text-white
+                                flex items-center
+                                justify-center
+                                text-lg"
+                    >
+                      ↗
+                    </motion.div>
+                  </div>
+                </div>
+
+                {/* Glow */}
+                <div
+                  className="absolute -top-10 -right-10
+                            w-40 h-40
+                            bg-[#dff5b7]/20
+                            blur-3xl opacity-0
+                            group-hover:opacity-100
+                            transition-all duration-500"
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Bottom CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="mt-10 sm:mt-12
+                      flex flex-col sm:flex-row
+                      items-center justify-between
+                      gap-5
+                      border-t border-[#e5e5e3]
+                      pt-8"
+          >
+            <div>
+              <h4
+                className="text-[#111]
+                          text-[18px]
+                          font-semibold"
+              >
+                Looking for something specific?
+              </h4>
+
+              <p
+                className="mt-1 text-[#666]
+                          text-[14px]"
+              >
+                Explore detailed guides on US tax, LLC setup,
+                CPA outsourcing, and cross-border compliance.
+              </p>
+            </div>
+
+            <motion.a
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              href="/blog"
+              className="bg-[#0d3d43]
+                        hover:bg-[#145159]
+                        text-white
+                        px-6 py-3
+                        rounded-xl
+                        text-[14px]
+                        font-medium
+                        transition-all duration-300
+                        whitespace-nowrap"
+            >
+              Explore All Articles →
+            </motion.a>
+          </motion.div>
+
+        </div>
+      </section>
+
       {/* ─────────────────── VALUES SECTION ─────────────────── */}
       <section className="w-full bg-[#f5f5f3] py-10 sm:py-14 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
@@ -963,7 +1669,7 @@ const Home = () => {
               <div>
                 <div className="relative w-12 h-12">
                   {["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"].map((pos, i) => (
-                    <div key={i} className={`absolute ${pos} w-8 h-8 border border-[#111] rounded-full`} />
+                    <div key={i} className={`absolute ${pos} w-7 h-7 border border-[#111] rounded-full`} />
                   ))}
                 </div>
 
@@ -1004,7 +1710,7 @@ const Home = () => {
                 <div className="w-10 h-10 flex items-center justify-center">
                   <div className="relative w-10 h-10 rotate-45">
                     <div className="absolute inset-0 w-8 h-8 border border-[#111] rounded-[10px]" />
-                    <div className="absolute top-4 left-4 w-8 h-8 border border-[#111] rounded-[10px]" />
+                    <div className="absolute -top-4 left-4 w-8 h-8 border border-[#111] rounded-[10px]" />
                   </div>
                 </div>
 
@@ -1040,16 +1746,16 @@ const Home = () => {
                          sm:col-span-2 xl:col-span-1"
             >
               <div>
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-[#3f655b]
+                <div className="w-12 h-12 sm:w-12 sm:h-12 rounded-full border border-[#3f655b]
                                 flex items-center justify-center">
                   <div className="relative">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 border border-[#3f655b] rounded-full" />
-                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-                                    w-4 h-4 sm:w-5 sm:h-5 border border-[#3f655b] rounded-full" />
+                    <div className="w-9 h-9 sm:w-9 sm:h-9 border translate-y-[5px] border-[#3f655b] rounded-full" />
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[1px]
+                                    w-4 h-4 sm:w-6 sm:h-6 border border-[#3f655b] rounded-full" />
                   </div>
                 </div>
 
-                <h3 className="mt-6 sm:mt-8 text-[#173c37] text-[22px] sm:text-[28px]
+                <h3 className="mt-5 sm:mt-6 text-[#173c37] text-[22px] sm:text-[28px]
                                leading-tight font-semibold">
                   AI-Powered Production
                 </h3>
@@ -1074,7 +1780,7 @@ const Home = () => {
       </section>
 
       {/* ─────────────────── ABOUT US SECTION ─────────────────── */}
-      <section className="w-full bg-[#f5f5f3] py-10 sm:py-14 overflow-hidden">
+      <section className="w-full bg-gray-200 py-10 sm:py-14 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
 
           {/* Heading */}
