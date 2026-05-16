@@ -6,6 +6,7 @@ import Test from "./components/Testhero";
 import ScrollToTop from "./components/Scrollup";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ServicesPage from "./pages/Services";
 
 export default function App() {
   return (
@@ -16,7 +17,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/test" element={<Test />} />
-        
+        <Route path="/services" element={<ServicesPage />} />
       </Routes>
 
       <Footer />
