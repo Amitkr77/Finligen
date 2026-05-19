@@ -3513,7 +3513,7 @@ export default function CPAFirmPage() {
     </section>
 
     {/* ─────────────────── FAQ SECTION ─────────────────── */}
-    <section className="relative py-32 overflow-hidden bg-white">
+    <section className="relative py-22 overflow-hidden bg-white">
 
       {/* GLOW */}
       <motion.div
@@ -3705,7 +3705,7 @@ export default function CPAFirmPage() {
                   <div
                     className="relative z-10
                               px-7 sm:px-8
-                              pb-8
+                              pb-6
                               pr-20"
                   >
 
@@ -3839,7 +3839,7 @@ export default function CPAFirmPage() {
     </section>
 
     {/* ─────────────────── FINAL CTA SECTION ─────────────────── */}
-    <section className="relative py-36 overflow-hidden bg-[#0d3d43]">
+    <section className="relative py-26 overflow-hidden bg-[#0d3d43]">
 
       {/* GRID */}
       <div
@@ -4216,7 +4216,7 @@ export default function CPAFirmPage() {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute -bottom-10 -left-10
+              className="absolute -bottom-35 left-30
                         bg-white
                         rounded-[28px]
                         p-6
