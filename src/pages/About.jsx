@@ -790,7 +790,7 @@ export default function AboutPage() {
       <ScrollProgressBar />
 
       {/* ─── Custom Cursor ─── */}
-      <motion.div
+      {/* <motion.div
         style={{
           x: cursorX,
           y: cursorY,
@@ -803,7 +803,7 @@ export default function AboutPage() {
           zIndex: 9998,
           mixBlendMode: "difference",
         }}
-      />
+      /> */}
 
       {/* ═══════════ SECTION 1 — HERO ═══════════ */}
       <section
