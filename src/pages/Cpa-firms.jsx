@@ -174,7 +174,7 @@ export default function CPAFirmPage() {
                     duration: 1.1,
                     delay: 0.6,
                   }}
-                  className="absolute bottom-2 left-0
+                  className="absolute bottom-0 left-0
                             h-[10px] w-full
                             bg-[#dff5b7]/70
                             -z-10 origin-left"
@@ -303,7 +303,7 @@ export default function CPAFirmPage() {
               duration: 1,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="relative hidden lg:flex justify-center"
+            className="relative flex justify-center"
           >
 
             {/* MAIN DASHBOARD */}
@@ -317,7 +317,7 @@ export default function CPAFirmPage() {
                 ease: "easeInOut",
               }}
               className="relative
-                        w-[520px]
+                        w-full max-w-[520px]
                         rounded-[40px]
                         bg-white/80
                         backdrop-blur-2xl
@@ -1434,13 +1434,15 @@ export default function CPAFirmPage() {
               animate={{
                 y: [0, -10, 0],
               }}
-              className="absolute -bottom-10 -right-30
-                        hidden lg:block
+              className="absolute 
+                        -bottom-28 right-0
+                        sm:-right-20
                         bg-[#0d3d43]
                         text-white
                         rounded-[28px]
-                        p-6
-                        shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
+                        p-5 sm:p-6
+                        shadow-[0_20px_60px_rgba(0,0,0,0.15)]
+                        w-[220px] sm:w-auto"
             >
 
               <p
@@ -2762,8 +2764,8 @@ export default function CPAFirmPage() {
               animate={{
                 y: [0, -10, 0],
               }}
-              className="absolute -bottom-2 -right-30
-                        hidden lg:block
+              className="absolute -bottom-36 -right-6
+                        sm:-bottom-2 sm:-right-30
                         bg-white
                         rounded-[28px]
                         p-6
@@ -4056,7 +4058,7 @@ export default function CPAFirmPage() {
               duration: 1,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="relative hidden lg:block"
+            className="relative block mt-10 lg:mt-0"
           >
 
             {/* MAIN CARD */}
@@ -4072,7 +4074,8 @@ export default function CPAFirmPage() {
               className="relative
                         bg-white/10 backdrop-blur-2xl
                         border border-white/10
-                        rounded-[42px]
+                        rounded-[28px] sm:rounded-[42px]
+                        mx-auto max-w-[520px]
                         overflow-hidden
                         shadow-[0_30px_100px_rgba(0,0,0,0.2)]"
             >
