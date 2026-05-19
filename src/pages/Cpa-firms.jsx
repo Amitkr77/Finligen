@@ -1939,7 +1939,8 @@ export default function CPAFirmPage() {
                     rotate: 45,
                   }}
                   className="w-11 h-11 rounded-full
-                            bg-[#f5f5f3]
+                            group-hover:bg-[#0d3d43]
+                            group-hover:text-white
                             border border-[#ececea]
                             flex items-center justify-center"
                 >
@@ -2274,8 +2275,9 @@ export default function CPAFirmPage() {
                             w-[90px] h-[90px]
                             mx-auto
                             rounded-[28px]
-                            bg-[#0d3d43]
-                            text-white
+                            bg-[#0d3d43]/20
+                            group-hover:bg-[#0d3d43]
+                            group-hover:text-white
                             flex items-center justify-center
                             text-[28px]
                             font-semibold
@@ -2347,8 +2349,10 @@ export default function CPAFirmPage() {
 
                       <div
                         className="w-10 h-10 rounded-full
-                                  bg-[#0d3d43]
-                                  text-white
+                                  group-hover:bg-[#0d3d43]
+                                  text-[#0d3d43]
+                                  group-hover:text-white
+                                  border border-[#0d3d43]
                                   flex items-center justify-center"
                       >
                         ✓
@@ -2936,8 +2940,10 @@ export default function CPAFirmPage() {
                             w-[110px] h-[110px]
                             mx-auto
                             rounded-[32px]
-                            bg-[#0d3d43]
-                            text-white
+                            bg-[#0d3d43]/20
+                            group-hover:bg-[#0d3d43]
+                            text-[#0d3d43]
+                            group-hover:text-white
                             flex items-center justify-center
                             shadow-[0_25px_70px_rgba(13,61,67,0.25)]"
                 >
@@ -3043,8 +3049,11 @@ export default function CPAFirmPage() {
 
                       <div
                         className="w-12 h-12 rounded-xl
-                                  bg-[#0d3d43]
-                                  text-white
+                                  bg-white
+                                  text-[#0d3d43]
+                                  group-hover:bg-[#0d3d43]
+                                  group-hover:text-white
+                                  border border-[#0d3d43]
                                   flex items-center justify-center"
                       >
                         ✓
