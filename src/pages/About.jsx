@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   motion,
   AnimatePresence,
@@ -9,8 +9,6 @@ import {
   useSpring,
   useInView,
   useMotionValue,
-  useVelocity,
-  useAnimationFrame,
 } from "framer-motion";
 import {
   AiOutlineCheckCircle,
@@ -27,285 +25,76 @@ import {
   HiOutlineDocumentText,
 } from "react-icons/hi";
 import { TbCertificate, TbBuildingBank } from "react-icons/tb";
-import { FiCheck, FiExternalLink, FiArrowUpRight } from "react-icons/fi";
+import { FiCheck, FiExternalLink, FiArrowRight, FiArrowUpRight } from "react-icons/fi";
+import { BsStars } from "react-icons/bs";
 
-/* ─── Magnetic Button Hook ──────────────────────────────────────── */
-function useMagneticEffect(strength = 0.3) {
-  const ref = useRef(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+/* ─── Design Tokens ──────────────────────────────────────────────── */
+const tokens = {
+  primary: "#06363c",
+  primaryLight: "#0a4a52",
+  primaryDark: "#041f23",
+  accent: "#7ecfc0",
+  accentLight: "#b3e8df",
+  accentDark: "#5ab8a8",
+  lime: "#dff5b7",
+  limeLight: "#edfad0",
+  forest: "#1a5c3a",
+  navy: "#2a4a7f",
+  amber: "#7a4f1a",
+  white: "#ffffff",
+  off: "#f8fafb",
+  text: "#0a0a0a",
+  muted: "#6b7280",
+  lighter: "#9ca3af",
+  border: "#e5e7eb",
+  borderLight: "#f0f0f0",
+};
 
-  const handleMouseMove = (e) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    x.set((e.clientX - centerX) * strength);
-    y.set((e.clientY - centerY) * strength);
-  };
+/* ─── Animation Variants ──────────────────────────────────────────── */
+const ease = [0.22, 1, 0.36, 1];
 
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
+const variants = {
+  fadeUp: {
+    hidden: { opacity: 0, y: 32 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
+  },
+  fadeIn: {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.6 } },
+  },
+  scaleIn: {
+    hidden: { opacity: 0, scale: 0.88 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease } },
+  },
+  slideLeft: {
+    hidden: { opacity: 0, x: -40 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease } },
+  },
+  slideRight: {
+    hidden: { opacity: 0, x: 40 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease } },
+  },
+  stagger: {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
+  },
+  staggerFast: {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.07 } },
+  },
+};
 
-  return { ref, x, y, handleMouseMove, handleMouseLeave };
-}
-
-/* ─── Particle Field Component ──────────────────────────────────── */
-function ParticleField({ count = 25, color = "#06363c" }) {
-  const particles = useRef(
-    Array.from({ length: count }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 3 + 1,
-      duration: Math.random() * 15 + 10,
-      delay: Math.random() * 8,
-      opacity: Math.random() * 0.4 + 0.1,
-    }))
-  ).current;
-
-  return (
-    <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        overflow: "hidden",
-        pointerEvents: "none",
-      }}
-    >
-      {particles.map((p) => (
-        <motion.div
-          key={p.id}
-          initial={{ x: `${p.x}vw`, y: `${p.y}vh`, opacity: 0 }}
-          animate={{
-            y: [`${p.y}vh`, `${p.y - 30}vh`, `${p.y}vh`],
-            x: [`${p.x}vw`, `${p.x + (Math.random() - 0.5) * 10}vw`, `${p.x}vw`],
-            opacity: [0, p.opacity, 0],
-            scale: [0.5, 1.2, 0.5],
-          }}
-          transition={{
-            duration: p.duration,
-            delay: p.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          style={{
-            position: "absolute",
-            width: p.size,
-            height: p.size,
-            borderRadius: "50%",
-            background: color,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-/* ─── Animated Counter ─────────────────────────────────────────── */
-function AnimatedCounter({ value, suffix = "" }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
-  useEffect(() => {
-    if (!isInView) return;
-    const numericValue = parseInt(value.replace(/\D/g, ""), 10);
-    if (isNaN(numericValue)) {
-      setCount(value);
-      return;
-    }
-    let start = 0;
-    const duration = 1800;
-    const step = (timestamp) => {
-      if (!start) start = timestamp;
-      const progress = Math.min((timestamp - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * numericValue));
-      if (progress < 1) requestAnimationFrame(step);
-      else setCount(numericValue);
-    };
-    requestAnimationFrame(step);
-  }, [isInView, value]);
-
-  const display =
-    typeof count === "number"
-      ? count + (value.includes("+") ? "+" : "")
-      : value;
-  return <span ref={ref}>{display}</span>;
-}
-
-/* ─── Typewriter Component ──────────────────────────────────────── */
-function Typewriter({ texts, speed = 80, pause = 2000 }) {
-  const [currentText, setCurrentText] = useState("");
-  const [textIndex, setTextIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const target = texts[textIndex];
-    const timeout = setTimeout(
-      () => {
-        if (!isDeleting) {
-          if (charIndex < target.length) {
-            setCurrentText(target.slice(0, charIndex + 1));
-            setCharIndex((c) => c + 1);
-          } else {
-            setTimeout(() => setIsDeleting(true), pause);
-          }
-        } else {
-          if (charIndex > 0) {
-            setCurrentText(target.slice(0, charIndex - 1));
-            setCharIndex((c) => c - 1);
-          } else {
-            setIsDeleting(false);
-            setTextIndex((t) => (t + 1) % texts.length);
-          }
-        }
-      },
-      isDeleting ? speed / 2 : speed
-    );
-    return () => clearTimeout(timeout);
-  }, [charIndex, isDeleting, textIndex, texts, speed, pause]);
-
-  return (
-    <span>
-      {currentText}
-      <motion.span
-        animate={{ opacity: [1, 0] }}
-        transition={{ duration: 0.6, repeat: Infinity }}
-        style={{ borderRight: "2px solid #06363c", marginLeft: "2px" }}
-      />
-    </span>
-  );
-}
-
-/* ─── Glowing Border Card ───────────────────────────────────────── */
-function GlowCard({ children, style, glowColor = "#06363c" }) {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-  const cardRef = useRef(null);
-
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  };
-
-  return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{ position: "relative", borderRadius: "24px", ...style }}
-    >
-      {isHovered && (
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            borderRadius: "24px",
-            background: `radial-gradient(300px circle at ${mousePos.x}px ${mousePos.y}px, ${glowColor}15, transparent 70%)`,
-            pointerEvents: "none",
-            zIndex: 1,
-          }}
-        />
-      )}
-      {children}
-    </div>
-  );
-}
-
-/* ─── Marquee Ticker ─────────────────────────────────────────────── */
-function MarqueeTicker({ items }) {
-  const doubled = [...items, ...items];
-  return (
-    <div
-      style={{
-        overflow: "hidden",
-        background: "#06363c",
-        padding: "14px 0",
-        position: "relative",
-      }}
-    >
-      <motion.div
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-        style={{ display: "flex", gap: "48px", width: "max-content" }}
-      >
-        {doubled.map((item, i) => (
-          <div
-            key={i}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              flexShrink: 0,
-            }}
-          >
-            <span style={{ color: "#7ecfc0", fontSize: "13px" }}>◆</span>
-            <span
-              style={{
-                color: "#fff",
-                fontSize: "13px",
-                fontWeight: 500,
-                letterSpacing: "0.06em",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {item}
-            </span>
-          </div>
-        ))}
-      </motion.div>
-    </div>
-  );
-}
-
-/* ─── Floating Label ─────────────────────────────────────────────── */
-function FloatingBadge({ children, style, delay = 0 }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.8, y: 20 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ scale: 1.05, y: -3 }}
-      style={{
-        position: "absolute",
-        background: "#fff",
-        borderRadius: "14px",
-        padding: "10px 16px",
-        boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
-        border: "1px solid rgba(6,54,60,0.08)",
-        display: "flex",
-        alignItems: "center",
-        gap: "8px",
-        cursor: "default",
-        ...style,
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-/* ─── Progress Bar ───────────────────────────────────────────────── */
-function ScrollProgressBar() {
+/* ─── Scroll Progress ────────────────────────────────────────────── */
+function ScrollProgress() {
   const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
-
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
   return (
     <motion.div
       style={{
         position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        height: "3px",
-        background: "linear-gradient(90deg, #06363c, #7ecfc0, #dff5b7)",
+        top: 0, left: 0, right: 0,
+        height: "2px",
+        background: `linear-gradient(90deg, ${tokens.primary}, ${tokens.accent}, ${tokens.lime})`,
         scaleX,
         transformOrigin: "left",
         zIndex: 9999,
@@ -314,205 +103,877 @@ function ScrollProgressBar() {
   );
 }
 
-/* ─── Number Reveal ──────────────────────────────────────────────── */
-function NumberReveal({ children, delay = 0 }) {
+/* ─── Noise Texture ──────────────────────────────────────────────── */
+function NoiseTexture({ opacity = 0.02 }) {
   return (
-    <div style={{ overflow: "hidden" }}>
-      <motion.div
-        initial={{ y: "100%" }}
-        whileInView={{ y: "0%" }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-      >
-        {children}
-      </motion.div>
+    <div
+      style={{
+        position: "absolute",
+        inset: 0,
+        opacity,
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
+        backgroundRepeat: "repeat",
+        backgroundSize: "128px",
+        pointerEvents: "none",
+        zIndex: 0,
+        mixBlendMode: "multiply",
+      }}
+    />
+  );
+}
+
+/* ─── Section Label ──────────────────────────────────────────────── */
+function SectionLabel({ children, light = false }) {
+  return (
+    <motion.span
+      variants={variants.scaleIn}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "7px",
+        fontSize: "10px",
+        letterSpacing: "0.2em",
+        fontWeight: 700,
+        textTransform: "uppercase",
+        color: light ? tokens.accentLight : tokens.primary,
+        border: `1px solid ${light ? "rgba(126,207,192,0.3)" : "rgba(6,54,60,0.18)"}`,
+        borderRadius: "100px",
+        padding: "6px 16px",
+        background: light ? "rgba(126,207,192,0.08)" : "rgba(6,54,60,0.04)",
+        backdropFilter: "blur(8px)",
+      }}
+    >
+      <motion.span
+        animate={{ scale: [1, 1.5, 1], opacity: [0.8, 1, 0.8] }}
+        transition={{ duration: 2.5, repeat: Infinity }}
+        style={{
+          width: "5px", height: "5px",
+          borderRadius: "50%",
+          background: light ? tokens.accent : tokens.primary,
+          display: "inline-block",
+          flexShrink: 0,
+        }}
+      />
+      {children}
+    </motion.span>
+  );
+}
+
+/* ─── Section Heading ────────────────────────────────────────────── */
+function SectionHeading({ children, center = true, light = false, size = "lg" }) {
+  const sizes = {
+    lg: "clamp(30px, 4vw, 56px)",
+    md: "clamp(24px, 3vw, 40px)",
+    sm: "clamp(20px, 2.5vw, 30px)",
+  };
+  return (
+    <motion.h2
+      variants={variants.fadeUp}
+      style={{
+        fontSize: sizes[size],
+        fontWeight: 800,
+        color: light ? tokens.white : tokens.text,
+        letterSpacing: "-0.035em",
+        lineHeight: 1.08,
+        margin: 0,
+        textAlign: center ? "center" : "left",
+      }}
+    >
+      {children}
+    </motion.h2>
+  );
+}
+
+/* ─── Animated Counter ───────────────────────────────────────────── */
+function AnimatedCounter({ value }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+
+  useEffect(() => {
+    if (!isInView) return;
+    const numeric = parseInt(value.replace(/\D/g, ""), 10);
+    if (isNaN(numeric)) { setCount(value); return; }
+    let start = 0;
+    const duration = 1600;
+    const step = (ts) => {
+      if (!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 4);
+      setCount(Math.floor(eased * numeric));
+      if (progress < 1) requestAnimationFrame(step);
+      else setCount(numeric);
+    };
+    requestAnimationFrame(step);
+  }, [isInView, value]);
+
+  const display = typeof count === "number"
+    ? count + (value.includes("+") ? "+" : "")
+    : value;
+
+  return <span ref={ref}>{display}</span>;
+}
+
+/* ─── Typewriter ─────────────────────────────────────────────────── */
+function Typewriter({ texts, speed = 75, pause = 2400 }) {
+  const [currentText, setCurrentText] = useState("");
+  const [textIndex, setTextIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const target = texts[textIndex];
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        if (charIndex < target.length) {
+          setCurrentText(target.slice(0, charIndex + 1));
+          setCharIndex(c => c + 1);
+        } else {
+          setTimeout(() => setIsDeleting(true), pause);
+        }
+      } else {
+        if (charIndex > 0) {
+          setCurrentText(target.slice(0, charIndex - 1));
+          setCharIndex(c => c - 1);
+        } else {
+          setIsDeleting(false);
+          setTextIndex(t => (t + 1) % texts.length);
+        }
+      }
+    }, isDeleting ? speed / 2 : speed);
+    return () => clearTimeout(timeout);
+  }, [charIndex, isDeleting, textIndex, texts, speed, pause]);
+
+  return (
+    <span>
+      {currentText}
+      <motion.span
+        animate={{ opacity: [1, 0] }}
+        transition={{ duration: 0.55, repeat: Infinity }}
+        style={{
+          display: "inline-block",
+          width: "2px", height: "1em",
+          background: tokens.primary,
+          marginLeft: "3px",
+          verticalAlign: "text-bottom",
+          borderRadius: "1px",
+        }}
+      />
+    </span>
+  );
+}
+
+/* ─── Marquee ────────────────────────────────────────────────────── */
+function Marquee({ items }) {
+  const doubled = [...items, ...items];
+  return (
+    <div style={{ overflow: "hidden", background: tokens.primary, padding: "0" }}>
+      <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+        <motion.div
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+          style={{ display: "flex", width: "max-content", padding: "13px 0" }}
+        >
+          {doubled.map((item, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: "12px", padding: "0 32px", flexShrink: 0 }}>
+              <span style={{ color: tokens.accent, fontSize: "7px", opacity: 0.8 }}>◆</span>
+              <span style={{ color: "rgba(255,255,255,0.8)", fontSize: "12px", fontWeight: 500, letterSpacing: "0.08em", whiteSpace: "nowrap" }}>
+                {item}
+              </span>
+            </div>
+          ))}
+        </motion.div>
+      </div>
     </div>
   );
 }
 
-/* ─── Text Reveal Word by Word ───────────────────────────────────── */
-function WordReveal({ text, style, delay = 0 }) {
-  const words = text.split(" ");
+/* ─── Particle Field ─────────────────────────────────────────────── */
+function Particles({ count = 18, color = tokens.primary }) {
+  const particles = useRef(
+    Array.from({ length: count }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 2.5 + 0.5,
+      duration: Math.random() * 18 + 12,
+      delay: Math.random() * 10,
+      opacity: Math.random() * 0.3 + 0.05,
+    }))
+  ).current;
+
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3em", ...style }}>
-      {words.map((word, i) => (
-        <div key={i} style={{ overflow: "hidden" }}>
-          <motion.span
-            initial={{ y: "110%", opacity: 0 }}
-            whileInView={{ y: "0%", opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0.6,
-              delay: delay + i * 0.05,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            style={{ display: "inline-block" }}
-          >
-            {word}
-          </motion.span>
-        </div>
+    <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 0 }}>
+      {particles.map(p => (
+        <motion.div
+          key={p.id}
+          initial={{ x: `${p.x}vw`, y: `${p.y}vh`, opacity: 0 }}
+          animate={{
+            y: [`${p.y}vh`, `${p.y - 25}vh`, `${p.y}vh`],
+            x: [`${p.x}vw`, `${p.x + (Math.random() - 0.5) * 8}vw`, `${p.x}vw`],
+            opacity: [0, p.opacity, 0],
+            scale: [0.5, 1.3, 0.5],
+          }}
+          transition={{ duration: p.duration, delay: p.delay, repeat: Infinity, ease: "easeInOut" }}
+          style={{ position: "absolute", width: p.size, height: p.size, borderRadius: "50%", background: color }}
+        />
       ))}
     </div>
   );
 }
 
-/* ─── 3D Tilt Card ───────────────────────────────────────────────── */
-function TiltCard({ children, style }) {
-  const ref = useRef(null);
-  const [rotateX, setRotateX] = useState(0);
-  const [rotateY, setRotateY] = useState(0);
-  const [shine, setShine] = useState({ x: 50, y: 50 });
-
-  const handleMouseMove = (e) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-    setRotateX((y - 0.5) * -14);
-    setRotateY((x - 0.5) * 14);
-    setShine({ x: x * 100, y: y * 100 });
-  };
-
-  const handleMouseLeave = () => {
-    setRotateX(0);
-    setRotateY(0);
-    setShine({ x: 50, y: 50 });
-  };
-
+/* ─── Floating Badge ─────────────────────────────────────────────── */
+function FloatingBadge({ children, style, delay = 0 }) {
   return (
     <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      animate={{ rotateX, rotateY }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      initial={{ opacity: 0, scale: 0.8, y: 16 }}
+      animate={{ opacity: 1, scale: 1, y: [0, -6, 0] }}
+      transition={{
+        opacity: { delay, duration: 0.5, ease },
+        scale: { delay, duration: 0.5, ease },
+        y: { delay: delay + 0.5, duration: 4, repeat: Infinity, ease: "easeInOut" },
+      }}
       style={{
-        transformStyle: "preserve-3d",
-        perspective: 1000,
-        position: "relative",
-        overflow: "hidden",
+        position: "absolute",
+        background: "rgba(255,255,255,0.95)",
+        backdropFilter: "blur(16px)",
+        borderRadius: "14px",
+        padding: "10px 16px",
+        boxShadow: "0 4px 24px rgba(6,54,60,0.1), 0 1px 2px rgba(0,0,0,0.06)",
+        border: "1px solid rgba(255,255,255,0.8)",
+        display: "flex",
+        alignItems: "center",
+        gap: "8px",
         ...style,
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: `radial-gradient(circle at ${shine.x}% ${shine.y}%, rgba(255,255,255,0.15) 0%, transparent 60%)`,
-          pointerEvents: "none",
-          zIndex: 2,
-          borderRadius: "inherit",
-          transition: "background 0.1s",
-        }}
-      />
       {children}
     </motion.div>
   );
 }
 
-/* ─── Animation Variants ──────────────────────────────────────── */
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.8 } },
-};
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-};
-const slideLeft = {
-  hidden: { opacity: 0, x: -50 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-const slideRight = {
-  hidden: { opacity: 0, x: 50 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.85 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
-  },
-};
+/* ─── Stat Card ──────────────────────────────────────────────────── */
+function StatCard({ stat, index, isMobile }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <motion.div
+      variants={variants.fadeUp}
+      onMouseEnter={() => setIsMobile ? null : setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      animate={{ y: hovered ? -8 : 0 }}
+      transition={{ duration: 0.3, ease }}
+      style={{
+        background: hovered ? tokens.primary : "rgba(255,255,255,0.85)",
+        backdropFilter: "blur(20px)",
+        borderRadius: "20px",
+        padding: isMobile ? "20px 14px" : "28px 20px",
+        border: `1px solid ${hovered ? "transparent" : "rgba(6,54,60,0.08)"}`,
+        textAlign: "center",
+        cursor: "default",
+        boxShadow: hovered ? `0 20px 60px rgba(6,54,60,0.2)` : "0 1px 3px rgba(0,0,0,0.04)",
+        transition: "background 0.3s, border-color 0.3s, box-shadow 0.3s",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <NoiseTexture opacity={hovered ? 0.05 : 0.02} />
+      <motion.div
+        animate={{ rotate: hovered ? 360 : 0, scale: hovered ? 1.1 : 1 }}
+        transition={{ duration: 0.6, ease }}
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "36px", height: "36px",
+          borderRadius: "10px",
+          background: hovered ? "rgba(126,207,192,0.2)" : "rgba(6,54,60,0.07)",
+          color: hovered ? tokens.accent : tokens.primary,
+          marginBottom: "10px",
+          fontSize: "18px",
+        }}
+      >
+        {stat.icon}
+      </motion.div>
+      <div style={{
+        fontSize: isMobile ? "28px" : "38px",
+        fontWeight: 800,
+        color: hovered ? tokens.white : tokens.text,
+        letterSpacing: "-0.03em",
+        lineHeight: 1,
+        marginBottom: "6px",
+        transition: "color 0.3s",
+      }}>
+        <AnimatedCounter value={stat.number} />
+      </div>
+      <div style={{ fontSize: "11px", fontWeight: 600, color: hovered ? "rgba(255,255,255,0.7)" : tokens.muted, textTransform: "uppercase", letterSpacing: "0.1em", transition: "color 0.3s" }}>
+        {stat.label}
+      </div>
+      {stat.subtitle && (
+        <div style={{ fontSize: "10px", color: hovered ? "rgba(255,255,255,0.5)" : tokens.lighter, marginTop: "3px", transition: "color 0.3s" }}>
+          {stat.subtitle}
+        </div>
+      )}
+    </motion.div>
+  );
+}
 
-/* ─── Data ───────────────────────────────────────────────────── */
+/* ─── Timeline Section ───────────────────────────────────────────── */
+function StorySection({ isMobile, isTablet }) {
+  const storyItems = [
+    {
+      year: "2009",
+      icon: <HiOutlineLightBulb size={20} />,
+      title: "The Problem Revealed",
+      color: tokens.primary,
+      bg: "#e8f4f3",
+      content: [
+        "In 2009, CA Amit Kumar was advising an Indian technology company that had been selling software to US customers for three years. They had revenue. They had customers. What they didn't have was a US sales tax registration in a single state.",
+        "When the nexus analysis came back, the liability was in six figures. The company survived it — but only barely, and only because Amit caught it before the state revenue department did.",
+      ],
+      highlight: "It was that no single firm had the expertise to see both sides clearly.",
+    },
+    {
+      year: "2012",
+      icon: <AiOutlineTrophy size={20} />,
+      title: "The Founding Decision",
+      color: tokens.forest,
+      bg: "#eaf5ee",
+      content: [
+        "FinliGen was founded to close that gap — not as a generalist accounting firm that handles the occasional international client, but as a specialist practice built entirely around the US–India compliance corridor.",
+      ],
+      highlight: "We only work on problems we understand deeply. Which is why we only do this.",
+    },
+    {
+      year: "Today",
+      icon: <AiOutlineGlobal size={20} />,
+      title: "What We've Built",
+      color: tokens.navy,
+      bg: "#eaf0fb",
+      content: [
+        "Today, FinliGen is a team of 50+ finance and compliance professionals operating across four offices in India. We manage US sales tax compliance across all 50 states, IRS filings, FEMA-ODI-APR reporting, QuickBooks-native bookkeeping, and back-office support for US CPA firms.",
+      ],
+      badges: ["ICAI-registered", "QuickBooks ProAdvisor certified", "500+ businesses managed without a single IRS penalty notice"],
+    },
+  ];
+
+  return (
+    <section style={{ background: tokens.off, padding: isMobile ? "64px 20px" : isTablet ? "80px 32px" : "100px 24px", position: "relative" }}>
+      <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle at 20% 50%, rgba(6,54,60,0.03) 0%, transparent 60%), radial-gradient(circle at 80% 20%, rgba(126,207,192,0.04) 0%, transparent 50%)", pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: "840px", margin: "0 auto", position: "relative" }}>
+        {/* Header */}
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={variants.stagger} style={{ textAlign: "center", marginBottom: isMobile ? "48px" : "72px" }}>
+          <SectionLabel>The FinliGen Story</SectionLabel>
+          <div style={{ height: "20px" }} />
+          <SectionHeading>How We Came to Exist</SectionHeading>
+        </motion.div>
+
+        {/* Timeline */}
+        <div style={{ position: "relative", paddingLeft: isMobile ? "48px" : "64px" }}>
+          {/* Vertical line */}
+          <div style={{
+            position: "absolute",
+            left: isMobile ? "15px" : "22px",
+            top: "8px",
+            bottom: "8px",
+            width: "1px",
+            background: `linear-gradient(to bottom, ${tokens.primary}30, ${tokens.forest}30, ${tokens.navy}30)`,
+          }} />
+
+          <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? "28px" : "36px" }}>
+            {storyItems.map((item, i) => (
+              <StoryCard key={i} item={item} index={i} isMobile={isMobile} isTablet={isTablet} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StoryCard({ item, index, isMobile, isTablet }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-60px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: false, amount: 0.25 }}
+      variants={index % 2 === 0 ? variants.slideLeft : variants.slideRight}
+      style={{ position: "relative" }}
+    >
+      {/* Node */}
+      <div style={{
+        position: "absolute",
+        left: isMobile ? "-42px" : "-56px",
+        top: "24px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "6px",
+      }}>
+        <motion.div
+          animate={{ scale: isInView ? [1, 1.15, 1] : 1, boxShadow: isInView ? [`0 0 0 0 ${item.color}40`, `0 0 0 8px ${item.color}10`, `0 0 0 0 ${item.color}40`] : "none" }}
+          transition={{ duration: 2.5, repeat: Infinity }}
+          style={{
+            width: isMobile ? "32px" : "40px",
+            height: isMobile ? "32px" : "40px",
+            borderRadius: "12px",
+            background: item.color,
+            color: "#fff",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+            fontSize: isMobile ? "14px" : "18px",
+            boxShadow: `0 4px 16px ${item.color}40`,
+          }}
+        >
+          {item.icon}
+        </motion.div>
+        <span style={{
+          fontSize: "9px",
+          fontWeight: 800,
+          color: item.color,
+          letterSpacing: "0.06em",
+          background: "#fff",
+          padding: "3px 7px",
+          borderRadius: "6px",
+          border: `1px solid ${item.color}25`,
+          whiteSpace: "nowrap",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+        }}>
+          {item.year}
+        </span>
+      </div>
+
+      {/* Card */}
+      <motion.div
+        animate={{ opacity: isInView ? 1 : 0.7 }}
+        whileHover={!isMobile ? { y: -4, boxShadow: `0 20px 48px rgba(0,0,0,0.09)` } : {}}
+        style={{
+          background: "#fff",
+          borderRadius: "20px",
+          padding: isMobile ? "20px 18px" : isTablet ? "24px" : "28px 32px",
+          border: `1px solid ${isInView ? item.color + "20" : tokens.border}`,
+          boxShadow: isInView ? `0 4px 24px ${item.color}12` : "0 2px 8px rgba(0,0,0,0.04)",
+          transition: "border-color 0.4s, box-shadow 0.4s",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {/* Accent line */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: false }}
+          transition={{ duration: 0.7, ease }}
+          style={{
+            position: "absolute",
+            top: 0, left: 0, right: 0,
+            height: "3px",
+            background: `linear-gradient(90deg, ${item.color}, ${item.color}30)`,
+            transformOrigin: "left",
+            borderRadius: "3px 3px 0 0",
+          }}
+        />
+
+        {/* Background tint */}
+        <div style={{ position: "absolute", top: 0, right: 0, width: "200px", height: "200px", background: `radial-gradient(circle at top right, ${item.color}06, transparent)`, pointerEvents: "none" }} />
+
+        <motion.h3
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          transition={{ duration: 0.5 }}
+          style={{ fontSize: isMobile ? "18px" : "21px", fontWeight: 700, color: item.color, marginBottom: "14px", letterSpacing: "-0.02em" }}
+        >
+          {item.title}
+        </motion.h3>
+
+        {item.content.map((para, pi) => (
+          <p key={pi} style={{ color: tokens.muted, fontSize: isMobile ? "14px" : "15.5px", lineHeight: 1.85, marginBottom: pi < item.content.length - 1 ? "14px" : (item.highlight || item.badges ? "16px" : 0) }}>
+            {para}
+          </p>
+        ))}
+
+        {item.highlight && (
+          <div style={{
+            background: item.bg,
+            borderLeft: `3px solid ${item.color}`,
+            borderRadius: "0 10px 10px 0",
+            padding: "12px 16px",
+            marginTop: "4px",
+          }}>
+            <p style={{ color: item.color, fontWeight: 600, fontSize: isMobile ? "13px" : "14px", lineHeight: 1.65, margin: 0 }}>
+              {item.highlight}
+            </p>
+          </div>
+        )}
+
+        {item.badges && (
+          <div style={{ background: item.bg, borderRadius: "12px", padding: "16px", marginTop: "4px" }}>
+            <p style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: item.color, marginBottom: "10px" }}>
+              Every file reviewed by a qualified CA
+            </p>
+            {item.badges.map((badge, bi) => (
+              <div key={bi} style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginBottom: bi < item.badges.length - 1 ? "8px" : 0 }}>
+                <div style={{ width: "16px", height: "16px", borderRadius: "50%", background: item.color, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: "2px" }}>
+                  <FiCheck size={9} color="#fff" />
+                </div>
+                <span style={{ fontSize: isMobile ? "13px" : "14px", color: "#4b5563", lineHeight: 1.6 }}>{badge}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ─── Differentiator Card ────────────────────────────────────────── */
+function DiffCard({ item, index, isMobile }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <motion.div
+      variants={variants.fadeUp}
+      onMouseEnter={() => !isMobile && setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{ position: "relative" }}
+    >
+      <motion.div
+        animate={{ y: hovered ? -10 : 0, boxShadow: hovered ? `0 32px 64px ${item.color}18` : "0 2px 8px rgba(0,0,0,0.04)" }}
+        transition={{ duration: 0.35, ease }}
+        style={{
+          background: hovered ? item.color : "#fff",
+          borderRadius: "24px",
+          padding: isMobile ? "24px 20px" : "32px 28px",
+          border: `1px solid ${hovered ? "transparent" : tokens.border}`,
+          cursor: "default",
+          height: "100%",
+          position: "relative",
+          overflow: "hidden",
+          transition: "background 0.35s, border-color 0.35s",
+        }}
+      >
+        <NoiseTexture opacity={hovered ? 0.04 : 0.01} />
+
+        {/* Watermark number */}
+        <div style={{
+          position: "absolute",
+          bottom: "-20px", right: "16px",
+          fontSize: "100px",
+          fontWeight: 900,
+          color: hovered ? "rgba(255,255,255,0.05)" : `${item.color}06`,
+          lineHeight: 1,
+          userSelect: "none",
+          letterSpacing: "-0.05em",
+          transition: "color 0.35s",
+        }}>
+          {item.number}
+        </div>
+
+        {/* Icon */}
+        <motion.div
+          animate={{ rotate: hovered ? 8 : 0, scale: hovered ? 1.08 : 1 }}
+          style={{
+            width: "48px", height: "48px",
+            borderRadius: "14px",
+            background: hovered ? "rgba(255,255,255,0.15)" : item.light,
+            color: hovered ? "#fff" : item.color,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginBottom: "20px",
+            fontSize: "22px",
+            transition: "background 0.35s, color 0.35s",
+          }}
+        >
+          {item.icon}
+        </motion.div>
+
+        {/* Number label */}
+        <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: hovered ? "rgba(255,255,255,0.5)" : item.color, marginBottom: "10px", transition: "color 0.35s" }}>
+          {item.number}
+        </div>
+
+        <h3 style={{ fontSize: isMobile ? "17px" : "19px", fontWeight: 700, color: hovered ? "#fff" : tokens.text, lineHeight: 1.35, marginBottom: "14px", letterSpacing: "-0.01em", transition: "color 0.35s" }}>
+          {item.title}
+        </h3>
+
+        <p style={{ fontSize: isMobile ? "14px" : "15px", color: hovered ? "rgba(255,255,255,0.72)" : tokens.muted, lineHeight: 1.8, margin: 0, transition: "color 0.35s" }}>
+          {item.desc}
+        </p>
+
+        {/* Bottom bar */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 + index * 0.12 }}
+          style={{
+            position: "absolute",
+            bottom: 0, left: 0, right: 0,
+            height: "2px",
+            background: hovered ? `linear-gradient(90deg, rgba(255,255,255,0.3), transparent)` : `linear-gradient(90deg, ${item.color}50, transparent)`,
+            transformOrigin: "left",
+            borderRadius: "2px",
+            transition: "background 0.35s",
+          }}
+        />
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ─── Team Card ──────────────────────────────────────────────────── */
+function TeamCard({ member, isMobile, isTablet }) {
+  return (
+    <motion.div variants={variants.fadeUp}>
+      <motion.div
+        whileHover={!isMobile ? { y: -8, boxShadow: "0 32px 64px rgba(0,0,0,0.1)" } : {}}
+        transition={{ duration: 0.35, ease }}
+        style={{
+          background: "#fff",
+          borderRadius: "24px",
+          overflow: "hidden",
+          border: `1px solid ${tokens.border}`,
+          boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+          position: "relative",
+        }}
+      >
+        {/* Top accent bar */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease }}
+          style={{ height: "3px", background: `linear-gradient(90deg, ${member.color}, ${member.color}40)`, transformOrigin: "left" }}
+        />
+
+        <div style={{ padding: isMobile ? "20px 18px" : isTablet ? "24px" : "28px 32px" }}>
+          {/* Header */}
+          <div style={{ display: "flex", alignItems: "flex-start", gap: "16px", marginBottom: "20px" }}>
+            <motion.div
+              whileHover={!isMobile ? { scale: 1.06, rotate: 3 } : {}}
+              style={{
+                width: isMobile ? "52px" : "60px",
+                height: isMobile ? "52px" : "60px",
+                borderRadius: "16px",
+                background: member.color,
+                color: "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: isMobile ? "17px" : "19px",
+                fontWeight: 800,
+                flexShrink: 0,
+                boxShadow: `0 6px 20px ${member.color}50`,
+              }}
+            >
+              {member.initials}
+            </motion.div>
+            <div style={{ flex: 1 }}>
+              <h3 style={{ fontSize: isMobile ? "16px" : "18px", fontWeight: 700, color: tokens.text, margin: "0 0 3px", letterSpacing: "-0.01em" }}>
+                {member.name}
+              </h3>
+              <p style={{ fontSize: isMobile ? "12px" : "13px", fontWeight: 600, color: member.color, margin: "0 0 2px" }}>
+                {member.title}
+              </p>
+              <p style={{ fontSize: isMobile ? "11px" : "12px", color: tokens.lighter, margin: 0 }}>
+                {member.credentials}
+              </p>
+            </div>
+            {!isMobile && (
+              <motion.a
+                href={member.linkedin}
+                whileHover={{ scale: 1.1, background: "#0077b5", color: "#fff" }}
+                style={{
+                  width: "34px", height: "34px",
+                  borderRadius: "9px",
+                  background: "#f3f4f6",
+                  color: "#9ca3af",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textDecoration: "none",
+                  flexShrink: 0,
+                  fontSize: "15px",
+                  transition: "background 0.2s, color 0.2s",
+                }}
+              >
+                <AiOutlineLinkedin />
+              </motion.a>
+            )}
+          </div>
+
+          {/* Divider */}
+          <div style={{ height: "1px", background: tokens.borderLight, marginBottom: "18px" }} />
+
+          <p style={{ fontSize: isMobile ? "13px" : "14.5px", color: tokens.muted, lineHeight: 1.82, marginBottom: "18px" }}>
+            {member.bio}
+          </p>
+
+          {/* Tags */}
+          {(member.specializes || member.oversees) && (
+            <div style={{ background: tokens.off, borderRadius: "14px", padding: "16px", border: `1px solid ${tokens.borderLight}` }}>
+              <p style={{ fontSize: "10px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: tokens.text, marginBottom: "10px" }}>
+                {member.specializes ? "Specializes in" : "Oversees"}
+              </p>
+              {member.specializes ? (
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                  {member.specializes.map((s, i) => (
+                    <motion.span
+                      key={i}
+                      initial={{ opacity: 0, scale: 0.85 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.06 }}
+                      whileHover={!isMobile ? { y: -2, background: "#e8f4f3", borderColor: `${member.color}40` } : {}}
+                      style={{
+                        fontSize: "11.5px",
+                        fontWeight: 500,
+                        padding: "5px 12px",
+                        borderRadius: "100px",
+                        background: "#fff",
+                        border: `1px solid ${tokens.border}`,
+                        color: "#4b5563",
+                        cursor: "default",
+                        transition: "all 0.2s",
+                      }}
+                    >
+                      {s}
+                    </motion.span>
+                  ))}
+                </div>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  {member.oversees.map((o, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      <div style={{ width: "5px", height: "5px", borderRadius: "50%", background: member.color, flexShrink: 0 }} />
+                      <span style={{ fontSize: "13.5px", color: tokens.muted }}>{o}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Testimonial */}
+          {member.testimonial && (
+            <div style={{
+              marginTop: "14px",
+              background: `${member.color}06`,
+              borderLeft: `3px solid ${member.color}`,
+              borderRadius: "0 12px 12px 0",
+              padding: "14px 16px",
+              position: "relative",
+            }}>
+              <div style={{ position: "absolute", top: "-2px", right: "10px", fontSize: "36px", color: `${member.color}12`, fontFamily: "Georgia, serif", fontWeight: 900, lineHeight: 1 }}>"</div>
+              <p style={{ fontSize: "13px", color: "#4b5563", fontStyle: "italic", lineHeight: 1.7, marginBottom: "6px" }}>"{member.testimonial}"</p>
+              <p style={{ fontSize: "11px", fontWeight: 600, color: tokens.lighter, margin: 0 }}>— {member.testimonialAuthor}</p>
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ─── Credential Card ────────────────────────────────────────────── */
+function CredentialCard({ cred, index, isMobile }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <motion.div
+      variants={variants.fadeUp}
+      onMouseEnter={() => !isMobile && setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <motion.div
+        animate={{ y: hovered ? -8 : 0, background: hovered ? tokens.primary : tokens.off, boxShadow: hovered ? `0 20px 48px rgba(6,54,60,0.18)` : "0 1px 3px rgba(0,0,0,0.03)" }}
+        transition={{ duration: 0.3, ease }}
+        style={{
+          borderRadius: "20px",
+          padding: isMobile ? "20px 14px" : "26px 20px",
+          textAlign: "center",
+          border: `1px solid ${hovered ? "transparent" : tokens.border}`,
+          cursor: "default",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <NoiseTexture opacity={hovered ? 0.05 : 0.01} />
+        <motion.div
+          animate={{ rotate: hovered ? 360 : 0, background: hovered ? "rgba(126,207,192,0.15)" : "rgba(6,54,60,0.07)", color: hovered ? tokens.accent : tokens.primary }}
+          transition={{ rotate: { duration: 0.7, ease }, background: { duration: 0.3 }, color: { duration: 0.3 } }}
+          style={{
+            width: "48px", height: "48px",
+            borderRadius: "13px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0 auto 14px",
+            fontSize: "21px",
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
+          {cred.icon}
+        </motion.div>
+        <h3 style={{ fontSize: isMobile ? "14px" : "15px", fontWeight: 700, color: hovered ? "#fff" : tokens.text, marginBottom: "4px", transition: "color 0.3s", position: "relative", zIndex: 1 }}>
+          {cred.title}
+        </h3>
+        <p style={{ fontSize: "12px", color: hovered ? "rgba(255,255,255,0.65)" : tokens.muted, marginBottom: "3px", transition: "color 0.3s", position: "relative", zIndex: 1 }}>
+          {cred.subtitle}
+        </p>
+        <p style={{ fontSize: "11px", color: hovered ? "rgba(255,255,255,0.45)" : tokens.lighter, margin: 0, transition: "color 0.3s", position: "relative", zIndex: 1 }}>
+          {cred.detail}
+        </p>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ─── Data ───────────────────────────────────────────────────────── */
 const tickerItems = [
-  "US Sales Tax Compliance",
-  "IRS Penalty Abatement",
-  "FEMA ODI-APR Reporting",
-  "QuickBooks ProAdvisor",
-  "Cross-Border Tax Advisory",
-  "CA-Reviewed Deliverables",
-  "50+ Finance Professionals",
-  "500+ Businesses Served",
-  "Multi-State Nexus Analysis",
+  "US Sales Tax Compliance", "IRS Penalty Abatement", "FEMA ODI-APR Reporting",
+  "QuickBooks ProAdvisor", "Cross-Border Tax Advisory", "CA-Reviewed Deliverables",
+  "50+ Finance Professionals", "500+ Businesses Served", "Multi-State Nexus Analysis",
   "Transfer Pricing Advisory",
 ];
 
 const stats = [
-  {
-    number: "500+",
-    label: "Businesses Served",
-    icon: <AiOutlineTeam size={20} />,
-  },
-  {
-    number: "50+",
-    label: "Team Members",
-    icon: <AiOutlineGlobal size={20} />,
-  },
-  {
-    number: "0",
-    label: "IRS Penalties",
-    subtitle: "Under our management",
-    icon: <HiOutlineShieldCheck size={20} />,
-  },
-  {
-    number: "4",
-    label: "Office Locations",
-    icon: <TbBuildingBank size={20} />,
-  },
+  { number: "500+", label: "Businesses Served", icon: <AiOutlineTeam size={18} /> },
+  { number: "50+", label: "Team Members", icon: <AiOutlineGlobal size={18} /> },
+  { number: "0", label: "IRS Penalties", subtitle: "Under our management", icon: <HiOutlineShieldCheck size={18} /> },
+  { number: "4", label: "Office Locations", icon: <TbBuildingBank size={18} /> },
 ];
 
 const differentiators = [
   {
-    icon: <AiOutlineGlobal size={26} />,
+    icon: <AiOutlineGlobal size={24} />,
     number: "01",
     title: "Dual-side expertise, single point of contact",
-    desc: "Your Indian CA handles your GST returns. Your US firm handles your IRS filings. Neither talks to the other. FinliGen does both — which means we catch the conflicts and the opportunities that fall through the gap between them.",
-    accent: "#06363c",
+    desc: "Your Indian CA handles your GST returns. Your US firm handles your IRS filings. Neither talks to the other. FinliGen does both — which means we catch the conflicts and opportunities that fall through the gap.",
+    color: tokens.primary,
     light: "#e8f4f3",
   },
   {
-    icon: <HiOutlineShieldCheck size={26} />,
+    icon: <HiOutlineShieldCheck size={24} />,
     number: "02",
     title: "A delivery model with no single points of failure",
-    desc: "50+ professionals. Four offices. Redundant review teams. When your previous accountant went on leave and your books weren't ready for your board meeting — that doesn't happen with FinliGen. Ever.",
-    accent: "#1a5c3a",
+    desc: "50+ professionals. Four offices. Redundant review teams. When your previous accountant went on leave and your books weren't ready for your board meeting — that doesn't happen with FinliGen.",
+    color: tokens.forest,
     light: "#eaf5ee",
   },
   {
-    icon: <TbCertificate size={26} />,
+    icon: <TbCertificate size={24} />,
     number: "03",
     title: "CA review. Not intern review. CA review.",
-    desc: "Every bookkeeping file, tax return, and compliance report is signed off by a qualified Chartered Accountant — not passed through a quality-check checklist by a junior associate. The accountability stops with someone who has credentials on the line.",
-    accent: "#2a4a7f",
+    desc: "Every bookkeeping file, tax return, and compliance report is signed off by a qualified Chartered Accountant — not passed through a quality-check checklist by a junior associate.",
+    color: tokens.navy,
     light: "#eaf0fb",
   },
 ];
@@ -523,533 +984,190 @@ const team = [
     name: "CA Amit Kumar",
     title: "Founder & Managing Partner",
     credentials: "Chartered Accountant, ICAI",
-    bio: "Amit has spent 15 years doing one thing: making sure businesses operating across the US–India corridor don't get ambushed by compliance they didn't see coming. He personally oversees every complex cross-border engagement — IRS structuring, multi-state nexus analysis, FEMA-ODI compliance, and inbound US investment advisory.",
-    specializes: [
-      "IRS penalty abatement",
-      "Economic nexus analysis",
-      "FEMA ODI/APR",
-      "US–India treaty positions",
-      "Transfer pricing advisory",
-    ],
+    bio: "Amit has spent 15 years making sure businesses operating across the US–India corridor don't get ambushed by compliance they didn't see coming. He personally oversees every complex cross-border engagement — IRS structuring, multi-state nexus analysis, FEMA-ODI compliance, and inbound US investment advisory.",
+    specializes: ["IRS penalty abatement", "Economic nexus analysis", "FEMA ODI/APR", "US–India treaty positions", "Transfer pricing"],
     linkedin: "#",
-    color: "#06363c",
+    color: tokens.primary,
   },
   {
     initials: "SS",
     name: "Sumit Singh",
     title: "Head of Operations",
     credentials: "MBA, Operations & Finance",
-    bio: "Sumit built the internal systems that let FinliGen run 50+ active client engagements simultaneously without a single missed filing deadline. He's the reason a CPA partner in Chicago can send files at 9pm and find a completed deliverable in their inbox by morning.",
-    testimonial:
-      "Sumit's team turned around our entire Q4 backlog in 11 days. We'd been sitting on it for three weeks before we called FinliGen.",
+    bio: "Sumit built the internal systems that let FinliGen run 50+ active client engagements simultaneously without a single missed filing deadline. He's the reason a CPA partner in Chicago can send files at 9pm and find a completed deliverable by morning.",
+    testimonial: "Sumit's team turned around our entire Q4 backlog in 11 days. We'd been sitting on it for three weeks before we called FinliGen.",
     testimonialAuthor: "CPA Partner, Illinois",
     linkedin: "#",
-    color: "#1a5c3a",
+    color: tokens.forest,
   },
   {
     initials: "NS",
     name: "Naveen Singh",
     title: "Head of Accounting",
     credentials: "MBA · US GAAP Specialist",
-    bio: "Naveen leads the team responsible for the quality of everything that goes out under FinliGen's name. He came from financial reporting at a multinational, which means he's fluent in both Indian Ind-AS standards and US GAAP — a combination that's rarer than it sounds.",
-    oversees: [
-      "QuickBooks bookkeeping",
-      "Management accounts",
-      "US GAAP reporting",
-      "Account finalization for CPA outsourcing clients",
-    ],
+    bio: "Naveen leads the team responsible for the quality of everything that goes out under FinliGen's name. He came from financial reporting at a multinational, fluent in both Indian Ind-AS standards and US GAAP — a combination that's rarer than it sounds.",
+    oversees: ["QuickBooks bookkeeping", "Management accounts", "US GAAP reporting", "Account finalization for CPA outsourcing clients"],
     linkedin: "#",
-    color: "#2a4a7f",
+    color: tokens.navy,
   },
   {
     initials: "RS",
     name: "Rahul Singh",
     title: "Head of Taxation",
     credentials: "Direct & Indirect Tax Expert",
-    bio: "Rahul manages the tax practice — both the US-side filings and the Indian direct and indirect tax work for cross-border clients. His job is to ensure clients are optimized, not just compliant. He finds the legal positions that reduce tax exposure.",
-    specializes: [
-      "US state income tax",
-      "GST compliance & optimization",
-      "Advance tax planning",
-      "Treaty-based filing positions",
-    ],
+    bio: "Rahul manages the tax practice — both US-side filings and Indian direct and indirect tax work for cross-border clients. His job is to ensure clients are optimized, not just compliant. He finds the legal positions that reduce tax exposure.",
+    specializes: ["US state income tax", "GST compliance & optimization", "Advance tax planning", "Treaty-based filing positions"],
     linkedin: "#",
-    color: "#7a4f1a",
+    color: tokens.amber,
   },
 ];
 
 const credentials = [
-  {
-    title: "ICAI Registered",
-    subtitle: "CA firm registration",
-    detail: "[Reg. No.]",
-    icon: <TbCertificate size={22} />,
-  },
-  {
-    title: "QuickBooks ProAdvisor",
-    subtitle: "Certified partner",
-    detail: "All editions",
-    icon: <HiOutlineDocumentText size={22} />,
-  },
-  {
-    title: "US Tax Enrolled",
-    subtitle: "IRS-recognized",
-    detail: "tax practice",
-    icon: <AiOutlineSafety size={22} />,
-  },
-  {
-    title: "4 Offices",
-    subtitle: "Delhi · Noida",
-    detail: "Gurgaon · Jaipur",
-    icon: <TbBuildingBank size={22} />,
-  },
+  { title: "ICAI Registered", subtitle: "CA firm registration", detail: "Reg. No. available", icon: <TbCertificate size={21} /> },
+  { title: "QuickBooks ProAdvisor", subtitle: "Certified partner", detail: "All editions", icon: <HiOutlineDocumentText size={21} /> },
+  { title: "US Tax Enrolled", subtitle: "IRS-recognized", detail: "Tax practice", icon: <AiOutlineSafety size={21} /> },
+  { title: "4 Offices", subtitle: "Delhi · Noida", detail: "Gurgaon · Jaipur", icon: <TbBuildingBank size={21} /> },
 ];
 
-const storyItems = [
-  {
-    year: "2009",
-    icon: <HiOutlineLightBulb size={22} />,
-    title: "The Problem Revealed",
-    color: "#06363c",
-    content: (
-      <>
-        <p
-          style={{
-            color: "#6b7280",
-            fontSize: "16px",
-            lineHeight: "1.85",
-            marginBottom: "16px",
-          }}
-        >
-          In 2009, CA Amit Kumar was advising an Indian technology company that
-          had been selling software to US customers for three years. They had
-          revenue. They had customers. What they didn't have was a US sales tax
-          registration in a single state.
-        </p>
-        <p
-          style={{
-            color: "#6b7280",
-            fontSize: "16px",
-            lineHeight: "1.85",
-            marginBottom: "16px",
-          }}
-        >
-          When the nexus analysis came back, the liability was in six figures.
-          The company survived it — but only barely, and only because Amit
-          caught it before the state revenue department did.
-        </p>
-        <p
-          style={{ color: "#6b7280", fontSize: "16px", lineHeight: "1.85" }}
-        >
-          That case wasn't unusual. In the years that followed, Amit saw the
-          same pattern repeat across dozens of businesses: Indian founders and
-          US CPA firms managing clients with cross-border operations, all of
-          them carrying compliance risk they didn't know they had. The problem
-          wasn't negligence.{" "}
-          <strong style={{ color: "#0a0a0a", fontWeight: 600 }}>
-            It was that no single firm had the expertise to see both sides
-            clearly.
-          </strong>
-        </p>
-      </>
-    ),
-  },
-  {
-    year: "2012",
-    icon: <AiOutlineTrophy size={22} />,
-    title: "The Founding Decision",
-    color: "#1a5c3a",
-    content: (
-      <p style={{ color: "#6b7280", fontSize: "16px", lineHeight: "1.85" }}>
-        FinliGen was founded to close that gap. Not as a generalist accounting
-        firm that handles the occasional international client — but as a{" "}
-        <strong style={{ color: "#0a0a0a", fontWeight: 600 }}>
-          specialist practice built entirely around the US–India compliance
-          corridor
-        </strong>
-        . We only work on problems we understand deeply. Which is why we only
-        do this.
-      </p>
-    ),
-  },
-  {
-    year: "Today",
-    icon: <AiOutlineGlobal size={22} />,
-    title: "What We've Built",
-    color: "#2a4a7f",
-    content: (
-      <>
-        <p
-          style={{
-            color: "#6b7280",
-            fontSize: "16px",
-            lineHeight: "1.85",
-            marginBottom: "20px",
-          }}
-        >
-          Today, FinliGen is a team of 50+ finance and compliance professionals
-          operating across four offices in India. We manage US sales tax
-          compliance across all 50 states. We handle IRS filings,
-          FEMA-ODI-APR reporting, QuickBooks-native bookkeeping, and back-office
-          support for US CPA firms operating at scale.
-        </p>
-        <div
-          style={{
-            background: "#f0faf8",
-            borderRadius: "14px",
-            padding: "20px 24px",
-            border: "1px solid #c5e8e3",
-          }}
-        >
-          <p
-            style={{
-              color: "#0a0a0a",
-              fontSize: "15px",
-              fontWeight: 600,
-              marginBottom: "12px",
-            }}
-          >
-            Every file — every single one — is reviewed by a qualified
-            Chartered Accountant before it leaves our office.
-          </p>
-          {[
-            "ICAI-registered",
-            "QuickBooks ProAdvisor certified",
-            "500+ businesses managed without a single IRS penalty notice",
-          ].map((item, i) => (
-            <div
-              key={i}
-              style={{
-                display: "flex",
-                alignItems: "flex-start",
-                gap: "10px",
-                marginTop: "10px",
-              }}
-            >
-              <div
-                style={{
-                  width: "18px",
-                  height: "18px",
-                  borderRadius: "50%",
-                  background: "#06363c",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  marginTop: "2px",
-                }}
-              >
-                <FiCheck size={11} color="#fff" />
-              </div>
-              <span
-                style={{
-                  color: "#4b5563",
-                  fontSize: "15px",
-                  lineHeight: "1.6",
-                }}
-              >
-                {item}
-              </span>
-            </div>
-          ))}
-        </div>
-      </>
-    ),
-  },
-];
-
-/* ═══════════════════════════════════════════════════════════════
-   MAIN COMPONENT
-   ═══════════════════════════════════════════════════════════════ */
+/* ═══ MAIN PAGE ═══════════════════════════════════════════════════ */
 export default function AboutPage() {
-  
   const { scrollY } = useScroll();
-  const heroY = useTransform(scrollY, [0, 500], [0, -80]);
-  const heroOpacity = useTransform(scrollY, [0, 400], [1, 0.4]);
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-  const [isCursorHovered, setIsCursorHovered] = useState(false);
-
-  const cursorX = useSpring(useMotionValue(0), { stiffness: 120, damping: 20 });
-  const cursorY = useSpring(useMotionValue(0), { stiffness: 120, damping: 20 });
+  const heroY = useTransform(scrollY, [0, 600], [0, -100]);
+  const heroOpacity = useTransform(scrollY, [0, 500], [1, 0.3]);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-useEffect(() => {
-  const handleResize = () => {
-    setIsMobile(window.innerWidth < 768);
-  };
-
-  handleResize();
-  window.addEventListener("resize", handleResize);
-
-  return () => window.removeEventListener("resize", handleResize);
-}, []);
+  useEffect(() => {
+    setMounted(true);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     document.title = "About Us — FinliGen | Cross-Border Compliance Experts";
-
-    const moveCursor = (e) => {
-      cursorX.set(e.clientX - 20);
-      cursorY.set(e.clientY - 20);
-    };
-    window.addEventListener("mousemove", moveCursor);
-    return () => window.removeEventListener("mousemove", moveCursor);
   }, []);
 
+  if (!mounted) return (
+    <div style={{ width: "100%", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#fff" }}>
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
+        style={{ width: "36px", height: "36px", border: `3px solid ${tokens.border}`, borderTopColor: tokens.primary, borderRadius: "50%" }}
+      />
+    </div>
+  );
+
   return (
-    <main
-      style={{ background: "#ffffff", minHeight: "100vh", overflowX: "hidden" }}
-    >
-      {/* ─── Scroll Progress Bar ─── */}
-      <ScrollProgressBar />
+    <main style={{ background: "#fff", minHeight: "100vh", overflowX: "hidden", fontFamily: "inherit" }}>
+      <ScrollProgress />
 
-      {/* ─── Custom Cursor ─── */}
-      {/* <motion.div
-        style={{
-          x: cursorX,
-          y: cursorY,
-          position: "fixed",
-          width: "40px",
-          height: "40px",
-          borderRadius: "50%",
-          border: "1.5px solid rgba(6,54,60,0.4)",
-          pointerEvents: "none",
-          zIndex: 9998,
-          mixBlendMode: "difference",
-        }}
-      /> */}
-
-      {/* ═══════════ SECTION 1 — HERO ═══════════ */}
-      <section
-        style={{
-          position: "relative",
-          width: "100%",
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          overflow: "hidden",
-        }}
-      >
-        {/* Parallax BG */}
-        <motion.div
-          style={{
-            y: heroY,
-            opacity: heroOpacity,
-            position: "absolute",
-            inset: 0,
-            zIndex: 0,
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920&q=80')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "linear-gradient(135deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.92) 50%, rgba(240,250,248,0.95) 100%)",
-            }}
-          />
-          {/* Grid pattern */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              opacity: 0.04,
-              backgroundImage:
-                "linear-gradient(rgba(6,54,60,1) 1px, transparent 1px), linear-gradient(90deg, rgba(6,54,60,1) 1px, transparent 1px)",
-              backgroundSize: "60px 60px",
-            }}
-          />
+      {/* ═══ HERO ════════════════════════════════════════════════ */}
+      <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+        {/* BG */}
+        <motion.div style={{ y: heroY, opacity: heroOpacity, position: "absolute", inset: 0, zIndex: 0 }}>
+          <div style={{
+            position: "absolute", inset: 0,
+            backgroundImage: "url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920&q=80')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }} />
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(155deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.94) 45%, rgba(232,244,243,0.96) 100%)",
+          }} />
+          {/* Subtle grid */}
+          <div style={{
+            position: "absolute", inset: 0,
+            backgroundImage: "linear-gradient(rgba(6,54,60,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(6,54,60,0.06) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+            maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
+          }} />
         </motion.div>
 
-        {/* Particle Field */}
-        <ParticleField count={20} color="#06363c" />
+        <Particles count={isMobile ? 8 : 16} />
 
-        {/* Decorative orbs */}
+        {/* Glow orbs */}
         <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.35, 0.2] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-          style={{
-            position: "absolute",
-            top: "10%",
-            right: "-5%",
-            width: "500px",
-            height: "500px",
-            background:
-              "radial-gradient(circle, #7ecfc040 0%, transparent 70%)",
-            borderRadius: "50%",
-            zIndex: 1,
-          }}
+          animate={{ scale: [1, 1.2, 1], opacity: [0.18, 0.3, 0.18] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          style={{ position: "absolute", top: "5%", right: isMobile ? "-30%" : "-8%", width: isMobile ? "300px" : "520px", height: isMobile ? "300px" : "520px", background: `radial-gradient(circle, ${tokens.accent}35 0%, transparent 70%)`, borderRadius: "50%", zIndex: 1 }}
         />
         <motion.div
-          animate={{ scale: [1.15, 1, 1.15], opacity: [0.15, 0.3, 0.15] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          style={{
-            position: "absolute",
-            bottom: "5%",
-            left: "-10%",
-            width: "600px",
-            height: "600px",
-            background:
-              "radial-gradient(circle, #06363c20 0%, transparent 70%)",
-            borderRadius: "50%",
-            zIndex: 1,
-          }}
+          animate={{ scale: [1.2, 1, 1.2], opacity: [0.12, 0.22, 0.12] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+          style={{ position: "absolute", bottom: "0%", left: isMobile ? "-30%" : "-12%", width: isMobile ? "380px" : "580px", height: isMobile ? "380px" : "580px", background: `radial-gradient(circle, ${tokens.primary}18 0%, transparent 70%)`, borderRadius: "50%", zIndex: 1 }}
         />
 
-        {/* Floating Badges */}
+        {/* Floating badges */}
         {!isMobile && (
-        <FloatingBadge
-          delay={1.8}
-          style={{ top: "22%", left: "6%", zIndex: 3 }}
-        >
-          <motion.div
-            animate={{ scale: [1, 1.3, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            style={{
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              background: "#1a5c3a",
-            }}
-          />
-          <span
-            style={{ fontSize: "12px", fontWeight: 600, color: "#1a5c3a" }}
-          >
-            ICAI Certified
-          </span>
-        </FloatingBadge>
+          <>
+            <FloatingBadge delay={1.8} style={{ top: "22%", left: "5%", zIndex: 4 }}>
+              <motion.div animate={{ scale: [1, 1.4, 1] }} transition={{ duration: 2.5, repeat: Infinity }} style={{ width: "7px", height: "7px", borderRadius: "50%", background: tokens.forest }} />
+              <span style={{ fontSize: "12px", fontWeight: 700, color: tokens.forest }}>ICAI Certified</span>
+            </FloatingBadge>
+            <FloatingBadge delay={2.0} style={{ top: "32%", right: "4%", zIndex: 4 }}>
+              <HiOutlineShieldCheck size={15} color={tokens.navy} />
+              <span style={{ fontSize: "12px", fontWeight: 700, color: tokens.navy }}>0 IRS Penalties</span>
+            </FloatingBadge>
+            <FloatingBadge delay={2.3} style={{ bottom: "28%", left: "3%", zIndex: 4 }}>
+              <AiOutlineTeam size={15} color={tokens.primary} />
+              <span style={{ fontSize: "12px", fontWeight: 700, color: tokens.primary }}>500+ Businesses</span>
+            </FloatingBadge>
+            <FloatingBadge delay={2.5} style={{ bottom: "35%", right: "5%", zIndex: 4 }}>
+              <BsStars size={14} color={tokens.amber} />
+              <span style={{ fontSize: "12px", fontWeight: 700, color: tokens.amber }}>15+ Years</span>
+            </FloatingBadge>
+          </>
         )}
-        {!isMobile && (
-        <FloatingBadge
-          delay={2.1}
-          style={{ top: "30%", right: "5%", zIndex: 3 }}
-        >
-          <HiOutlineShieldCheck size={16} color="#2a4a7f" />
-          <span
-            style={{ fontSize: "12px", fontWeight: 600, color: "#2a4a7f" }}
-          >
-            0 IRS Penalties
-          </span>
-        </FloatingBadge>
-        )}
-        {!isMobile && (
-        <FloatingBadge
-          delay={2.4}
-          style={{ bottom: "28%", left: "4%", zIndex: 3 }}
-        >
-          <AiOutlineTeam size={16} color="#06363c" />
-          <span
-            style={{ fontSize: "12px", fontWeight: 600, color: "#06363c" }}
-          >
-            500+ Businesses
-          </span>
-        </FloatingBadge>
-        )}
-        {/* Hero Content */}
-        <div
-          style={{
-            position: "relative",
-            zIndex: 2,
-            maxWidth: "1100px",
-            width: "100%",
-            margin: "0 auto",
-            padding: isMobile ? "120px 18px 70px" : "80px 24px",
-            textAlign: "center",
-          }}
-        >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            style={{ marginBottom: "32px" }}
-          >
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                fontSize: "11px",
-                letterSpacing: "0.18em",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                color: "#06363c",
-                border: "1.5px solid rgba(6,54,60,0.25)",
-                borderRadius: "100px",
-                padding: "8px 20px",
-                background: "rgba(255,255,255,0.9)",
-                backdropFilter: "blur(8px)",
-              }}
-            >
-              <motion.span
-                animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }}
-                transition={{ duration: 2.5, repeat: Infinity }}
-                style={{
-                  width: "7px",
-                  height: "7px",
-                  borderRadius: "50%",
-                  background: "#06363c",
-                  display: "inline-block",
-                }}
-              />
-              About FinliGen
-            </span>
+
+        {/* Content */}
+        <div style={{ position: "relative", zIndex: 2, maxWidth: "1020px", width: "100%", margin: "0 auto", padding: isMobile ? "120px 20px 72px" : isTablet ? "120px 32px 80px" : "100px 32px 80px", textAlign: "center" }}>
+
+          {/* Label */}
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.15 }} style={{ marginBottom: "28px" }}>
+            <SectionLabel>About FinliGen</SectionLabel>
           </motion.div>
 
           {/* Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.85, delay: 0.28, ease }}
             style={{
-              fontSize: "clamp(36px, 6vw, 72px)",
+              fontSize: isMobile ? "clamp(30px, 8vw, 48px)" : isTablet ? "clamp(38px, 6vw, 58px)" : "clamp(40px, 5.5vw, 72px)",
               fontWeight: 800,
               lineHeight: 1.07,
-              letterSpacing: "-0.03em",
-              color: "#0a0a0a",
-              margin: "0 0 24px",
+              letterSpacing: "-0.035em",
+              color: tokens.text,
+              margin: "0 0 20px",
             }}
           >
-            Most firms know one side
+            Most firms know
             <br />
-            of the border.{" "}
+            one side of the border.
+            <br />
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.6 }}
-              style={{
-                color: "#06363c",
-                position: "relative",
-                display: "inline-block",
-              }}
+              style={{ color: tokens.primary, position: "relative", display: "inline-block" }}
             >
-              We were built
-              to know both.
+              We were built for both.
               <motion.span
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{
-                  delay: 1.3,
-                  duration: 0.8,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
+                transition={{ delay: 1.2, duration: 0.9, ease }}
                 style={{
                   position: "absolute",
-                  bottom: "6px",
-                  left: 0,
-                  right: 0,
-                  height: "12px",
-                  background: "#7ecfc030",
+                  bottom: "5px", left: 0, right: 0,
+                  height: isMobile ? "7px" : "10px",
+                  background: `${tokens.accent}28`,
                   borderRadius: "4px",
                   zIndex: -1,
                   transformOrigin: "left",
@@ -1058,633 +1176,118 @@ useEffect(() => {
             </motion.span>
           </motion.h1>
 
-          {/* Typewriter sub line */}
+          {/* Typewriter */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.6 }}
-            style={{
-              fontSize: "18px",
-              fontWeight: 600,
-              color: "#06363c",
-              marginBottom: "12px",
-              minHeight: "28px",
-            }}
+            transition={{ duration: 0.55, delay: 1.5 }}
+            style={{ fontSize: isMobile ? "14px" : "17px", fontWeight: 600, color: tokens.primary, marginBottom: "16px", minHeight: isMobile ? "22px" : "28px" }}
           >
             <Typewriter
-              texts={[
-                "US Sales Tax. IRS Filings. FEMA Compliance.",
-                "Indian CA Expertise. US Tax Authority.",
-                "500+ Businesses. Zero Penalties.",
-                "Cross-Border Done Right.",
-              ]}
-              speed={60}
-              pause={2200}
+              texts={["US Sales Tax. IRS Filings. FEMA Compliance.", "Indian CA Expertise. US Tax Authority.", "500+ Businesses. Zero Penalties.", "Cross-Border Done Right."]}
+              speed={65}
+              pause={2600}
             />
           </motion.div>
 
-          {/* Sub */}
+          {/* Subtext */}
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-            style={{
-              fontSize: "clamp(16px, 2vw, 20px)",
-              color: "#6b7280",
-              lineHeight: 1.75,
-              maxWidth: "680px",
-              margin: "0 auto 56px",
-            }}
+            transition={{ duration: 0.65, delay: 0.5 }}
+            style={{ fontSize: isMobile ? "clamp(14px, 3vw, 16px)" : "18px", color: tokens.muted, lineHeight: 1.78, maxWidth: "620px", margin: "0 auto 52px" }}
           >
-            FinliGen exists because cross-border compliance is genuinely hard —
-            and most generalist accounting firms are not equipped to handle it.
-            Every client gets the combined depth of{" "}
-            <span style={{ color: "#0a0a0a", fontWeight: 600 }}>
-              Indian CA expertise
-            </span>{" "}
+            FinliGen exists because cross-border compliance is genuinely hard — and most generalist firms are not equipped to handle it. Every client gets the combined depth of{" "}
+            <strong style={{ color: tokens.text, fontWeight: 600 }}>Indian CA expertise</strong>{" "}
             and{" "}
-            <span style={{ color: "#0a0a0a", fontWeight: 600 }}>
-              US tax authority
-            </span>
-            , under one roof.
+            <strong style={{ color: tokens.text, fontWeight: 600 }}>US tax authority</strong>, under one roof.
           </motion.p>
 
-          {/* Stats */}
+          {/* Stats grid */}
           <motion.div
             initial="hidden"
             animate="visible"
-            variants={stagger}
+            variants={variants.stagger}
             style={{
               display: "grid",
-              gridTemplateColumns: isMobile
-              ? "repeat(2, 1fr)"
-              : "repeat(4, 1fr)",
-              gap: "16px",
+              gridTemplateColumns: `repeat(${isMobile ? 2 : 4}, 1fr)`,
+              gap: isMobile ? "10px" : "14px",
+              maxWidth: "780px",
+              margin: "0 auto",
             }}
           >
             {stats.map((stat, i) => (
-              <TiltCard key={i}>
-                <motion.div
-                  variants={fadeUp}
-                  whileHover={{
-                    y: -8,
-                    boxShadow: "0 20px 40px rgba(6,54,60,0.12)",
-                  }}
-                  style={{
-                    background: "rgba(255,255,255,0.75)",
-                    backdropFilter: "blur(12px)",
-                    borderRadius: "20px",
-                    padding: "24px 16px",
-                    border: "1px solid rgba(6,54,60,0.1)",
-                    textAlign: "center",
-                    transition: "box-shadow 0.3s",
-                    cursor: "default",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      gap: "8px",
-                      marginBottom: "6px",
-                    }}
-                  >
-                    <motion.span
-                      animate={{ rotate: [0, 10, -10, 0] }}
-                      transition={{
-                        duration: 4,
-                        repeat: Infinity,
-                        delay: i * 0.5,
-                      }}
-                      style={{ color: "#06363c" }}
-                    >
-                      {stat.icon}
-                    </motion.span>
-                    <span
-                      style={{
-                        fontSize: "clamp(28px, 4vw, 44px)",
-                        fontWeight: 800,
-                        color: "#0a0a0a",
-                        letterSpacing: "-0.02em",
-                      }}
-                    >
-                      <AnimatedCounter value={stat.number} />
-                    </span>
-                  </div>
-                  <p
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: 600,
-                      color: "#6b7280",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.1em",
-                      margin: 0,
-                    }}
-                  >
-                    {stat.label}
-                  </p>
-                  {stat.subtitle && (
-                    <p style={{ fontSize: "11px", color: "#9ca3af", marginTop: "4px" }}>
-                      {stat.subtitle}
-                    </p>
-                  )}
-                </motion.div>
-              </TiltCard>
+              <StatCard key={i} stat={stat} index={i} isMobile={isMobile} />
             ))}
           </motion.div>
 
-          {/* Scroll indicator */}
+          {/* Scroll hint */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 2.2 }}
-            style={{ marginTop: "60px" }}
+            transition={{ delay: 2.5 }}
+            style={{ marginTop: "52px", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}
           >
+            <span style={{ fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: tokens.lighter, fontWeight: 600 }}>Scroll to explore</span>
             <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-              style={{
-                width: "28px",
-                height: "46px",
-                border: "2px solid rgba(6,54,60,0.25)",
-                borderRadius: "14px",
-                margin: "0 auto",
-                display: "flex",
-                justifyContent: "center",
-                paddingTop: "8px",
-              }}
-            >
-              <motion.div
-                animate={{ y: [0, 14, 0], opacity: [1, 0, 1] }}
-                transition={{ duration: 2.2, repeat: Infinity }}
-                style={{
-                  width: "5px",
-                  height: "10px",
-                  background: "#06363c",
-                  borderRadius: "3px",
-                }}
-              />
-            </motion.div>
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              style={{ width: "1px", height: "32px", background: `linear-gradient(to bottom, ${tokens.primary}40, transparent)` }}
+            />
           </motion.div>
         </div>
       </section>
 
-      {/* ─── Marquee Ticker ─── */}
-      <MarqueeTicker items={tickerItems} />
+      {/* ═══ MARQUEE ══════════════════════════════════════════════ */}
+      <Marquee items={tickerItems} />
 
-      {/* ═══════════ SECTION 2 — STORY ═══════════ */}
-      <section style={{ background: "#f8fafb", padding: "100px 24px" }}>
-        <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={stagger}
-            style={{ textAlign: "center", marginBottom: "64px" }}
-          >
-            <motion.span
-              variants={scaleIn}
-              style={{
-                display: "inline-block",
-                fontSize: "11px",
-                letterSpacing: "0.18em",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                color: "#06363c",
-                border: "1.5px solid rgba(6,54,60,0.2)",
-                borderRadius: "100px",
-                padding: "7px 18px",
-                background: "rgba(6,54,60,0.05)",
-                marginBottom: "20px",
-              }}
-            >
-              The FinliGen Story
-            </motion.span>
-            <motion.h2
-              variants={fadeUp}
-              style={{
-                fontSize: "clamp(30px, 4vw, 52px)",
-                fontWeight: 800,
-                color: "#0a0a0a",
-                letterSpacing: "-0.03em",
-                lineHeight: 1.1,
-                margin: 0,
-              }}
-            >
-              How We Started
-            </motion.h2>
-          </motion.div>
+      {/* ═══ STORY ════════════════════════════════════════════════ */}
+      <StorySection isMobile={isMobile} isTablet={isTablet} />
 
-          {/* Timeline */}
-          <div style={{ position: "relative" }}>
-            {/* Vertical animated line */}
-            <motion.div
-              initial={{ scaleY: 0 }}
-              whileInView={{ scaleY: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-              style={{
-                position: "absolute",
-                left: "39px",
-                top: "0",
-                bottom: "0",
-                width: "2px",
-                background:
-                  "linear-gradient(to bottom, #06363c, #1a5c3a, #2a4a7f)",
-                transformOrigin: "top",
-                opacity: 0.2,
-              }}
-            />
-
-            {/* Animated pulse on timeline */}
-            <motion.div
-              animate={{ y: ["0%", "100%"], opacity: [0, 1, 0] }}
-              transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-              style={{
-                position: "absolute",
-                left: "35px",
-                top: "0",
-                width: "10px",
-                height: "40px",
-                background:
-                  "linear-gradient(to bottom, transparent, #06363c60, transparent)",
-                borderRadius: "4px",
-                zIndex: 2,
-              }}
-            />
-
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "32px" }}
-            >
-              {storyItems.map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.2 }}
-                  variants={i % 2 === 0 ? slideLeft : slideRight}
-                  style={{ display: "flex", gap: "24px" }}
-                >
-                  {/* Icon + year */}
-                  <div
-                    style={{
-                      flexShrink: 0,
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
-                  >
-                    <motion.div
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      animate={{
-                        boxShadow: [
-                          `0 8px 24px ${item.color}40`,
-                          `0 12px 36px ${item.color}70`,
-                          `0 8px 24px ${item.color}40`,
-                        ],
-                      }}
-                      transition={{ duration: 3, repeat: Infinity, delay: i }}
-                      style={{
-                        width: "56px",
-                        height: "56px",
-                        borderRadius: "16px",
-                        background: item.color,
-                        color: "#fff",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: "20px",
-                        flexShrink: 0,
-                      }}
-                    >
-                      {item.icon}
-                    </motion.div>
-                    <div
-                      style={{
-                        fontSize: "11px",
-                        fontWeight: 700,
-                        color: item.color,
-                        marginTop: "8px",
-                        letterSpacing: "0.05em",
-                      }}
-                    >
-                      {item.year}
-                    </div>
-                  </div>
-
-                  {/* Card */}
-                  <GlowCard
-                    glowColor={item.color}
-                    style={{ flex: 1 }}
-                  >
-                    <motion.div
-                      whileHover={{
-                        y: -4,
-                        boxShadow: "0 24px 48px rgba(0,0,0,0.1)",
-                      }}
-                      style={{
-                        flex: 1,
-                        background: "#fff",
-                        borderRadius: "20px",
-                        padding: "28px 32px",
-                        border: "1px solid #e5e7eb",
-                        boxShadow: "0 4px 16px rgba(0,0,0,0.05)",
-                        transition: "all 0.3s ease",
-                      }}
-                    >
-                      {/* Animated accent line */}
-                      <motion.div
-                        initial={{ scaleX: 0 }}
-                        whileInView={{ scaleX: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                        style={{
-                          height: "3px",
-                          background: `linear-gradient(90deg, ${item.color}, transparent)`,
-                          borderRadius: "2px",
-                          marginBottom: "20px",
-                          transformOrigin: "left",
-                        }}
-                      />
-                      <h3
-                        style={{
-                          fontSize: "22px",
-                          fontWeight: 700,
-                          color: "#0a0a0a",
-                          marginBottom: "16px",
-                          letterSpacing: "-0.02em",
-                        }}
-                      >
-                        {item.title}
-                      </h3>
-                      {item.content}
-                    </motion.div>
-                  </GlowCard>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════ SECTION 3 — DIFFERENTIATORS ═══════════ */}
-      <section style={{ background: "#fff", padding: "100px 24px" }}>
-        <div style={{ maxWidth: "1160px", margin: "0 auto" }}>
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={stagger}
-            style={{ textAlign: "center", marginBottom: "64px" }}
-          >
-            <motion.span
-              variants={scaleIn}
-              style={{
-                display: "inline-block",
-                fontSize: "11px",
-                letterSpacing: "0.18em",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                color: "#06363c",
-                border: "1.5px solid rgba(6,54,60,0.2)",
-                borderRadius: "100px",
-                padding: "7px 18px",
-                background: "rgba(6,54,60,0.05)",
-                marginBottom: "20px",
-              }}
-            >
-              Why FinliGen
-            </motion.span>
-            <motion.h2
-              variants={fadeUp}
-              style={{
-                fontSize: "clamp(30px, 4vw, 52px)",
-                fontWeight: 800,
-                color: "#0a0a0a",
-                letterSpacing: "-0.03em",
-                lineHeight: 1.1,
-                margin: 0,
-              }}
-            >
+      {/* ═══ DIFFERENTIATORS ══════════════════════════════════════ */}
+      <section style={{ background: "#fff", padding: isMobile ? "64px 20px" : isTablet ? "80px 32px" : "100px 32px", position: "relative" }}>
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle at 80% 20%, rgba(6,54,60,0.03) 0%, transparent 50%)", pointerEvents: "none" }} />
+        <div style={{ maxWidth: "1120px", margin: "0 auto", position: "relative" }}>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={variants.stagger} style={{ textAlign: "center", marginBottom: isMobile ? "44px" : "68px" }}>
+            <SectionLabel>Why FinliGen</SectionLabel>
+            <div style={{ height: "20px" }} />
+            <SectionHeading>
               Three things no generalist firm
-              <br />
-              can offer you.
-            </motion.h2>
+              <br />can offer you.
+            </SectionHeading>
           </motion.div>
 
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
-            variants={stagger}
+            variants={variants.stagger}
             style={{
               display: "grid",
-              gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
-              gap: "24px",
+              gridTemplateColumns: `repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`,
+              gap: isMobile ? "14px" : "20px",
             }}
           >
             {differentiators.map((item, i) => (
-              <TiltCard key={i}>
-                <GlowCard glowColor={item.accent}>
-                  <motion.div
-                    variants={fadeUp}
-                    whileHover={{
-                      y: -12,
-                      boxShadow: `0 32px 64px ${item.accent}20`,
-                    }}
-                    style={{
-                      background: "#fff",
-                      borderRadius: "24px",
-                      padding: "36px 32px",
-                      border: "1px solid #e5e7eb",
-                      cursor: "default",
-                      transition: "all 0.35s ease",
-                      position: "relative",
-                      overflow: "hidden",
-                      height: "100%",
-                    }}
-                  >
-                    {/* Animated background gradient on hover */}
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        background: `linear-gradient(135deg, ${item.light}80, transparent)`,
-                        borderRadius: "24px",
-                        transition: "opacity 0.3s",
-                      }}
-                    />
-
-                    {/* Number watermark */}
-                    <motion.div
-                      animate={{ opacity: [0.04, 0.08, 0.04] }}
-                      transition={{ duration: 4, repeat: Infinity, delay: i }}
-                      style={{
-                        position: "absolute",
-                        top: "-10px",
-                        right: "20px",
-                        fontSize: "80px",
-                        fontWeight: 900,
-                        color: item.accent,
-                        lineHeight: 1,
-                        userSelect: "none",
-                        letterSpacing: "-0.04em",
-                      }}
-                    >
-                      {item.number}
-                    </motion.div>
-
-                    <motion.div
-                      whileHover={{ scale: 1.1, rotate: 8 }}
-                      animate={{
-                        y: [0, -4, 0],
-                      }}
-                      transition={{
-                        y: { duration: 3, repeat: Infinity, delay: i * 0.7 },
-                      }}
-                      style={{
-                        width: "52px",
-                        height: "52px",
-                        borderRadius: "14px",
-                        background: item.light,
-                        color: item.accent,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        marginBottom: "20px",
-                        position: "relative",
-                        zIndex: 1,
-                      }}
-                    >
-                      {item.icon}
-                    </motion.div>
-
-                    <div
-                      style={{
-                        fontSize: "11px",
-                        fontWeight: 700,
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                        color: item.accent,
-                        marginBottom: "12px",
-                        position: "relative",
-                        zIndex: 1,
-                      }}
-                    >
-                      {item.number}
-                    </div>
-
-                    <h3
-                      style={{
-                        fontSize: "19px",
-                        fontWeight: 700,
-                        color: "#0a0a0a",
-                        lineHeight: 1.35,
-                        marginBottom: "16px",
-                        letterSpacing: "-0.01em",
-                        position: "relative",
-                        zIndex: 1,
-                      }}
-                    >
-                      {item.title}
-                    </h3>
-
-                    <p
-                      style={{
-                        fontSize: "15px",
-                        color: "#6b7280",
-                        lineHeight: 1.8,
-                        margin: 0,
-                        position: "relative",
-                        zIndex: 1,
-                      }}
-                    >
-                      {item.desc}
-                    </p>
-
-                    {/* Bottom animated line */}
-                    <motion.div
-                      initial={{ scaleX: 0 }}
-                      whileInView={{ scaleX: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.9, delay: 0.3 + i * 0.15 }}
-                      style={{
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        height: "3px",
-                        background: `linear-gradient(90deg, ${item.accent}, transparent)`,
-                        transformOrigin: "left",
-                        borderRadius: "0 0 24px 24px",
-                      }}
-                    />
-                  </motion.div>
-                </GlowCard>
-              </TiltCard>
+              <DiffCard key={i} item={item} index={i} isMobile={isMobile} />
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* ═══════════ SECTION 4 — TEAM ═══════════ */}
-      <section style={{ background: "#f8fafb", padding: "100px 24px" }}>
-        <div style={{ maxWidth: "1160px", margin: "0 auto" }}>
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={stagger}
-            style={{ textAlign: "center", marginBottom: "64px" }}
-          >
-            <motion.span
-              variants={scaleIn}
-              style={{
-                display: "inline-block",
-                fontSize: "11px",
-                letterSpacing: "0.18em",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                color: "#06363c",
-                border: "1.5px solid rgba(6,54,60,0.2)",
-                borderRadius: "100px",
-                padding: "7px 18px",
-                background: "rgba(6,54,60,0.05)",
-                marginBottom: "20px",
-              }}
-            >
-              Leadership Team
-            </motion.span>
-            <motion.h2
-              variants={fadeUp}
-              style={{
-                fontSize: "clamp(30px, 4vw, 52px)",
-                fontWeight: 800,
-                color: "#0a0a0a",
-                letterSpacing: "-0.03em",
-                lineHeight: 1.1,
-                margin: "0 0 16px",
-              }}
-            >
-              The people whose names
-              <br />
-              are on the work.
-            </motion.h2>
+      {/* ═══ TEAM ═════════════════════════════════════════════════ */}
+      <section style={{ background: tokens.off, padding: isMobile ? "64px 20px" : isTablet ? "80px 32px" : "100px 32px", position: "relative" }}>
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle at 20% 80%, rgba(126,207,192,0.04) 0%, transparent 50%)", pointerEvents: "none" }} />
+        <div style={{ maxWidth: "1120px", margin: "0 auto", position: "relative" }}>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={variants.stagger} style={{ textAlign: "center", marginBottom: isMobile ? "44px" : "68px" }}>
+            <SectionLabel>Leadership Team</SectionLabel>
+            <div style={{ height: "20px" }} />
+            <SectionHeading>The people whose names<br />are on the work.</SectionHeading>
             <motion.p
-              variants={fadeUp}
-              style={{
-                fontSize: "17px",
-                color: "#6b7280",
-                maxWidth: "580px",
-                margin: "0 auto",
-                lineHeight: 1.75,
-              }}
+              variants={variants.fadeUp}
+              style={{ fontSize: isMobile ? "14px" : "17px", color: tokens.muted, maxWidth: "520px", margin: "18px auto 0", lineHeight: 1.75 }}
             >
-              When you work with FinliGen, you know who reviewed your file — a
-              person with credentials and accountability for every deliverable.
+              When you work with FinliGen, you know who reviewed your file — a person with credentials and accountability for every deliverable.
             </motion.p>
           </motion.div>
 
@@ -1692,851 +1295,198 @@ useEffect(() => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.05 }}
-            variants={stagger}
+            variants={variants.stagger}
             style={{
               display: "grid",
-              gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
-              gap: "24px",
+              gridTemplateColumns: `repeat(${isMobile ? 1 : 2}, 1fr)`,
+              gap: isMobile ? "14px" : "20px",
             }}
           >
             {team.map((member, i) => (
-              <TiltCard key={i}>
-                <GlowCard glowColor={member.color}>
-                  <motion.div
-                    variants={fadeUp}
-                    whileHover={{
-                      y: -8,
-                      boxShadow: "0 32px 60px rgba(0,0,0,0.1)",
-                    }}
-                    style={{
-                      background: "#fff",
-                      borderRadius: "24px",
-                      padding: "32px",
-                      border: "1px solid #e5e7eb",
-                      transition: "all 0.35s ease",
-                      position: "relative",
-                      overflow: "hidden",
-                    }}
-                  >
-                    {/* Top color bar */}
-                    <motion.div
-                      initial={{ scaleX: 0 }}
-                      whileInView={{ scaleX: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.8, delay: 0.2 }}
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        height: "4px",
-                        background: `linear-gradient(90deg, ${member.color}, ${member.color}50)`,
-                        transformOrigin: "left",
-                      }}
-                    />
-
-                    {/* Header */}
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: isMobile ? "column" : "row",
-                        alignItems: isMobile ? "center" : "flex-start",
-                        textAlign: isMobile ? "center" : "left",
-                        gap: "16px",
-                        marginBottom: "20px",
-                        paddingTop: "8px",
-                      }}
-                    >
-                      <motion.div
-                        whileHover={{ scale: 1.08, rotate: 4 }}
-                        animate={{
-                          boxShadow: [
-                            `0 8px 24px ${member.color}50`,
-                            `0 12px 36px ${member.color}80`,
-                            `0 8px 24px ${member.color}50`,
-                          ],
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          delay: i * 0.4,
-                        }}
-                        style={{
-                          width: "64px",
-                          height: "64px",
-                          borderRadius: "18px",
-                          background: member.color,
-                          color: "#fff",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: "20px",
-                          fontWeight: 800,
-                          flexShrink: 0,
-                        }}
-                      >
-                        {member.initials}
-                      </motion.div>
-                      <div style={{ flex: 1 }}>
-                        <h3
-                          style={{
-                            fontSize: "20px",
-                            fontWeight: 700,
-                            color: "#0a0a0a",
-                            margin: "0 0 4px",
-                            letterSpacing: "-0.01em",
-                          }}
-                        >
-                          {member.name}
-                        </h3>
-                        <p
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: 600,
-                            color: "#06363c",
-                            margin: "0 0 4px",
-                          }}
-                        >
-                          {member.title}
-                        </p>
-                        <p
-                          style={{
-                            fontSize: "13px",
-                            color: "#9ca3af",
-                            margin: 0,
-                          }}
-                        >
-                          {member.credentials}
-                        </p>
-                      </div>
-                      <motion.a
-                        href={member.linkedin}
-                        whileHover={{
-                          scale: 1.15,
-                          background: "#0077b5",
-                          color: "#fff",
-                        }}
-                        whileTap={{ scale: 0.95 }}
-                        style={{
-                          width: "38px",
-                          height: "38px",
-                          borderRadius: "10px",
-                          background: "#f3f4f6",
-                          color: "#6b7280",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          textDecoration: "none",
-                          transition: "all 0.2s",
-                          flexShrink: 0,
-                        }}
-                      >
-                        <AiOutlineLinkedin size={18} />
-                      </motion.a>
-                    </div>
-
-                    {/* Divider */}
-                    <motion.div
-                      initial={{ scaleX: 0 }}
-                      whileInView={{ scaleX: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6 }}
-                      style={{
-                        height: "1px",
-                        background: "#f3f4f6",
-                        marginBottom: "20px",
-                        transformOrigin: "left",
-                      }}
-                    />
-
-                    <p
-                      style={{
-                        fontSize: "15px",
-                        color: "#6b7280",
-                        lineHeight: 1.8,
-                        marginBottom: "20px",
-                      }}
-                    >
-                      {member.bio}
-                    </p>
-
-                    {member.specializes && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                        style={{
-                          background: "#f8fafb",
-                          borderRadius: "14px",
-                          padding: "18px 20px",
-                          border: "1px solid #f0f0f0",
-                        }}
-                      >
-                        <p
-                          style={{
-                            fontSize: "12px",
-                            fontWeight: 700,
-                            textTransform: "uppercase",
-                            letterSpacing: "0.1em",
-                            color: "#0a0a0a",
-                            marginBottom: "12px",
-                          }}
-                        >
-                          Specializes in
-                        </p>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexWrap: "wrap",
-                            gap: "8px",
-                          }}
-                        >
-                          {member.specializes.map((s, idx) => (
-                            <motion.span
-                              key={idx}
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              viewport={{ once: true }}
-                              transition={{ delay: idx * 0.07 }}
-                              whileHover={{
-                                y: -2,
-                                background: "#e8f4f3",
-                                borderColor: "#06363c40",
-                              }}
-                              style={{
-                                fontSize: "12px",
-                                fontWeight: 500,
-                                padding: "5px 12px",
-                                borderRadius: "100px",
-                                background: "#fff",
-                                border: "1px solid #e5e7eb",
-                                color: "#4b5563",
-                                cursor: "default",
-                                transition: "all 0.2s",
-                              }}
-                            >
-                              {s}
-                            </motion.span>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {member.oversees && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                        style={{
-                          background: "#f8fafb",
-                          borderRadius: "14px",
-                          padding: "18px 20px",
-                          border: "1px solid #f0f0f0",
-                        }}
-                      >
-                        <p
-                          style={{
-                            fontSize: "12px",
-                            fontWeight: 700,
-                            textTransform: "uppercase",
-                            letterSpacing: "0.1em",
-                            color: "#0a0a0a",
-                            marginBottom: "12px",
-                          }}
-                        >
-                          Oversees
-                        </p>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "8px",
-                          }}
-                        >
-                          {member.oversees.map((o, idx) => (
-                            <motion.div
-                              key={idx}
-                              initial={{ opacity: 0, x: -10 }}
-                              whileInView={{ opacity: 1, x: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ delay: idx * 0.08 }}
-                              style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "10px",
-                              }}
-                            >
-                              <motion.div
-                                animate={{ scale: [1, 1.4, 1] }}
-                                transition={{
-                                  duration: 2.5,
-                                  repeat: Infinity,
-                                  delay: idx * 0.3,
-                                }}
-                                style={{
-                                  width: "6px",
-                                  height: "6px",
-                                  borderRadius: "50%",
-                                  background: "#06363c",
-                                  flexShrink: 0,
-                                }}
-                              />
-                              <span
-                                style={{ fontSize: "14px", color: "#6b7280" }}
-                              >
-                                {o}
-                              </span>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {member.testimonial && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        style={{
-                          marginTop: "16px",
-                          background: "#f8fafb",
-                          borderLeft: `3px solid ${member.color}`,
-                          borderRadius: "0 12px 12px 0",
-                          padding: "16px 20px",
-                          position: "relative",
-                          overflow: "hidden",
-                        }}
-                      >
-                        {/* Quote mark */}
-                        <div
-                          style={{
-                            position: "absolute",
-                            top: "8px",
-                            right: "16px",
-                            fontSize: "48px",
-                            color: `${member.color}15`,
-                            fontFamily: "Georgia, serif",
-                            lineHeight: 1,
-                            fontWeight: 900,
-                          }}
-                        >
-                          "
-                        </div>
-                        <p
-                          style={{
-                            fontSize: "14px",
-                            color: "#4b5563",
-                            fontStyle: "italic",
-                            lineHeight: 1.7,
-                            marginBottom: "8px",
-                          }}
-                        >
-                          "{member.testimonial}"
-                        </p>
-                        <p
-                          style={{
-                            fontSize: "12px",
-                            fontWeight: 600,
-                            color: "#9ca3af",
-                            margin: 0,
-                          }}
-                        >
-                          — {member.testimonialAuthor}
-                        </p>
-                      </motion.div>
-                    )}
-                  </motion.div>
-                </GlowCard>
-              </TiltCard>
+              <TeamCard key={i} member={member} isMobile={isMobile} isTablet={isTablet} />
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* ═══════════ SECTION 5 — CREDENTIALS ═══════════ */}
-      <section style={{ background: "#fff", padding: "100px 24px" }}>
-        <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={stagger}
-            style={{ textAlign: "center", marginBottom: "64px" }}
-          >
-            <motion.span
-              variants={scaleIn}
-              style={{
-                display: "inline-block",
-                fontSize: "11px",
-                letterSpacing: "0.18em",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                color: "#06363c",
-                border: "1.5px solid rgba(6,54,60,0.2)",
-                borderRadius: "100px",
-                padding: "7px 18px",
-                background: "rgba(6,54,60,0.05)",
-                marginBottom: "20px",
-              }}
-            >
-              Credentials & Certifications
-            </motion.span>
-            <motion.h2
-              variants={fadeUp}
-              style={{
-                fontSize: "clamp(30px, 4vw, 52px)",
-                fontWeight: 800,
-                color: "#0a0a0a",
-                letterSpacing: "-0.03em",
-                lineHeight: 1.1,
-                margin: 0,
-              }}
-            >
-              Verified. Certified. Accountable.
-            </motion.h2>
+      {/* ═══ CREDENTIALS ══════════════════════════════════════════ */}
+      <section style={{ background: "#fff", padding: isMobile ? "64px 20px" : isTablet ? "80px 32px" : "100px 32px" }}>
+        <div style={{ maxWidth: "960px", margin: "0 auto" }}>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={variants.stagger} style={{ textAlign: "center", marginBottom: isMobile ? "44px" : "64px" }}>
+            <SectionLabel>Credentials & Certifications</SectionLabel>
+            <div style={{ height: "20px" }} />
+            <SectionHeading>Verified. Certified. Accountable.</SectionHeading>
           </motion.div>
 
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
-            variants={stagger}
+            variants={variants.stagger}
             style={{
               display: "grid",
-              gridTemplateColumns: isMobile
-              ? "repeat(2, 1fr)"
-              : "repeat(4, 1fr)",
-              gap: "20px",
+              gridTemplateColumns: `repeat(${isMobile ? 2 : 4}, 1fr)`,
+              gap: isMobile ? "10px" : "16px",
             }}
           >
             {credentials.map((cred, i) => (
-              <TiltCard key={i}>
-                <motion.div
-                  variants={fadeUp}
-                  whileHover={{
-                    y: -10,
-                    boxShadow: "0 24px 48px rgba(6,54,60,0.12)",
-                  }}
-                  style={{
-                    background: "#f8fafb",
-                    borderRadius: "20px",
-                    padding: "28px 20px",
-                    textAlign: "center",
-                    border: "1px solid #e5e7eb",
-                    transition: "all 0.35s ease",
-                    cursor: "default",
-                    position: "relative",
-                    overflow: "hidden",
-                  }}
-                >
-                  {/* Animated background ring */}
-                  <motion.div
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.05, 0.12, 0.05],
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      delay: i * 0.6,
-                    }}
-                    style={{
-                      position: "absolute",
-                      top: "50%",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                      width: "100px",
-                      height: "100px",
-                      borderRadius: "50%",
-                      border: "2px solid #06363c",
-                    }}
-                  />
-
-                  <motion.div
-                    whileHover={{ rotate: 360, scale: 1.15 }}
-                    transition={{ duration: 0.7 }}
-                    style={{
-                      width: "52px",
-                      height: "52px",
-                      borderRadius: "14px",
-                      background: "rgba(6,54,60,0.08)",
-                      color: "#06363c",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      margin: "0 auto 16px",
-                      position: "relative",
-                      zIndex: 1,
-                    }}
-                  >
-                    {cred.icon}
-                  </motion.div>
-                  <h3
-                    style={{
-                      fontSize: "16px",
-                      fontWeight: 700,
-                      color: "#0a0a0a",
-                      marginBottom: "6px",
-                      position: "relative",
-                      zIndex: 1,
-                    }}
-                  >
-                    {cred.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontSize: "13px",
-                      color: "#6b7280",
-                      marginBottom: "4px",
-                      position: "relative",
-                      zIndex: 1,
-                    }}
-                  >
-                    {cred.subtitle}
-                  </p>
-                  <p
-                    style={{
-                      fontSize: "12px",
-                      color: "#9ca3af",
-                      margin: 0,
-                      position: "relative",
-                      zIndex: 1,
-                    }}
-                  >
-                    {cred.detail}
-                  </p>
-                </motion.div>
-              </TiltCard>
+              <CredentialCard key={i} cred={cred} index={i} isMobile={isMobile} />
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* ═══════════ SECTION 6 — CTA ═══════════ */}
-      <section style={{ background: "#f8fafb", padding: "80px 24px" }}>
-        <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+      {/* ═══ CTA ══════════════════════════════════════════════════ */}
+      <section style={{ background: tokens.off, padding: isMobile ? "48px 20px" : isTablet ? "60px 32px" : "80px 32px" }}>
+        <div style={{ maxWidth: "860px", margin: "0 auto" }}>
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.85, ease }}
             style={{
               position: "relative",
-              borderRadius: "32px",
+              borderRadius: isMobile ? "24px" : "36px",
               overflow: "hidden",
-              background:
-                "linear-gradient(135deg, #052f35 0%, #06363c 50%, #0a4a52 100%)",
-              padding: isMobile ? "50px 20px" : "72px 48px",
+              background: `linear-gradient(145deg, ${tokens.primaryDark} 0%, ${tokens.primary} 60%, ${tokens.primaryLight} 100%)`,
+              padding: isMobile ? "40px 24px 44px" : isTablet ? "60px 48px" : "72px 64px",
             }}
           >
-            {/* Decorative elements */}
+            <NoiseTexture opacity={0.06} />
+            <Particles count={isMobile ? 6 : 10} color={tokens.accent} />
+
+            {/* Orbs */}
             <motion.div
-              animate={{ scale: [1, 1.3, 1], opacity: [0.15, 0.3, 0.15] }}
-              transition={{ duration: 8, repeat: Infinity }}
-              style={{
-                position: "absolute",
-                top: "-60px",
-                right: "-60px",
-                width: "300px",
-                height: "300px",
-                background: "#7ecfc0",
-                borderRadius: "50%",
-                opacity: 0.1,
-              }}
+              animate={{ scale: [1, 1.25, 1], opacity: [0.1, 0.2, 0.1] }}
+              transition={{ duration: 9, repeat: Infinity }}
+              style={{ position: "absolute", top: "-80px", right: "-80px", width: "320px", height: "320px", background: tokens.accent, borderRadius: "50%", filter: "blur(80px)" }}
             />
             <motion.div
-              animate={{ scale: [1.2, 1, 1.2], opacity: [0.1, 0.2, 0.1] }}
-              transition={{ duration: 11, repeat: Infinity }}
-              style={{
-                position: "absolute",
-                bottom: "-80px",
-                left: "-40px",
-                width: "360px",
-                height: "360px",
-                background: "#dff5b7",
-                borderRadius: "50%",
-                opacity: 0.08,
-              }}
+              animate={{ scale: [1.2, 1, 1.2], opacity: [0.06, 0.14, 0.06] }}
+              transition={{ duration: 12, repeat: Infinity }}
+              style={{ position: "absolute", bottom: "-100px", left: "-60px", width: "380px", height: "380px", background: tokens.lime, borderRadius: "50%", filter: "blur(100px)" }}
             />
 
-            {/* Rotating ring decoration */}
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-              style={{
-                position: "absolute",
-                top: "50%",
-                right: "60px",
-                transform: "translateY(-50%)",
-                width: "180px",
-                height: "180px",
-                borderRadius: "50%",
-                border: "1px dashed rgba(255,255,255,0.12)",
-                zIndex: 0,
-              }}
-            />
-            <motion.div
-              animate={{ rotate: -360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              style={{
-                position: "absolute",
-                top: "50%",
-                right: "80px",
-                transform: "translateY(-50%)",
-                width: "130px",
-                height: "130px",
-                borderRadius: "50%",
-                border: "1px dashed rgba(126,207,192,0.2)",
-                zIndex: 0,
-              }}
-            />
+            {/* Dot grid */}
+            <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px)", backgroundSize: "20px 20px", pointerEvents: "none" }} />
 
-            {/* Dots pattern */}
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                opacity: 0.04,
-                backgroundImage:
-                  "radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px)",
-                backgroundSize: "24px 24px",
-              }}
-            />
-
-            {/* Particle Field in CTA */}
-            <ParticleField count={12} color="#7ecfc0" />
-
-            <div
-              style={{ position: "relative", zIndex: 1, textAlign: "center" }}
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                style={{ marginBottom: "16px" }}
-              >
-                <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    fontSize: "11px",
-                    letterSpacing: "0.15em",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    color: "#7ecfc0",
-                    border: "1px solid rgba(126,207,192,0.3)",
-                    borderRadius: "100px",
-                    padding: "6px 16px",
-                  }}
-                >
-                  <motion.span
-                    animate={{ scale: [1, 1.4, 1] }}
-                    transition={{ duration: 2.5, repeat: Infinity }}
-                    style={{
-                      width: "6px",
-                      height: "6px",
-                      borderRadius: "50%",
-                      background: "#7ecfc0",
-                      display: "inline-block",
-                    }}
-                  />
-                  Free Consultation
-                </span>
+            <div style={{ position: "relative", zIndex: 1, textAlign: "center" }}>
+              <motion.div initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} style={{ marginBottom: "18px" }}>
+                <SectionLabel light>Free Consultation</SectionLabel>
               </motion.div>
 
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
+                transition={{ delay: 0.18, duration: 0.7, ease }}
                 style={{
-                  fontSize: "clamp(28px, 4vw, 52px)",
+                  fontSize: isMobile ? "clamp(26px, 6vw, 38px)" : "clamp(30px, 4vw, 52px)",
                   fontWeight: 800,
                   color: "#fff",
                   lineHeight: 1.1,
-                  letterSpacing: "-0.03em",
-                  marginBottom: "20px",
+                  letterSpacing: "-0.035em",
+                  marginBottom: "18px",
                 }}
               >
                 Ready to work with a team
-                <br />
-                that knows both sides?
+                <br />that knows both sides?
               </motion.h2>
 
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                style={{
-                  fontSize: "17px",
-                  color: "#a8c8c6",
-                  lineHeight: 1.7,
-                  maxWidth: "520px",
-                  margin: "0 auto 40px",
-                }}
+                transition={{ delay: 0.28 }}
+                style={{ fontSize: isMobile ? "14px" : "17px", color: "rgba(255,255,255,0.65)", lineHeight: 1.75, maxWidth: "480px", margin: "0 auto 36px" }}
               >
-                Book a free 30-minute consultation. We'll understand your
-                cross-border compliance needs and show you exactly how we can
-                help.
+                Book a free 30-minute consultation. We'll understand your cross-border compliance needs and show you exactly how we can help.
               </motion.p>
 
+              {/* Buttons */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "16px",
-                  flexWrap: "wrap",
-                }}
+                transition={{ delay: 0.38 }}
+                style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", flexWrap: "wrap", marginBottom: "36px" }}
               >
                 <motion.a
                   href="/contact"
-                  whileHover={{
-                    scale: 1.06,
-                    y: -4,
-                    boxShadow: "0 24px 48px rgba(223,245,183,0.35)",
-                  }}
+                  whileHover={!isMobile ? { scale: 1.04, y: -4, boxShadow: `0 20px 48px rgba(223,245,183,0.35)` } : {}}
                   whileTap={{ scale: 0.97 }}
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
                     gap: "10px",
-                    background: "#dff5b7",
-                    color: "#052f35",
-                    padding: "16px 36px",
+                    background: tokens.lime,
+                    color: tokens.primaryDark,
+                    padding: isMobile ? "13px 26px" : "15px 36px",
                     borderRadius: "14px",
-                    fontSize: "16px",
+                    fontSize: isMobile ? "14px" : "15px",
                     fontWeight: 700,
                     textDecoration: "none",
-                    transition: "all 0.3s",
+                    transition: "transform 0.3s, box-shadow 0.3s",
                     position: "relative",
                     overflow: "hidden",
                   }}
                 >
-                  {/* Button shimmer */}
                   <motion.div
                     animate={{ x: ["-100%", "200%"] }}
-                    transition={{
-                      duration: 2.5,
-                      repeat: Infinity,
-                      repeatDelay: 1.5,
-                    }}
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "50%",
-                      height: "100%",
-                      background:
-                        "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
-                      skewX: "-20deg",
-                    }}
+                    transition={{ duration: 2.8, repeat: Infinity, repeatDelay: 1.8 }}
+                    style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.38), transparent)", transform: "skewX(-20deg)" }}
                   />
-                  <span style={{ position: "relative", zIndex: 1 }}>
-                    Schedule a Call
-                  </span>
-                  <motion.span
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.8, repeat: Infinity }}
-                    style={{ position: "relative", zIndex: 1 }}
-                  >
-                    <AiOutlineArrowRight size={20} />
+                  <span style={{ position: "relative" }}>Schedule a Call</span>
+                  <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.6, repeat: Infinity }} style={{ position: "relative" }}>
+                    <FiArrowRight size={isMobile ? 15 : 18} />
                   </motion.span>
                 </motion.a>
 
                 <motion.a
                   href="/services"
-                  whileHover={{
-                    scale: 1.04,
-                    y: -3,
-                    borderColor: "rgba(255,255,255,0.6)",
-                    background: "rgba(255,255,255,0.05)",
-                  }}
+                  whileHover={!isMobile ? { scale: 1.03, y: -3, borderColor: "rgba(255,255,255,0.5)", background: "rgba(255,255,255,0.06)" } : {}}
                   whileTap={{ scale: 0.97 }}
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
                     gap: "8px",
-                    border: "1.5px solid rgba(255,255,255,0.2)",
-                    color: "#fff",
-                    padding: "16px 32px",
+                    border: "1.5px solid rgba(255,255,255,0.18)",
+                    color: "rgba(255,255,255,0.88)",
+                    padding: isMobile ? "13px 24px" : "15px 30px",
                     borderRadius: "14px",
-                    fontSize: "16px",
+                    fontSize: isMobile ? "14px" : "15px",
                     fontWeight: 500,
                     textDecoration: "none",
                     transition: "all 0.3s",
+                    backdropFilter: "blur(8px)",
                   }}
                 >
                   View Services
-                  <FiExternalLink size={17} />
+                  <FiExternalLink size={isMobile ? 13 : 15} />
                 </motion.a>
               </motion.div>
 
-              {/* Trust signal */}
+              {/* Trust */}
               <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.7 }}
-                style={{
-                  marginTop: "40px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "24px",
-                  flexWrap: "wrap",
-                }}
+                transition={{ delay: 0.55 }}
+                style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: isMobile ? "16px" : "28px", flexWrap: "wrap" }}
               >
-                {[
-                  "500+ businesses served",
-                  "0 IRS penalties",
-                  "ICAI registered",
-                ].map((trust, i) => (
+                {["500+ businesses served", "0 IRS penalties", "ICAI registered"].map((trust, i) => (
                   <motion.div
                     key={i}
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 8 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.8 + i * 0.1 }}
-                    style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                    transition={{ delay: 0.6 + i * 0.09 }}
+                    style={{ display: "flex", alignItems: "center", gap: "7px" }}
                   >
-                    <motion.div
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        delay: i * 0.4,
-                      }}
-                      style={{
-                        width: "18px",
-                        height: "18px",
-                        borderRadius: "50%",
-                        background: "rgba(126,207,192,0.2)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <FiCheck size={11} color="#7ecfc0" />
-                    </motion.div>
-                    <span
-                      style={{
-                        fontSize: "13px",
-                        color: "#7ecfc0",
-                        fontWeight: 500,
-                      }}
-                    >
-                      {trust}
-                    </span>
+                    <div style={{ width: "16px", height: "16px", borderRadius: "50%", background: "rgba(126,207,192,0.18)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <FiCheck size={9} color={tokens.accent} />
+                    </div>
+                    <span style={{ fontSize: isMobile ? "11px" : "13px", color: tokens.accentLight, fontWeight: 500 }}>{trust}</span>
                   </motion.div>
                 ))}
               </motion.div>
