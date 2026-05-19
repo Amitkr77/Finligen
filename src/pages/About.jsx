@@ -762,6 +762,7 @@ const storyItems = [
    MAIN COMPONENT
    ═══════════════════════════════════════════════════════════════ */
 export default function AboutPage() {
+  
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 500], [0, -80]);
   const heroOpacity = useTransform(scrollY, [0, 400], [1, 0.4]);
@@ -770,6 +771,18 @@ export default function AboutPage() {
 
   const cursorX = useSpring(useMotionValue(0), { stiffness: 120, damping: 20 });
   const cursorY = useSpring(useMotionValue(0), { stiffness: 120, damping: 20 });
+  const [isMobile, setIsMobile] = useState(false);
+
+useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth < 768);
+  };
+
+  handleResize();
+  window.addEventListener("resize", handleResize);
+
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
 
   useEffect(() => {
     document.title = "About Us — FinliGen | Cross-Border Compliance Experts";
@@ -894,6 +907,7 @@ export default function AboutPage() {
         />
 
         {/* Floating Badges */}
+        {!isMobile && (
         <FloatingBadge
           delay={1.8}
           style={{ top: "22%", left: "6%", zIndex: 3 }}
@@ -914,7 +928,8 @@ export default function AboutPage() {
             ICAI Certified
           </span>
         </FloatingBadge>
-
+        )}
+        {!isMobile && (
         <FloatingBadge
           delay={2.1}
           style={{ top: "30%", right: "5%", zIndex: 3 }}
@@ -926,7 +941,8 @@ export default function AboutPage() {
             0 IRS Penalties
           </span>
         </FloatingBadge>
-
+        )}
+        {!isMobile && (
         <FloatingBadge
           delay={2.4}
           style={{ bottom: "28%", left: "4%", zIndex: 3 }}
@@ -938,7 +954,7 @@ export default function AboutPage() {
             500+ Businesses
           </span>
         </FloatingBadge>
-
+        )}
         {/* Hero Content */}
         <div
           style={{
@@ -947,7 +963,7 @@ export default function AboutPage() {
             maxWidth: "1100px",
             width: "100%",
             margin: "0 auto",
-            padding: "80px 24px",
+            padding: isMobile ? "120px 18px 70px" : "80px 24px",
             textAlign: "center",
           }}
         >
@@ -1100,7 +1116,9 @@ export default function AboutPage() {
             variants={stagger}
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
+              gridTemplateColumns: isMobile
+              ? "repeat(2, 1fr)"
+              : "repeat(4, 1fr)",
               gap: "16px",
             }}
           >
@@ -1462,7 +1480,7 @@ export default function AboutPage() {
             variants={stagger}
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
+              gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
               gap: "24px",
             }}
           >
@@ -1677,7 +1695,7 @@ export default function AboutPage() {
             variants={stagger}
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
+              gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
               gap: "24px",
             }}
           >
@@ -1721,7 +1739,9 @@ export default function AboutPage() {
                     <div
                       style={{
                         display: "flex",
-                        alignItems: "flex-start",
+                        flexDirection: isMobile ? "column" : "row",
+                        alignItems: isMobile ? "center" : "flex-start",
+                        textAlign: isMobile ? "center" : "left",
                         gap: "16px",
                         marginBottom: "20px",
                         paddingTop: "8px",
@@ -2085,7 +2105,9 @@ export default function AboutPage() {
             variants={stagger}
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
+              gridTemplateColumns: isMobile
+              ? "repeat(2, 1fr)"
+              : "repeat(4, 1fr)",
               gap: "20px",
             }}
           >
@@ -2206,7 +2228,7 @@ export default function AboutPage() {
               overflow: "hidden",
               background:
                 "linear-gradient(135deg, #052f35 0%, #06363c 50%, #0a4a52 100%)",
-              padding: "72px 48px",
+              padding: isMobile ? "50px 20px" : "72px 48px",
             }}
           >
             {/* Decorative elements */}
