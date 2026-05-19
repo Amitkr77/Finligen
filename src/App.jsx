@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import ServicesPage from "./pages/Services";
 import AboutPage from "./pages/About";
 import Cpa from "./pages/Cpa-firms";
+import Blog from "./pages/FinliGenBlog";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/Cpa-firms" element={<Cpa/>}/>
+        <Route path="/blog" element={<Blog/>}/>
       </Routes>
 
       <Footer />
