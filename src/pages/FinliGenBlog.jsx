@@ -605,11 +605,12 @@ function FinliGenBlog() {
                 delay: 1.2,
                 ease: [0.76, 0, 0.24, 1],
               }}
-              className="absolute left-0 bottom-5 w-full h-[2px] sm:h-[3px] bg-[#7ecfc0]/60 origin-left"
+              className="absolute left-0 bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-6 w-full h-[2px] sm:h-[3px] bg-[#7ecfc0]/60 origin-left"
             />
           </span>
         </motion.h2>
       </div>
+
 
       {/* Additional line */}
       <div className="overflow-hidden">
