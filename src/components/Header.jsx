@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
+import { FiPhoneCall } from "react-icons/fi";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -61,14 +62,16 @@ const Header = () => {
           </nav>
 
           {/* Desktop Button */}
-          <div className="hidden md:block">
-            <Link
-              to="/signup"
-              className="inline-block bg-[#0c3b42] hover:bg-[#092d33] text-white text-[14px] font-medium px-6 py-2.5 rounded-full transition duration-300"
-            >
-              Sign Up
-            </Link>
-          </div>
+<div className="hidden md:block">
+  <Link
+    to="/contact"
+    onClick={closeMenu}
+    className="bg-[#06363c] hover:bg-[#041f23] text-white px-6 py-3.5 rounded-full text-base font-bold m-2 text-center transition duration-300 flex items-center justify-center gap-2"
+  >
+    <FiPhoneCall size={21} strokeWidth={3} />
+    Book a Call
+  </Link>
+</div>
 
           {/* Mobile Toggle */}
           <button
@@ -104,14 +107,14 @@ const Header = () => {
                 {link.name}
               </NavLink>
             ))}
-
             <Link
-              to="/signup"
-              onClick={closeMenu}
-              className="bg-[#0c3b42] hover:bg-[#092d33] text-white py-3 rounded-full text-sm font-medium mt-2 text-center transition duration-300"
-            >
-              Sign Up
-            </Link>
+            to="/contact"
+            onClick={closeMenu}
+            className="bg-[#06363c] hover:bg-[#041f23] text-white px-5 py-3 rounded-full text-sm font-bold mt-3 mx-0 text-center transition duration-300 flex items-center justify-center gap-2 w-full shadow-lg"
+          >
+            <FiPhoneCall size={20} strokeWidth={3} />
+            Book a Call
+          </Link>
           </nav>
         </div>
       </div>
