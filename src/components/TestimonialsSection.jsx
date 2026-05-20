@@ -1,25 +1,16 @@
 import { useEffect, useState } from "react";
 
 const TestimonialsSection = () => {
-  // INTERNAL STATE
   const [activeTab, setActiveTab] = useState(0);
   const [progress, setProgress] = useState(0);
-
   const ROTATION_TIME = 5000;
 
-  // Updated for FinliGen (based on the copy you shared)
   const tabs = [
     { icon: "🧾", label: "White‑label CPA outsourcing" },
     { icon: "🛡️", label: "CA‑reviewed output & quality control" },
     { icon: "⚡", label: "Fast turnaround in busy season" },
   ];
 
-  /**
-   * NOTE:
-   * The quotes below are taken from your provided draft content.
-   * Before production publish: replace placeholder attributions (e.g., "Jennifer M., CPA")
-   * with real names/firm names + consent.
-   */
   const testimonials = [
     {
       company: "Boutique Tax Practice · Illinois",
@@ -46,73 +37,100 @@ const TestimonialsSection = () => {
 
   const current = testimonials[activeTab];
 
-  // ANIMATIONS
+  // Animations
   const animationStyles = `
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes scaleIn {
       from { opacity: 0; transform: scale(0.95); }
       to { opacity: 1; transform: scale(1); }
     }
+    @keyframes labelFade {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   `;
 
-  // AUTO ROTATION
+  // Auto rotation + progress bar
   useEffect(() => {
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => (prev >= 100 ? 0 : prev + 1));
-    }, ROTATION_TIME / 100);
+    setProgress(0);
+    const startTime = Date.now();
 
-    const rotationTimer = setInterval(() => {
+    const progressInterval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const nextProgress = Math.min((elapsed / ROTATION_TIME) * 100, 100);
+      setProgress(nextProgress);
+    }, 50);
+
+    const rotationTimer = setTimeout(() => {
       setActiveTab((prev) => (prev + 1) % testimonials.length);
-      setProgress(0);
     }, ROTATION_TIME);
 
     return () => {
       clearInterval(progressInterval);
-      clearInterval(rotationTimer);
+      clearTimeout(rotationTimer);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [activeTab, testimonials.length]);
 
-  // MANUAL TAB CHANGE
   const handleTabClick = (index) => {
     setActiveTab(index);
-    setProgress(0);
+  };
+
+  // Mobile label navigation handler
+  const handleMobileLabelClick = () => {
+    setActiveTab((prev) => (prev + 1) % testimonials.length);
+  };
+
+  // Keyboard support for mobile label
+  const handleMobileKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleMobileLabelClick();
+    }
   };
 
   return (
     <>
       <style>{animationStyles}</style>
 
-      <section className="px-8 max-w-[1400px] mx-auto py-32">
+      <section className="px-2 sm:px-2 lg:px-4 max-w-7xl mx-auto py-4 sm:py-10 lg:py-12 xl:py-12">
         {/* Heading */}
-        <h2 className="text-5xl font-light text-center mb-16 leading-tight">
-          What CPA firms say
-          <br />
-          <span className="text-gray-400">
-            after the first year with FinliGen
-          </span>
-        </h2>
+        <div className="text-center mb-6 sm:mb-6 lg:mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-light text-gray-900 leading-tight">
+            What CPA firms say
+            <br className="hidden sm:block" />
+            <span className="sm:hidden"> </span>
+            <span className="text-gray-400">
+              after the first year with FinliGen
+            </span>
+          </h2>
+        </div>
 
-        {/* Main Card */}
-        <div className="bg-gray-100 rounded-3xl p-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          {/* LEFT */}
-          <div key={activeTab} style={{ animation: "fadeIn 0.6s ease-out" }}>
-            <h3 className="text-2xl font-semibold mb-6">{current.company}</h3>
+        {/* Main Testimonial Card */}
+        <div className="bg-gray-100 rounded-[24px] sm:rounded-[28px] lg:rounded-[32px]  grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
+          {/* LEFT CONTENT */}
+          <div
+            key={activeTab}
+            style={{ animation: "fadeIn 0.6s ease-out" }}
+          >
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-900 mb-4 sm:mb-6 leading-snug">
+              {current.company}
+            </h3>
 
-            <p className="text-gray-700 leading-relaxed mb-8">{current.text}</p>
+            <p className="text-gray-700 text-sm sm:text-base lg:text-lg leading-relaxed mb-6 sm:mb-8">
+              {current.text}
+            </p>
 
-            <button className="px-6 py-3 bg-green-500 text-white rounded-full hover:bg-green-600 transition-all hover:scale-105 hover:shadow-lg">
-              Start a free 2‑week trial engagement
+            <button className="w-full sm:w-auto px-5 sm:px-6 py-3 bg-[#7ecfc0] text-white rounded-full hover:bg-[#6dbdab] transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
+              Start a free 2-week trial engagement
             </button>
 
-            <div className="mt-12">
-              <p className="font-semibold">
-                {current.author}{" "}
-                <span className="text-gray-500 font-normal">
+            <div className="mt-4 sm:mt-6 lg:mt-6 pt-4 sm:pt-6 border-t border-gray-200">
+              <p className="text-sm sm:text-base font-semibold text-gray-900">
+                {current.author}
+                <span className="block sm:inline text-gray-500 font-normal sm:ml-2">
                   – {current.role}
                 </span>
               </p>
@@ -122,41 +140,89 @@ const TestimonialsSection = () => {
           {/* RIGHT IMAGE */}
           <div
             key={`img-${activeTab}`}
-            className="rounded-2xl overflow-hidden h-[400px]"
+            className="rounded-2xl sm:rounded-3xl overflow-hidden h-[240px] sm:h-[300px] md:h-[360px] lg:h-[460px] xl:h-[520px]"
             style={{ animation: "scaleIn 0.6s ease-out" }}
           >
             <img
               src={current.img}
               alt={current.company}
               className="w-full h-full object-cover"
+              loading="lazy"
             />
           </div>
         </div>
 
-        {/* TABS */}
-        <div className="flex justify-center gap-12 mt-12 flex-wrap">
+        {/* ==================== MOBILE SINGLE LABEL (Only visible on mobile) ==================== */}
+        <div className="block sm:hidden mt-8">
+          <button
+            onClick={handleMobileLabelClick}
+            onKeyDown={handleMobileKeyDown}
+            className="w-full max-w-[90%] mx-auto flex flex-col items-center gap-3 py-4 px-2 rounded-2xl bg-white border border-gray-200 shadow-sm hover:border-[#7ecfc0] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#7ecfc0] focus:ring-offset-2"
+            aria-label="Next testimonial"
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">{tabs[activeTab].icon}</span>
+              <span 
+                key={activeTab} // Key change triggers re-render with animation
+                className="text-sm font-medium text-gray-900 text-center animate-labelFade"
+                style={{ animation: "labelFade 0.3s ease-out" }}
+              >
+                {tabs[activeTab].label}
+              </span>
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                className="w-4 h-4 text-gray-400" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor" 
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+
+            {/* Progress Bar for Mobile */}
+            <div className="w-full h-1 bg-gray-200 rounded-full overflow-hidden">
+              <span
+                className="block h-full bg-[#7ecfc0]"
+                style={{
+                  width: `${progress}%`,
+                  transition: "width 50ms linear",
+                }}
+              />
+            </div>
+          </button>
+        </div>
+
+        {/* ==================== DESKTOP 3-TAB LAYOUT (Only visible on tablet & desktop) ==================== */}
+        <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mt-8 sm:mt-10 lg:mt-12">
           {tabs.map((tab, i) => (
             <button
               key={i}
               onClick={() => handleTabClick(i)}
-              className={`flex items-center gap-2 pb-3 transition-all relative ${
-                activeTab === i ? "text-gray-900" : "text-gray-400"
+              className={`relative text-left rounded-2xl border bg-white px-4 sm:px-5 py-4 sm:py-5 pb-6 sm:pb-7 transition-all duration-300 ${
+                activeTab === i
+                  ? "border-[#7ecfc0] text-gray-900 shadow-sm"
+                  : "border-gray-200 text-gray-400 hover:text-gray-700"
               }`}
             >
-              <span>{tab.icon}</span>
-              <span>{tab.label}</span>
-
-              {/* Background Line */}
-              <span className="absolute bottom-0 left-0 h-0.5 w-full bg-gray-300" />
+              <div className="flex items-start gap-3">
+                <span className="text-xl sm:text-2xl shrink-0">{tab.icon}</span>
+                <span className="text-sm sm:text-base font-medium leading-snug">
+                  {tab.label}
+                </span>
+              </div>
 
               {/* Progress Line */}
-              <span
-                className="absolute bottom-0 left-0 h-0.5 bg-green-500"
-                style={{
-                  width: activeTab === i ? `${progress}%` : "0%",
-                  transition: activeTab === i ? "width 50ms linear" : "none",
-                }}
-              />
+              <div className="absolute left-4 right-4 bottom-3 h-0.5 bg-gray-200 rounded-full overflow-hidden">
+                <span
+                  className="block h-full bg-[#7ecfc0]"
+                  style={{
+                    width: activeTab === i ? `${progress}%` : "0%",
+                    transition: activeTab === i ? "width 50ms linear" : "none",
+                  }}
+                />
+              </div>
             </button>
           ))}
         </div>
