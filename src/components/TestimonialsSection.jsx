@@ -92,28 +92,29 @@ const TestimonialsSection = () => {
         <h2 className="text-5xl font-light text-center mb-16 leading-tight">
           What CPA firms say
           <br />
-          <span className="text-gray-400">after the first year with FinliGen</span>
+          <span className="text-gray-400">
+            after the first year with FinliGen
+          </span>
         </h2>
 
         {/* Main Card */}
         <div className="bg-gray-100 rounded-3xl p-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* LEFT */}
-          <div
-            key={activeTab}
-            style={{ animation: "fadeIn 0.6s ease-out" }}
-          >
+          <div key={activeTab} style={{ animation: "fadeIn 0.6s ease-out" }}>
             <h3 className="text-2xl font-semibold mb-6">{current.company}</h3>
 
             <p className="text-gray-700 leading-relaxed mb-8">{current.text}</p>
 
-            <button className="px-6 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition-all hover:scale-105 hover:shadow-lg">
+            <button className="px-6 py-3 bg-green-500 text-white rounded-full hover:bg-green-600 transition-all hover:scale-105 hover:shadow-lg">
               Start a free 2‑week trial engagement
             </button>
 
             <div className="mt-12">
               <p className="font-semibold">
                 {current.author}{" "}
-                <span className="text-gray-500 font-normal">– {current.role}</span>
+                <span className="text-gray-500 font-normal">
+                  – {current.role}
+                </span>
               </p>
             </div>
           </div>
@@ -150,7 +151,7 @@ const TestimonialsSection = () => {
 
               {/* Progress Line */}
               <span
-                className="absolute bottom-0 left-0 h-0.5 bg-orange-500"
+                className="absolute bottom-0 left-0 h-0.5 bg-green-500"
                 style={{
                   width: activeTab === i ? `${progress}%` : "0%",
                   transition: activeTab === i ? "width 50ms linear" : "none",

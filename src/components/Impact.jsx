@@ -66,8 +66,8 @@ const ImpactSection = () => {
       <div className="max-w-7xl mx-auto">
         {/* Badge */}
         <div className="flex items-center justify-center gap-2 mb-5">
-          <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-          <span className="text-orange-500 text-xs font-bold tracking-[0.3em] uppercase">
+          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <span className="text-green-500 text-xs font-bold tracking-[0.3em] uppercase">
             Why FinliGen
           </span>
         </div>
@@ -95,7 +95,7 @@ const ImpactSection = () => {
                   transition-all duration-700 ease-in-out border
                   ${
                     isActive
-                      ? "flex-[4] border-orange-400 shadow-2xl"
+                      ? "flex-[4] border-none shadow-2xl"
                       : "flex-1 border-gray-200"
                   }
                 `}
@@ -124,14 +124,7 @@ const ImpactSection = () => {
                   `}
                 />
 
-                {/* Top Line */}
-                <div
-                  className={`
-                    absolute top-0 left-0 h-1 bg-gradient-to-r
-                    from-orange-400 to-orange-600 transition-all duration-700
-                    ${isActive ? "w-full" : "w-0"}
-                  `}
-                />
+               
 
                 {/* Collapsed View */}
                 {!isActive && (
@@ -183,7 +176,7 @@ const ImpactSection = () => {
 
                   {/* Bottom */}
                   <div className="absolute bottom-0 left-0 right-0 p-7">
-                    <p className="text-orange-400 text-[11px] tracking-[0.3em] font-bold uppercase mb-3">
+                    <p className="text-green-400 text-[11px] tracking-[0.3em] font-bold uppercase mb-3">
                       {card.label}
                     </p>
 
@@ -207,7 +200,7 @@ const ImpactSection = () => {
                       </div>
 
                       {/* Button */}
-                      <button className="group w-14 h-14 rounded-full bg-white/15 backdrop-blur-lg border border-white/20 flex items-center justify-center hover:bg-orange-500 transition-all duration-300 hover:scale-110">
+                      <button className="group w-14 h-14 rounded-full bg-white/15 backdrop-blur-lg border border-white/20 flex items-center justify-center hover:bg-green-500 transition-all duration-300 hover:scale-110 hover:rotate-45">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           className="w-6 h-6 text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
