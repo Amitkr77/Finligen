@@ -73,9 +73,9 @@ const ImpactSection = () => {
     <section className="w-full bg-[#fafafa] py-14 sm:py-16 lg:py-20 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         {/* Badge */}
-        <div className="flex items-center justify-center gap-2 mb-4 sm:mb-5">
-          <div className="w-2 h-2 rounded-full bg-[#7ecfc0] animate-pulse" />
-          <span className="text-[#7ecfc0] text-[10px] sm:text-xs font-bold tracking-[0.28em] uppercase">
+        <div className="flex items-center justify-center gap-2 mb-5">
+          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <span className="text-green-500 text-xs font-bold tracking-[0.3em] uppercase">
             Why FinliGen
           </span>
         </div>
@@ -136,14 +136,7 @@ const ImpactSection = () => {
                   `}
                 />
 
-                {/* Top Active Line */}
-                <div
-                  className={`
-                    absolute top-0 left-0 h-1 bg-gradient-to-r
-                    from-[#7ecfc0] to-[#6dbdab] transition-all duration-700 z-20
-                    ${isActive ? "w-full" : "w-0"}
-                  `}
-                />
+               
 
                 {/* Collapsed View - Mobile/Tablet */}
                 {!isActive && (
@@ -202,8 +195,8 @@ const ImpactSection = () => {
                   </div>
 
                   {/* Bottom */}
-                  <div className="mt-auto">
-                    <p className="text-[#7ecfc0] text-[10px] sm:text-[11px] tracking-[0.28em] font-bold uppercase mb-2 sm:mb-3">
+                  <div className="absolute bottom-0 left-0 right-0 p-7">
+                    <p className="text-green-400 text-[11px] tracking-[0.3em] font-bold uppercase mb-3">
                       {card.label}
                     </p>
 

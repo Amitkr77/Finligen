@@ -10,8 +10,8 @@ const styles = `
   }
 
   .hero-root {
-    --orange: #f97316;
-    --orange-dark: #ea580c;
+    --green: #f97316;
+    --green-dark: #ea580c;
     --black: #0f0f0f;
     --gray-soft: #9ca3af;
     --white: #ffffff;
@@ -75,7 +75,7 @@ const styles = `
   }
 
   .hero-badge-new {
-    background: var(--orange);
+    background: var(--green);
     color: var(--white);
     font-size: 10px;
     font-weight: 700;
@@ -109,7 +109,7 @@ const styles = `
   }
 
   .hero-btn-primary {
-    background: var(--orange);
+    background: var(--green);
     color: var(--white);
     border: none;
     border-radius: 999px;
@@ -122,7 +122,7 @@ const styles = `
     white-space: nowrap;
     animation: heroBtnPulse 2.8s ease-in-out 2.5s infinite;
   }
-  .hero-btn-primary:hover { background: var(--orange-dark); transform: scale(1.04); }
+  .hero-btn-primary:hover { background: var(--green-dark); transform: scale(1.04); }
   .hero-btn-primary:active { transform: scale(0.97); }
 
   .hero-btn-ghost {
@@ -501,7 +501,11 @@ const styles = `
 
 const CHECK_SVG = (
   <svg width="10" height="10" fill="white" viewBox="0 0 20 20">
-    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+    <path
+      fillRule="evenodd"
+      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+      clipRule="evenodd"
+    />
   </svg>
 );
 
@@ -512,8 +516,19 @@ const logos = [
     name: "Logique",
     icon: (
       <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-        <path d="M3 10C3 6.13 6.13 3 10 3c3.87 0 7 3.13 7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-        <path d="M10 17V10M7 14l3 3 3-3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M3 10C3 6.13 6.13 3 10 3c3.87 0 7 3.13 7 7"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <path
+          d="M10 17V10M7 14l3 3 3-3"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
   },
@@ -522,7 +537,13 @@ const logos = [
     icon: (
       <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
         <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="2" />
-        <path d="M10 7v3l3 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M10 7v3l3 2"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
   },
@@ -531,7 +552,12 @@ const logos = [
     icon: (
       <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
         <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="2" />
-        <path d="M7 10c0-1.66 1.34-3 3-3s3 1.34 3 3-1.34 3-3 3V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <path
+          d="M7 10c0-1.66 1.34-3 3-3s3 1.34 3 3-1.34 3-3 3V10"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
       </svg>
     ),
   },
@@ -539,7 +565,13 @@ const logos = [
     name: "Grapherz",
     icon: (
       <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-        <path d="M3 15l5-6 4 3 5-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M3 15l5-6 4 3 5-6"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
         <circle cx="17" cy="6" r="1.8" fill="currentColor" />
       </svg>
     ),
@@ -551,7 +583,10 @@ function StoreCard({ visible }) {
 
   useEffect(() => {
     if (!visible) return;
-    const t = setInterval(() => setActiveIdx((i) => (i + 1) % STORES.length), 2600);
+    const t = setInterval(
+      () => setActiveIdx((i) => (i + 1) % STORES.length),
+      2600,
+    );
     return () => clearInterval(t);
   }, [visible]);
 
@@ -560,7 +595,11 @@ function StoreCard({ visible }) {
       <div className="sc-header">
         <div className="sc-dot">
           <svg width="11" height="11" fill="white" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+            <path
+              fillRule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clipRule="evenodd"
+            />
           </svg>
         </div>
         <span className="sc-label">Active Stores</span>
@@ -571,11 +610,27 @@ function StoreCard({ visible }) {
       {STORES.map((store, i) => {
         const active = i === activeIdx;
         return (
-          <div key={store} className={`sc-store-item ${active ? "sc-active" : ""}`}>
+          <div
+            key={store}
+            className={`sc-store-item ${active ? "sc-active" : ""}`}
+          >
             <div className={`sc-icon ${active ? "sc-active" : "sc-inactive"}`}>
-              {active ? CHECK_SVG : <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#ccc" }} />}
+              {active ? (
+                CHECK_SVG
+              ) : (
+                <div
+                  style={{
+                    width: 7,
+                    height: 7,
+                    borderRadius: "50%",
+                    background: "#ccc",
+                  }}
+                />
+              )}
             </div>
-            <span className={`sc-name ${active ? "sc-active" : "sc-inactive"}`}>{store}</span>
+            <span className={`sc-name ${active ? "sc-active" : "sc-inactive"}`}>
+              {store}
+            </span>
           </div>
         );
       })}
@@ -592,7 +647,11 @@ function Box3D() {
     const t1 = setTimeout(() => setFlapsOpen(true), 300);
     const t2 = setTimeout(() => setSparksActive(true), 300 + 1440 + 900);
     const t3 = setTimeout(() => setCardVisible(true), 300 + 1440 + 900 + 550);
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
   }, []);
 
   const sparks = [
@@ -615,14 +674,27 @@ function Box3D() {
           <div className="box-panel box-bottom" />
           <div className="box-inside" />
         </div>
-        <div className={`box-flap flap-front-c ${flapsOpen ? "flap-open" : ""}`} />
-        <div className={`box-flap flap-right-c ${flapsOpen ? "flap-open" : ""}`} />
-        <div className={`box-flap flap-back-c  ${flapsOpen ? "flap-open" : ""}`} />
-        <div className={`box-flap flap-left-c  ${flapsOpen ? "flap-open" : ""}`} />
+        <div
+          className={`box-flap flap-front-c ${flapsOpen ? "flap-open" : ""}`}
+        />
+        <div
+          className={`box-flap flap-right-c ${flapsOpen ? "flap-open" : ""}`}
+        />
+        <div
+          className={`box-flap flap-back-c  ${flapsOpen ? "flap-open" : ""}`}
+        />
+        <div
+          className={`box-flap flap-left-c  ${flapsOpen ? "flap-open" : ""}`}
+        />
       </div>
 
       {sparks.map((s, i) => (
-        <SparkParticle key={i} style={s.style} delay={s.delay} active={sparksActive} />
+        <SparkParticle
+          key={i}
+          style={s.style}
+          delay={s.delay}
+          active={sparksActive}
+        />
       ))}
 
       <StoreCard visible={cardVisible} />
@@ -641,10 +713,7 @@ function SparkParticle({ style, delay, active }) {
   }, [active]);
 
   return (
-    <div
-      className={`box-spark ${fired ? "spark-active" : ""}`}
-      style={style}
-    />
+    <div className={`box-spark ${fired ? "spark-active" : ""}`} style={style} />
   );
 }
 
@@ -659,31 +728,56 @@ export default function Hero() {
         {/* BODY */}
         <div className="hero-body">
           <div className="hero-inner">
-
             {/* COPY */}
             <div className="hero-copy">
-              <div className="hero-badge anim-fade-up" style={{ animationDelay: "0.1s" }}>
+              <div
+                className="hero-badge anim-fade-up"
+                style={{ animationDelay: "0.1s" }}
+              >
                 <span className="hero-badge-new">+ New</span>
-                <span style={{ color: "#9ca3af" }}>Custom Commission Plans</span>
+                <span style={{ color: "#9ca3af" }}>
+                  Custom Commission Plans
+                </span>
                 <span style={{ color: "#555" }}>›</span>
               </div>
 
-              <h1 className="hero-headline anim-fade-up" style={{ animationDelay: "0.2s" }}>
-                Transform Your<br />
-                B2B Business<br />
+              <h1
+                className="hero-headline anim-fade-up"
+                style={{ animationDelay: "0.2s" }}
+              >
+                Transform Your
+                <br />
+                B2B Business
+                <br />
                 with AI
               </h1>
 
-              <p className="hero-subtitle anim-fade-up" style={{ animationDelay: "0.38s" }}>
+              <p
+                className="hero-subtitle anim-fade-up"
+                style={{ animationDelay: "0.38s" }}
+              >
                 Automatically create product listings, optimize SEO, and manage
                 multi-store operations. All in one smart platform.
               </p>
 
-              <div className="hero-cta-row anim-fade-up" style={{ animationDelay: "0.52s" }}>
+              <div
+                className="hero-cta-row anim-fade-up"
+                style={{ animationDelay: "0.52s" }}
+              >
                 <button className="hero-btn-primary">Try for Free</button>
                 <button className="hero-btn-ghost">
                   See Demo
-                  <svg className="ghost-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    className="ghost-arrow"
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
@@ -691,15 +785,20 @@ export default function Hero() {
             </div>
 
             {/* VISUAL */}
-            <div className="hero-visual anim-fade-right" style={{ animationDelay: "0.15s" }}>
+            <div
+              className="hero-visual anim-fade-right"
+              style={{ animationDelay: "0.15s" }}
+            >
               <Box3D />
             </div>
-
           </div>
         </div>
 
         {/* FOOTER */}
-        <div className="hero-footer anim-fade-up" style={{ animationDelay: "1s" }}>
+        <div
+          className="hero-footer anim-fade-up"
+          style={{ animationDelay: "1s" }}
+        >
           <div className="hero-footer-inner">
             <div className="footer-label-wrap">
               <p>Companies we empower</p>
@@ -716,7 +815,6 @@ export default function Hero() {
             </div>
           </div>
         </div>
-
       </section>
     </div>
   );

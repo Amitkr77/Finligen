@@ -24,12 +24,12 @@ const Home = () => {
   return (
     <div className="w-full bg-[#f5f5f3] overflow-x-hidden">
       {/* ─────────────────── HERO SECTION ─────────────────── */}
-      <section className="max-w-[1500px] pb-10 sm:pb-16 lg:pb-20 mx-auto px-3 sm:px-4 lg:px-0">
+      <section className="max-w-360 pb-10 sm:pb-16 lg:pb-20 mx-auto px-3 sm:px-4 lg:px-0 pt-1">
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="relative rounded-b-[1.5rem] sm:rounded-b-[2rem] overflow-hidden
+          className="relative rounded-3xl sm:rounded-b-[2rem] overflow-hidden
                      h-[520px] sm:h-[600px] md:h-[650px] lg:h-[700px] group"
         >
           {/* Background Image */}
