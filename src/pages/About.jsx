@@ -27,6 +27,7 @@ import {
 import { TbCertificate, TbBuildingBank } from "react-icons/tb";
 import { FiCheck, FiExternalLink, FiArrowRight, FiArrowUpRight } from "react-icons/fi";
 import { BsStars } from "react-icons/bs";
+import AboutSEO from "../seo/AboutSEO";
 
 /* ═════════════════════════════════════════════════════════════════
    ░░░ DESIGN TOKENS & CONFIGURATION ░░░
@@ -1707,6 +1708,7 @@ export default function AboutPage() {
         fontFamily: "inherit",
       }}
     >
+      <AboutSEO />
       <ScrollProgress />
 
 

@@ -9,6 +9,7 @@ import { IoCubeOutline } from "react-icons/io5";
 import { LuShieldHalf } from "react-icons/lu";
 import { AiOutlineLineChart } from "react-icons/ai";
 import { TbStack, TbNorthStar } from "react-icons/tb";
+import HomeFAQ from "../components/Home/HomeFAQ";
 
 const Home = () => {
   useEffect(() => {
@@ -2155,6 +2156,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <HomeFAQ />
 
       {/* Global Keyframe Styles */}
       <style>{`

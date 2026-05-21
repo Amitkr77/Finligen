@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import ServicesSEO from "../seo/ServicesSEO";
 import {
   AiOutlineLineChart,
   AiOutlineCheckCircle,
@@ -18,7 +19,7 @@ import {
   AiOutlineLeft,
   AiOutlineRight,
 } from "react-icons/ai";
-import { TbStack, TbNorthStar, TbChevronDown } from "react-icons/tb";
+import { TbStack, TbNorthStar, TbChevronDown, TbHomeQuestion } from "react-icons/tb";
 import { LuShieldHalf } from "react-icons/lu";
 import { TiSpannerOutline } from "react-icons/ti";
 import { IoCubeOutline } from "react-icons/io5";
@@ -382,6 +383,7 @@ export default function ServicesPage() {
 
   return (
     <main className="bg-white min-h-screen overflow-x-hidden">
+      <ServicesSEO />
       {/* ═══════════════════════════════════════════════════════════
           SECTION 1 — HERO
       ═══════════════════════════════════════════════════════════ */}

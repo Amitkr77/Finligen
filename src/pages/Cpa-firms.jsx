@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { FiPlus, FiMinus } from "react-icons/fi";
+import CPASEO from "../seo/CPAOutsourcingSEO";
 import {
   RiDoubleQuotesL,
 } from "react-icons/ri";
@@ -66,6 +67,8 @@ export default function CPAFirmPage() {
 
   return (
     <div className="bg-[#f5f5f3] overflow-hidden">
+      <CPASEO />
+
 
     {/* ─────────────────── HERO SECTION ─────────────────── */}
     <section className="-mt-16 relative min-h-screen flex items-center overflow-hidden bg-[#f5f5f3]">

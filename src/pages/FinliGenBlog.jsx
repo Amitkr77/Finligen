@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo, useCallback, memo } from "react";
 import { motion } from "framer-motion";
-
+import BlogSEO from "../seo/BlogSEO";
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 const FINLIGEN_BLOG_DATA = [
@@ -442,6 +442,7 @@ function FinliGenBlog() {
 
   return (
     <div className="mx-auto max-w-7xl overflow-hidden bg-white font-sans text-gray-900 pt-2 sm:pt-4 md:pt-6 lg:pt-8">
+      <BlogSEO />
       {/* ── HERO ── */}
       <section className="flex flex-col lg:flex-row overflow-hidden pb-12 sm:pb-16 md:pb-20 lg:pb-24 border-b border-gray-200">
         {/* Left Panel */}
